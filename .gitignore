@@ -1,0 +1,36 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Java and build outputs
+*.class
+/out/
+/build/
+/target/
+/.gradle/
+
+# Temporary files
+/tmp/
+*.tmp
+*.log
+*.swp
+*~
+
+# Python caches and local environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+
+# Local environment variables
+.env
+.env.*
+!.env.example
+
+# Operating system files
+.DS_Store
+Thumbs.db
