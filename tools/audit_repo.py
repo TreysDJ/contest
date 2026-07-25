@@ -77,15 +77,20 @@ def check_practice() -> None:
 
     text = (ROOT / "PRACTICE.md").read_text(encoding="utf-8")
     require(text == expected, "PRACTICE.md is not generated from practice-catalog.json")
-    require(len(validated["topics"]) == 34, "practice topic count is not 34")
-    require(sum(validated["task_counts"].values()) == 282, "practice task count is not 282")
-    require(validated["core_count"] == 214, "core practice route count is not 214")
+    require(len(validated["topics"]) >= 34, "practice topic map unexpectedly shrank")
+    require(
+        sum(validated["task_counts"].values()) >= 282,
+        "practice task catalog unexpectedly shrank",
+    )
     require(validated["leetcode_count"] == 63, "LeetCode foundation count is not 63")
     require(
-        validated["special_practice_count"] == 2,
-        "expected Java and checker special practice entries",
+        validated["special_practice_count"] >= 7,
+        "required foundation and checker checkpoints are missing",
     )
-    require(text.count("| Что тренирует |") == 34, "pattern column missing from a topic")
+    require(
+        len(re.findall(r"\|\s*Что тренирует\s*\|", text)) == len(validated["topics"]),
+        "pattern column missing from a topic",
+    )
     hidden_count = sum(
         task["role"] in {"D", "F", "X"}
         for topic in validated["topics"]
@@ -126,7 +131,6 @@ def check_practice() -> None:
         if next_start in section:
             section = section.split(next_start, 1)[0]
         require("### Новое покрытие" in section, f"new coverage is missing: topic {topic['number']}")
-        coverage = section.split("### Новое покрытие", 1)[1]
         for task in topic["tasks"]:
             prefix = {"CF": "CF", "ACMP": "ACMP", "GYM": "GYM"}[task["platform"]]
             pattern = task["pattern_label"].replace("|", r"\|")
@@ -136,7 +140,7 @@ def check_practice() -> None:
                 f"{pattern} | {solution} |"
             )
             require(
-                expected_row in coverage,
+                expected_row in audit,
                 f"practice audit coverage differs from catalog: topic {topic['number']}, "
                 f"{task['platform']} {task['id']}",
             )

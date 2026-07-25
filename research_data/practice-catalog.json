@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "audited_on": "2026-07-25",
   "selection_policy": {
     "task_relevance_precedes_rating": true,
@@ -14,9 +14,58 @@
       "D",
       "F",
       "X"
-    ]
+    ],
+    "external_curricula_are_structure_only": true,
+    "allowed_task_platforms": [
+      "CF",
+      "GYM",
+      "ACMP"
+    ],
+    "fixed_topic_quotas": false
   },
-  "role_budgets": {
+  "stage_model": {
+    "A0": "Инженерная и алгоритмическая база",
+    "A1": "Основные переносимые олимпиадные паттерны",
+    "B": "Регулярный финальный слой",
+    "C": "Выборочная продвинутая практика"
+  },
+  "topic_stage_overrides": {
+    "01-implementation": "A0",
+    "02-bruteforce": "A0",
+    "03-sorting": "A0",
+    "04-maps-sets": "A0",
+    "05-linear-ds": "A0",
+    "06-prefix-sweep": "A1",
+    "07-two-pointers": "A1",
+    "08-search": "A1",
+    "09-greedy": "A1",
+    "10-bitmasks": "A1",
+    "11-number-theory": "A1",
+    "12-combinatorics": "A1",
+    "13-strings-basic": "A1",
+    "14-graph-basic": "A1",
+    "15-shortest-paths": "A1",
+    "16-tree-basic": "A1",
+    "17-dp-basic": "A1",
+    "18-range-structures": "A1",
+    "19-geometry": "B",
+    "20-graph-structure": "B",
+    "21-dsu-mst": "B",
+    "22-structural-dp": "B",
+    "23-state-dp": "B",
+    "24-ordered-structures": "B",
+    "25-flow-matching": "B",
+    "26-strings-advanced": "B",
+    "27-trees-advanced": "B",
+    "28-games": "B",
+    "29-mitm": "B",
+    "30-sqrt-mo": "C",
+    "31-rollback-persistent": "C",
+    "32-dp-optimization": "C",
+    "33-algebra-fft": "C",
+    "34-random-interactive": "C"
+  },
+  "legacy_role_budgets_not_enforced": {
     "A": {
       "D": 1,
       "L": 3,
@@ -42,6 +91,193 @@
       "X": 1
     }
   },
+  "task_moves": [
+    {
+      "platform": "CF",
+      "id": "1354B",
+      "to_topic": 7,
+      "role": "L"
+    },
+    {
+      "platform": "CF",
+      "id": "1217D",
+      "to_topic": 20,
+      "role": "L"
+    },
+    {
+      "platform": "CF",
+      "id": "915D",
+      "to_topic": 20,
+      "role": "R"
+    },
+    {
+      "platform": "CF",
+      "id": "514C",
+      "to_topic": 26,
+      "role": "L"
+    },
+    {
+      "platform": "CF",
+      "id": "1354D",
+      "to_topic": 18,
+      "role": "R",
+      "updates": {
+        "pattern_id": "range.fenwick-order-statistics",
+        "learning_step": "practice",
+        "primary_pattern": "Fenwick по частотам + поиск k-го элемента",
+        "secondary_patterns": [
+          "order statistics",
+          "бинарный спуск по префиксным суммам"
+        ],
+        "pattern_label": "Fenwick по частотам + поиск k-го элемента",
+        "why_selected": "Фактический intended solution использует частоты и Fenwick/segment tree; перенос исправляет ошибочную классификацию задачи как обязательного treap.",
+        "expected_solution": "Хранить частоты значений в Fenwick, добавлять положительные запросы и удалять k-й элемент поиском минимального префикса с суммой не меньше k."
+      }
+    },
+    {
+      "platform": "GYM",
+      "id": "100091B",
+      "role": "H"
+    },
+    {
+      "platform": "CF",
+      "id": "1500B",
+      "role": "H"
+    }
+  ],
+  "task_additions": [
+    {
+      "topic": 6,
+      "platform": "CF",
+      "id": "295A",
+      "title": "Greg and Array",
+      "url": "https://codeforces.com/problemset/problem/295/A",
+      "rating": 1400,
+      "role": "R",
+      "pattern_id": "prefix.two-level-difference",
+      "learning_step": "practice",
+      "primary_pattern": "Два уровня difference arrays для диапазонов операций",
+      "pattern_label": "Два уровня difference arrays для диапазонов операций",
+      "expected_solution": "Первой разностью посчитать число применений каждой операции, второй — накопить их взвешенные range-add вклады в исходный массив.",
+      "prerequisites": [
+        "difference array",
+        "prefix sums",
+        "long"
+      ]
+    },
+    {
+      "topic": 7,
+      "platform": "CF",
+      "id": "224B",
+      "title": "Array",
+      "url": "https://codeforces.com/problemset/problem/224/B",
+      "rating": 1500,
+      "role": "R",
+      "pattern_id": "window.exactly-k-distinct",
+      "learning_step": "practice",
+      "primary_pattern": "Частотное окно с ровно k различными значениями",
+      "pattern_label": "Частотное окно с ровно k различными значениями",
+      "expected_solution": "Расширять правую границу до k различных значений, затем сжимать левую, пока удаление не уменьшит число классов.",
+      "prerequisites": [
+        "sliding window",
+        "частоты"
+      ]
+    },
+    {
+      "topic": 11,
+      "platform": "CF",
+      "id": "762A",
+      "title": "k-th divisor",
+      "url": "https://codeforces.com/problemset/problem/762/A",
+      "rating": 1400,
+      "role": "L",
+      "pattern_id": "number-theory.enumerate-divisors",
+      "learning_step": "introduce",
+      "primary_pattern": "Перечисление делителей за O(sqrt n) в возрастающем порядке",
+      "pattern_label": "Перечисление делителей за O(sqrt n) в возрастающем порядке",
+      "expected_solution": "Собрать малые делители до sqrt(n) и парные большие делители, не удваивая квадрат, затем взять k-й в общем порядке.",
+      "prerequisites": [
+        "делимость",
+        "цикл до квадратного корня"
+      ]
+    },
+    {
+      "topic": 12,
+      "platform": "CF",
+      "id": "300C",
+      "title": "Beautiful Numbers",
+      "url": "https://codeforces.com/problemset/problem/300/C",
+      "rating": 1800,
+      "role": "R",
+      "pattern_id": "combinatorics.factorial-invfactorial-enumeration",
+      "learning_step": "recognize",
+      "primary_pattern": "Factorial/invfactorial + перебор числа выбранных цифр",
+      "pattern_label": "Factorial/invfactorial + перебор числа выбранных цифр",
+      "expected_solution": "Перебрать число цифр a, проверить допустимость суммы цифр и добавить соответствующее C(n,i), вычисленное через factorial и обратные factorial.",
+      "prerequisites": [
+        "быстрое возведение",
+        "обратный элемент по Ферма",
+        "сочетания"
+      ]
+    },
+    {
+      "topic": 17,
+      "platform": "CF",
+      "id": "977F",
+      "title": "Consecutive Subsequence",
+      "url": "https://codeforces.com/problemset/problem/977/F",
+      "rating": 1700,
+      "role": "R",
+      "pattern_id": "dp.by-value-reconstruction",
+      "learning_step": "practice",
+      "primary_pattern": "DP по значению с восстановлением индексов подпоследовательности",
+      "pattern_label": "DP по значению с восстановлением индексов подпоследовательности",
+      "expected_solution": "Хранить лучшую длину, заканчивающуюся значением x, переходить из x-1 и восстановить индексы оптимальной последовательности.",
+      "prerequisites": [
+        "HashMap",
+        "одномерное DP",
+        "восстановление ответа"
+      ]
+    },
+    {
+      "topic": 18,
+      "platform": "CF",
+      "id": "1709D",
+      "title": "Rorororobot",
+      "url": "https://codeforces.com/problemset/problem/1709/D",
+      "rating": 1700,
+      "role": "R",
+      "pattern_id": "range.static-rmq-recognition",
+      "learning_step": "practice",
+      "primary_pattern": "Static RMQ maximum + арифметическая достижимость",
+      "pattern_label": "Static RMQ maximum + арифметическая достижимость",
+      "expected_solution": "Проверить делимость смещений на шаг k, найти максимально достижимую строку с тем же остатком и сравнить её с максимумом препятствий на диапазоне через sparse table.",
+      "prerequisites": [
+        "делимость",
+        "sparse table",
+        "range maximum"
+      ]
+    },
+    {
+      "topic": 22,
+      "platform": "CF",
+      "id": "225C",
+      "title": "Barcode",
+      "url": "https://codeforces.com/problemset/problem/225/C",
+      "rating": 1700,
+      "role": "L",
+      "pattern_id": "dp.block-length",
+      "learning_step": "introduce",
+      "primary_pattern": "DP по префиксу колонок и длине одноцветного блока",
+      "pattern_label": "DP по префиксу колонок и длине одноцветного блока",
+      "expected_solution": "Посчитать цену каждого цвета для колонки и DP по префиксу, перебирая длину предыдущей полосы от x до y.",
+      "prerequisites": [
+        "prefix sums",
+        "двумерный ввод",
+        "базовое DP"
+      ]
+    }
+  ],
   "topics": [
     {
       "number": 1,
@@ -1985,6 +2221,37 @@
         },
         {
           "platform": "CF",
+          "id": "545C",
+          "title": "Woodcutters",
+          "url": "https://codeforces.com/problemset/problem/545/C",
+          "rating": 1500,
+          "role": "L",
+          "pattern_id": "greedy.intervals-local-choice",
+          "learning_step": "practice",
+          "primary_pattern": "Жадная обработка интервалов слева направо",
+          "secondary_patterns": [
+            "инвариант занятой правой границы"
+          ],
+          "pattern_label": "Жадная обработка интервалов слева направо",
+          "pattern_visibility": "visible",
+          "why_selected": "Добавляет фундаментальную интервальную модель и доказуемый локальный выбор, которых не хватало среди базовых greedy-задач.",
+          "expected_solution": "Идти слева направо, ронять дерево влево, если оно не пересекает уже занятое место, иначе вправо, если не задевает следующее дерево; поддерживать правую границу.",
+          "prerequisites": [
+            "сортированный порядок",
+            "интервалы"
+          ],
+          "verified_statement": true,
+          "verified_solution": true,
+          "verified_on": "2026-07-25",
+          "verification_sources": [
+            {
+              "kind": "official_statement",
+              "url": "https://codeforces.com/problemset/problem/545/C"
+            }
+          ]
+        },
+        {
+          "platform": "CF",
           "id": "545D",
           "title": "Queue",
           "url": "https://codeforces.com/problemset/problem/545/D",
@@ -2444,6 +2711,68 @@
           "verified_statement": true,
           "verified_solution": true,
           "verified_on": "2026-07-25"
+        },
+        {
+          "platform": "CF",
+          "id": "26A",
+          "title": "Almost Prime",
+          "url": "https://codeforces.com/problemset/problem/26/A",
+          "rating": 900,
+          "role": "L",
+          "pattern_id": "number-theory.distinct-prime-factors",
+          "learning_step": "introduce",
+          "primary_pattern": "Подсчёт различных простых делителей для всех чисел",
+          "secondary_patterns": [
+            "решето по кратным"
+          ],
+          "pattern_label": "Подсчёт различных простых делителей для всех чисел",
+          "pattern_visibility": "visible",
+          "why_selected": "Возвращает в тему прямую базовую практику делителей до φ, CRT и диофантовых уравнений.",
+          "expected_solution": "Для каждого простого увеличить счётчик всех его кратных, затем посчитать числа ровно с двумя различными простыми делителями.",
+          "prerequisites": [
+            "решето",
+            "кратные"
+          ],
+          "verified_statement": true,
+          "verified_solution": true,
+          "verified_on": "2026-07-25",
+          "verification_sources": [
+            {
+              "kind": "official_statement",
+              "url": "https://codeforces.com/problemset/problem/26/A"
+            }
+          ]
+        },
+        {
+          "platform": "CF",
+          "id": "1294C",
+          "title": "Product of Three Numbers",
+          "url": "https://codeforces.com/problemset/problem/1294/C",
+          "rating": 1300,
+          "role": "L",
+          "pattern_id": "number-theory.trial-factorization",
+          "learning_step": "practice",
+          "primary_pattern": "Пробное деление и выделение множителей за O(sqrt n)",
+          "secondary_patterns": [
+            "проверка попарной различности"
+          ],
+          "pattern_label": "Пробное деление и выделение множителей за O(sqrt n)",
+          "pattern_visibility": "visible",
+          "why_selected": "Закрывает отсутствовавшую прямую факторизацию одного числа до более сложных задач на SPF и CRT.",
+          "expected_solution": "Последовательно найти два различных делителя пробным делением; остаток образует третий множитель, если он больше единицы и отличается от первых.",
+          "prerequisites": [
+            "делимость",
+            "цикл до квадратного корня"
+          ],
+          "verified_statement": true,
+          "verified_solution": true,
+          "verified_on": "2026-07-25",
+          "verification_sources": [
+            {
+              "kind": "official_statement",
+              "url": "https://codeforces.com/problemset/problem/1294/C"
+            }
+          ]
         },
         {
           "platform": "CF",
@@ -3570,6 +3899,69 @@
         },
         {
           "platform": "CF",
+          "id": "115A",
+          "title": "Party",
+          "url": "https://codeforces.com/problemset/problem/115/A",
+          "rating": 900,
+          "role": "L",
+          "pattern_id": "tree.parent-depth",
+          "learning_step": "introduce",
+          "primary_pattern": "Родители, глубины и высота леса",
+          "secondary_patterns": [
+            "DFS",
+            "дерево, заданное массивом родителей"
+          ],
+          "pattern_label": "Родители, глубины и высота леса",
+          "pattern_visibility": "visible",
+          "why_selected": "Даёт прямой вход в деревья до Euler tour и LCA: нужно восстановить глубину по массиву родителей и найти максимум.",
+          "expected_solution": "Для каждой вершины пройти цепочку родителей или выполнить DFS по детям; максимальная глубина равна минимальному числу групп.",
+          "prerequisites": [
+            "DFS",
+            "массив родителей"
+          ],
+          "verified_statement": true,
+          "verified_solution": true,
+          "verified_on": "2026-07-25",
+          "verification_sources": [
+            {
+              "kind": "official_statement",
+              "url": "https://codeforces.com/problemset/problem/115/A"
+            }
+          ]
+        },
+        {
+          "platform": "CF",
+          "id": "1057A",
+          "title": "Bmail Computer Network",
+          "url": "https://codeforces.com/problemset/problem/1057/A",
+          "rating": 900,
+          "role": "L",
+          "pattern_id": "tree.restore-root-path",
+          "learning_step": "practice",
+          "primary_pattern": "Восстановление пути от вершины к корню по parent[]",
+          "secondary_patterns": [
+            "разворот ответа"
+          ],
+          "pattern_label": "Восстановление пути от вершины к корню по parent[]",
+          "pattern_visibility": "visible",
+          "why_selected": "Закрывает отсутствовавшую базовую операцию с деревом — восстановление корневого пути без LCA и структур запросов.",
+          "expected_solution": "Идти от n по parent до корня, сохранить вершины и развернуть последовательность.",
+          "prerequisites": [
+            "массив родителей",
+            "списки"
+          ],
+          "verified_statement": true,
+          "verified_solution": true,
+          "verified_on": "2026-07-25",
+          "verification_sources": [
+            {
+              "kind": "official_statement",
+              "url": "https://codeforces.com/problemset/problem/1057/A"
+            }
+          ]
+        },
+        {
+          "platform": "CF",
           "id": "1006E",
           "title": "Military Problem",
           "url": "https://codeforces.com/problemset/problem/1006/E",
@@ -3840,6 +4232,70 @@
           "verified_statement": true,
           "verified_solution": true,
           "verified_on": "2026-07-25"
+        },
+        {
+          "platform": "CF",
+          "id": "474D",
+          "title": "Flowers",
+          "url": "https://codeforces.com/problemset/problem/474/D",
+          "rating": 1700,
+          "role": "L",
+          "pattern_id": "dp.count-compositions",
+          "learning_step": "introduce",
+          "primary_pattern": "Число способов набрать сумму переходами двух размеров",
+          "secondary_patterns": [
+            "префиксные суммы по DP",
+            "модульная арифметика"
+          ],
+          "pattern_label": "Число способов набрать сумму переходами двух размеров",
+          "pattern_visibility": "visible",
+          "why_selected": "Добавляет отсутствовавшую базовую разновидность coin/composition DP: считать число способов, а не максимум или минимум.",
+          "expected_solution": "Предвычислить dp[s]=dp[s-1]+dp[s-k] по модулю, затем построить префикс dp для ответов на диапазоны.",
+          "prerequisites": [
+            "одномерное DP",
+            "префиксные суммы",
+            "модуль"
+          ],
+          "verified_statement": true,
+          "verified_solution": true,
+          "verified_on": "2026-07-25",
+          "verification_sources": [
+            {
+              "kind": "official_statement",
+              "url": "https://codeforces.com/problemset/problem/474/D"
+            }
+          ]
+        },
+        {
+          "platform": "CF",
+          "id": "327A",
+          "title": "Flipping Game",
+          "url": "https://codeforces.com/problemset/problem/327/A",
+          "rating": 1200,
+          "role": "L",
+          "pattern_id": "dp.maximum-subarray",
+          "learning_step": "introduce",
+          "primary_pattern": "DP максимального подотрезка после преобразования выигрыша",
+          "secondary_patterns": [
+            "алгоритм Кадане"
+          ],
+          "pattern_label": "DP максимального подотрезка после преобразования выигрыша",
+          "pattern_visibility": "visible",
+          "why_selected": "Закрывает фундаментальный maximum-subarray DP, которого не было в базовой лестнице.",
+          "expected_solution": "Заменить 0 на выигрыш +1, 1 на потерю -1 и найти максимальную сумму непустого подотрезка алгоритмом Кадане.",
+          "prerequisites": [
+            "одномерное DP",
+            "массивы"
+          ],
+          "verified_statement": true,
+          "verified_solution": true,
+          "verified_on": "2026-07-25",
+          "verification_sources": [
+            {
+              "kind": "official_statement",
+              "url": "https://codeforces.com/problemset/problem/327/A"
+            }
+          ]
         },
         {
           "platform": "CF",
@@ -6706,6 +7162,61 @@
         "С нуля написать быстрый ввод и считать не менее 200000 целых чисел без Scanner.",
         "Проверить long до умножения, безопасный comparator и массовый вывод через StringBuilder.",
         "Для глубокого графа выбрать итеративный обход либо письменно обосновать безопасную глубину рекурсии."
+      ],
+      "counts_toward_task_budget": false
+    },
+    {
+      "topic": 5,
+      "kind": "foundation-checkpoint",
+      "title": "Checkpoint монотонных структур, обязателен для A0",
+      "steps": [
+        "С нуля реализовать nearest smaller to the left через монотонный стек и проверить на массивах с дублями.",
+        "С нуля реализовать максимум каждого окна длины k через монотонный дек за O(n).",
+        "Письменно сформулировать, когда элементы удаляются с головы и с хвоста дека, и почему каждый индекс входит и выходит не более одного раза."
+      ],
+      "counts_toward_task_budget": false
+    },
+    {
+      "topic": 13,
+      "kind": "foundation-checkpoint",
+      "title": "Checkpoint базовых строковых функций, обязателен для A1",
+      "steps": [
+        "С нуля вычислить prefix function и Z-function для одной строки и сверить массивы на строках aaaaa, abacaba и abcababcab.",
+        "Решить один и тот же поиск всех вхождений двумя способами: KMP и Z-function через разделитель.",
+        "Реализовать двойной polynomial hash для сравнения подстрок и явно нормализовать границы полуинтервалов."
+      ],
+      "counts_toward_task_budget": false
+    },
+    {
+      "topic": 16,
+      "kind": "foundation-checkpoint",
+      "title": "Checkpoint элементарных деревьев, обязателен до LCA",
+      "steps": [
+        "Одним postorder вычислить parent, depth и размер каждого поддерева.",
+        "Найти диаметр дерева двумя обходами и отдельно восстановить сам путь диаметра.",
+        "Построить таблицу binary lifting и проверить запросы k-го предка до перехода к LCA."
+      ],
+      "counts_toward_task_budget": false
+    },
+    {
+      "topic": 17,
+      "kind": "foundation-checkpoint",
+      "title": "Checkpoint классического DP, обязателен для A1",
+      "steps": [
+        "Реализовать четыре независимых DP: grid paths с препятствиями, минимум монет, число способов набрать сумму и 0/1 knapsack.",
+        "Реализовать LCS и edit distance с полной таблицей, затем восстановить один оптимальный ответ.",
+        "Реализовать LIS сначала за O(n^2), затем за O(n log n), и сравнить результаты на случайных малых тестах."
+      ],
+      "counts_toward_task_budget": false
+    },
+    {
+      "topic": 18,
+      "kind": "foundation-checkpoint",
+      "title": "Checkpoint структуры запросов без олимпиадной надстройки",
+      "steps": [
+        "На одном интерфейсе запросов реализовать static range sum, static RMQ, Fenwick point-add/range-sum и segment tree point-set/range-min.",
+        "Сравнить все структуры с наивным массивом на случайных малых тестах.",
+        "Только после успешной сверки перейти к lazy propagation и нестандартным узлам segment tree."
       ],
       "counts_toward_task_budget": false
     },

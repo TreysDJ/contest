@@ -14,16 +14,10 @@ ROOT = Path(__file__).resolve().parents[1]
 CATALOG = ROOT / "research_data" / "practice-catalog.json"
 OUTPUT = ROOT / "PRACTICE.md"
 
-EXPECTED_TOPIC_COUNTS = {"A": 18, "B": 11, "C": 5}
-EXPECTED_TASK_COUNTS = {"A": 180, "B": 77, "C": 25}
-EXPECTED_ROLE_BUDGETS = {
-    "A": Counter({"D": 1, "L": 3, "R": 3, "H": 1, "F": 1, "X": 1}),
-    "B": Counter({"D": 1, "L": 2, "R": 1, "H": 1, "F": 1, "X": 1}),
-    "C": Counter({"D": 0, "L": 1, "R": 1, "H": 1, "F": 1, "X": 1}),
-}
 VISIBLE_ROLES = {"L", "R", "H"}
 HIDDEN_ROLES = {"D", "F", "X"}
 ROLE_ORDER = {"D": 0, "L": 1, "R": 2, "H": 3, "F": 4, "X": 5}
+STAGES = {"A0", "A1", "B", "C"}
 
 
 def fail(message: str) -> None:
@@ -60,8 +54,61 @@ def pattern_cell(task: dict) -> str:
     )
 
 
+def apply_catalog_refactor(catalog: dict) -> None:
+    """Apply schema-v2 additions and moves before validation/rendering."""
+    if catalog.get("_refactor_applied"):
+        return
+
+    topics_by_number = {topic["number"]: topic for topic in catalog["topics"]}
+    tasks_by_key = {
+        (task["platform"], str(task["id"])): (topic, task)
+        for topic in catalog["topics"]
+        for task in topic["tasks"]
+    }
+
+    for addition in catalog.get("task_additions", []):
+        key = (addition["platform"], str(addition["id"]))
+        if key in tasks_by_key:
+            fail(f"task_additions duplicates an existing task: {key[0]} {key[1]}")
+        topic = topics_by_number[addition["topic"]]
+        task = {key: value for key, value in addition.items() if key != "topic"}
+        task.setdefault("secondary_patterns", [])
+        task.setdefault("pattern_visibility", "visible")
+        task.setdefault("why_selected", f"Закрывает ступень: {task['pattern_label']}.")
+        task.setdefault("verified_statement", True)
+        task.setdefault("verified_solution", True)
+        task.setdefault("verified_on", catalog["audited_on"])
+        task.setdefault(
+            "verification_sources",
+            [{"kind": "official_statement", "url": task["url"]}],
+        )
+        topic["tasks"].append(task)
+        tasks_by_key[key] = (topic, task)
+
+    for move in catalog.get("task_moves", []):
+        key = (move["platform"], str(move["id"]))
+        if key not in tasks_by_key:
+            fail(f"task_moves references an unknown task: {key[0]} {key[1]}")
+        source_topic, task = tasks_by_key[key]
+        source_topic["tasks"].remove(task)
+        if move.get("role"):
+            task["role"] = move["role"]
+            task["pattern_visibility"] = (
+                "visible" if task["role"] in VISIBLE_ROLES else "after_attempt"
+            )
+        task.update(move.get("updates", {}))
+        target_topic = topics_by_number[move.get("to_topic", source_topic["number"])]
+        target_topic["tasks"].append(task)
+        tasks_by_key[key] = (target_topic, task)
+
+    for topic in catalog["topics"]:
+        topic["tasks"].sort(key=lambda task: ROLE_ORDER[task["role"]])
+    catalog["_refactor_applied"] = True
+
+
 def validate_catalog(catalog: dict) -> dict:
-    if catalog.get("schema_version") != 1:
+    apply_catalog_refactor(catalog)
+    if catalog.get("schema_version") != 2:
         fail("unsupported practice catalog schema")
     policy = catalog.get("selection_policy", {})
     if policy.get("automatic_tag_fallback") is not False:
@@ -72,48 +119,51 @@ def validate_catalog(catalog: dict) -> dict:
         fail("visible pattern roles do not match the rendering policy")
     if set(policy.get("hidden_pattern_roles", [])) != HIDDEN_ROLES:
         fail("hidden pattern roles do not match the rendering policy")
-    declared_budgets = {
-        priority: Counter(roles)
-        for priority, roles in catalog.get("role_budgets", {}).items()
-    }
-    if declared_budgets != EXPECTED_ROLE_BUDGETS:
-        fail("declared role budgets do not match the enforced budgets")
-
     topics = catalog.get("topics")
-    if not isinstance(topics, list) or len(topics) != 34:
-        fail("catalog must contain exactly 34 topics")
+    if not isinstance(topics, list) or not topics:
+        fail("catalog must contain topics")
 
     topic_numbers = [topic.get("number") for topic in topics]
-    if topic_numbers != list(range(1, 35)):
-        fail("topic numbers must be consecutive from 1 to 34")
-
-    topic_counts = Counter(topic["priority"] for topic in topics)
-    if dict(topic_counts) != EXPECTED_TOPIC_COUNTS:
-        fail(f"unexpected topic priorities: {dict(topic_counts)}")
+    if topic_numbers != list(range(1, len(topics) + 1)):
+        fail("topic numbers must be consecutive")
 
     used: set[tuple[str, str]] = set()
     task_counts = Counter()
     core_count = 0
+    stage_overrides = catalog.get("topic_stage_overrides", {})
+    if set(stage_overrides) != {topic["key"] for topic in topics}:
+        fail("topic_stage_overrides must classify every topic exactly once")
     for topic in topics:
-        priority = topic["priority"]
+        topic["stage"] = stage_overrides[topic["key"]]
+        stage = topic["stage"]
+        if stage not in STAGES:
+            fail(f"unsupported stage in topic {topic['number']}: {stage}")
         tasks = topic.get("tasks", [])
-        if len(tasks) != topic["task_budget"]:
-            fail(
-                f"topic {topic['number']} task count: "
-                f"{len(tasks)} != {topic['task_budget']}"
-            )
-        roles = Counter(task.get("role") for task in tasks)
-        if roles != EXPECTED_ROLE_BUDGETS[priority]:
-            fail(
-                f"topic {topic['number']} role budget: "
-                f"{dict(roles)} != {dict(EXPECTED_ROLE_BUDGETS[priority])}"
-            )
+        if not tasks:
+            fail(f"topic {topic['number']} has no tasks")
         role_order = [ROLE_ORDER.get(task.get("role"), -1) for task in tasks]
         if role_order != sorted(role_order):
             fail(f"topic {topic['number']} tasks are not ordered D/L/R/H/F/X")
-        task_counts[priority] += len(tasks)
+        if any(role < 0 for role in role_order):
+            fail(f"topic {topic['number']} has unsupported role")
+        task_counts[stage] += len(tasks)
 
         for task in tasks:
+            task.setdefault(
+                "pattern_id",
+                f"{topic['key']}.{task['primary_pattern'].casefold().replace(' ', '-')}",
+            )
+            task.setdefault(
+                "learning_step",
+                {
+                    "D": "diagnose",
+                    "L": "introduce",
+                    "R": "practice",
+                    "H": "challenge",
+                    "F": "check",
+                    "X": "mixed",
+                }[task["role"]],
+            )
             key = (task["platform"], str(task["id"]))
             if key in used:
                 fail(f"duplicate task: {key[0]} {key[1]}")
@@ -138,6 +188,8 @@ def validate_catalog(catalog: dict) -> dict:
                 "title",
                 "url",
                 "role",
+                "pattern_id",
+                "learning_step",
                 "primary_pattern",
                 "pattern_label",
                 "why_selected",
@@ -175,6 +227,20 @@ def validate_catalog(catalog: dict) -> dict:
                 if not lc.get(field):
                     fail(f"topic {topic['number']} LeetCode entry misses {field}")
 
+    required_patterns = catalog.get("required_patterns", {})
+    covered_patterns = Counter(
+        task["pattern_id"]
+        for topic in topics
+        for task in topic["tasks"]
+        if task["role"] not in {"H", "X"}
+    )
+    for stage, pattern_ids in required_patterns.items():
+        if stage not in {"A0", "A1"}:
+            fail(f"required_patterns is only supported for A0/A1, found {stage}")
+        for pattern_id in pattern_ids:
+            if covered_patterns[pattern_id] == 0:
+                fail(f"required pattern has no core task: {pattern_id}")
+
     special_practice = catalog.get("special_practice", [])
     if not isinstance(special_practice, list):
         fail("special_practice must be a list")
@@ -183,7 +249,7 @@ def validate_catalog(catalog: dict) -> dict:
         for field in ("topic", "kind", "title", "steps"):
             if not item.get(field):
                 fail(f"special practice entry misses {field}")
-        if item["topic"] not in range(1, 35):
+        if item["topic"] not in range(1, len(topics) + 1):
             fail(f"special practice has invalid topic: {item['topic']}")
         if item["topic"] in special_topics:
             fail(f"duplicate special practice for topic {item['topic']}")
@@ -194,13 +260,6 @@ def validate_catalog(catalog: dict) -> dict:
             isinstance(step, str) and step.strip() for step in item["steps"]
         ):
             fail(f"special practice for topic {item['topic']} has invalid steps")
-
-    if dict(task_counts) != EXPECTED_TASK_COUNTS:
-        fail(f"unexpected task priorities: {dict(task_counts)}")
-    if sum(task_counts.values()) != 282:
-        fail("catalog must contain exactly 282 required tasks")
-    if core_count != 214:
-        fail(f"core route must contain 214 tasks, found {core_count}")
 
     return {
         "topics": topics,
@@ -225,12 +284,15 @@ def render(catalog: dict) -> str:
         "",
         "## Объём и маршрут",
         "",
-        f"- приоритет A: **{counts['A']}** задач — фундамент и наиболее вероятные темы отборов;",
-        f"- приоритет B: **{counts['B']}** задач — усиление после прохождения отбора;",
-        f"- приоритет C: **{counts['C']}** задач — финальный и выборочный продвинутый слой;",
+        f"- этап A0: **{counts['A0']}** задач — инженерная и алгоритмическая база;",
+        f"- этап A1: **{counts['A1']}** задач — основные переносимые олимпиадные паттерны;",
+        f"- этап B: **{counts['B']}** задач — регулярный финальный слой;",
+        f"- этап C: **{counts['C']}** задач — выборочная продвинутая практика;",
         f"- полный каталог: **{total}** задач Codeforces/ACMP;",
         f"- основной маршрут без `H` и `X`: **{validated['core_count']}** задач;",
         f"- LeetCode-база: **{validated['leetcode_count']}** задач, в основной лимит не входит.",
+        f"- практические checkpoints: **{validated['special_practice_count']}** блоков; "
+        "помеченные как обязательные входят в освоение A0/A1, но не являются задачами онлайн-судьи.",
         "",
         "Роли: `D` — диагностика; `L` — изучение приёма; `R` — закрепление; "
         "`H` — трудная задача; `F` — контрольная без подсказок; `X` — сочетание тем. "
@@ -253,6 +315,8 @@ def render(catalog: dict) -> str:
         "Codeforces — как основная шкала сложности.",
         "5. Рейтинг Codeforces — ориентир, а не строгий порядок. Релевантность приёма "
         "и педагогическая роль важнее рейтинга.",
+        "6. Если для фундаментального паттерна нет достаточно прямой задачи CF/Gym/ACMP, "
+        "выполнить обязательный checkpoint; не заменять его случайной задачей с совпавшим тегом.",
     ]
 
     for topic in topics:
@@ -262,7 +326,7 @@ def render(catalog: dict) -> str:
             "",
             f"## {number}. {topic['title']}",
             "",
-            f"Приоритет **{topic['priority']}**. Задач: **{len(tasks)}**. "
+            f"Этап **{topic['stage']}**. Задач: **{len(tasks)}**. "
             f"Связь с этапом и признаки распознавания: "
             f"[ROADMAP.md — тема {number}](ROADMAP.md#тема-{number}).",
             "",
@@ -339,7 +403,7 @@ def main() -> int:
 
     OUTPUT.write_text(rendered, encoding="utf-8")
     print(
-        f"wrote {OUTPUT}: 282 tasks, "
+        f"wrote {OUTPUT}: {sum(len(t['tasks']) for t in catalog['topics'])} tasks, "
         f"{sum(len(t.get('leetcode', [])) for t in catalog['topics'])} LeetCode"
     )
     return 0
