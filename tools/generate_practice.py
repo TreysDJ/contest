@@ -1,303 +1,349 @@
 #!/usr/bin/env python3
-"""Build PRACTICE.md from the audited Codeforces snapshot and curated ACMP tasks."""
+"""Render PRACTICE.md from the manually audited practice catalog."""
 
 from __future__ import annotations
 
+import argparse
 import json
+import sys
+from collections import Counter
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-CF_DATA = ROOT / "research_data" / "codeforces-candidates.json"
+CATALOG = ROOT / "research_data" / "practice-catalog.json"
 OUTPUT = ROOT / "PRACTICE.md"
 
-
-ACMP = lambda task_id, name: ("ACMP", str(task_id), name, None)
-
-
-TOPICS = [
-    dict(key="01-implementation", title="Оценка сложности, Java и аккуратная реализация", priority="A", total=10,
-         acmp=[ACMP(1, "A+B"), ACMP(5, "Статистика")], preferred=[] ,
-         lc=[("412", "Fizz Buzz", "fizz-buzz"), ("66", "Plus One", "plus-one")]),
-    dict(key="02-bruteforce", title="Полный перебор, рекурсия и отсечения", priority="A", total=10,
-         acmp=[ACMP(16, "Лесенка"), ACMP(24, "Вырубка деревьев")], preferred=[],
-         lc=[("46", "Permutations", "permutations"), ("78", "Subsets", "subsets")]),
-    dict(key="03-sorting", title="Сортировка, компараторы и сжатие координат", priority="A", total=10,
-         acmp=[ACMP(41, "Сортировка подсчетом"), ACMP(119, "Сортировка времени")], preferred=[],
-         lc=[("912", "Sort an Array", "sort-an-array"), ("56", "Merge Intervals", "merge-intervals")]),
-    dict(key="04-maps-sets", title="Частоты, HashMap/HashSet и множества", priority="A", total=10,
-         acmp=[ACMP(82, "Пересечение множеств"), ACMP(816, "Система пересекающихся множеств")],
-         preferred=["1703B", "1760C", "1722C", "519B", "1520D", "1955B", "4C", "1213B"],
-         lc=[("1", "Two Sum", "two-sum"), ("49", "Group Anagrams", "group-anagrams")]),
-    dict(key="05-linear-ds", title="Стек, очередь, дек и приоритетная очередь", priority="A", total=10,
-         acmp=[ACMP(899, "Баланс скобок"), ACMP(946, "Полка")],
-         preferred=["26B", "343B", "450A", "545D", "797C", "1092D1", "1907B", "5C"],
-         lc=[("20", "Valid Parentheses", "valid-parentheses"), ("239", "Sliding Window Maximum", "sliding-window-maximum")]),
-    dict(key="06-prefix-sweep", title="Префиксные суммы, разности, 2D-префиксы и sweep line", priority="A", total=10,
-         acmp=[], preferred=["363B", "433B", "313B", "276C", "816B", "466C", "1795C", "1807D", "1703F", "1000C"],
-         lc=[("303", "Range Sum Query — Immutable", "range-sum-query-immutable"), ("304", "Range Sum Query 2D — Immutable", "range-sum-query-2d-immutable")]),
-    dict(key="07-two-pointers", title="Два указателя и скользящее окно", priority="A", total=10,
-         acmp=[ACMP(245, "Сплоченная команда"), ACMP(649, "Защищенный пароль")], preferred=[],
-         lc=[("3", "Longest Substring Without Repeating Characters", "longest-substring-without-repeating-characters"), ("11", "Container With Most Water", "container-with-most-water")]),
-    dict(key="08-search", title="Бинарный/тернарный поиск и поиск по ответу", priority="A", total=10,
-         acmp=[ACMP(267, "Ксерокопии"), ACMP(523, "Роман в томах")],
-         preferred=["706B", "230B", "279B", "1352C", "474B", "1873E", "1742E", "1490C"],
-         lc=[("704", "Binary Search", "binary-search"), ("875", "Koko Eating Bananas", "koko-eating-bananas")]),
-    dict(key="09-greedy", title="Жадные алгоритмы, инварианты и обменный аргумент", priority="A", total=10,
-         acmp=[ACMP(39, "Волосатый бизнес"), ACMP(228, "Валютные махинации")], preferred=[],
-         lc=[("55", "Jump Game", "jump-game"), ("435", "Non-overlapping Intervals", "non-overlapping-intervals")]),
-    dict(key="10-bitmasks", title="Биты, маски, подмаски и булева алгебра", priority="A", total=10,
-         acmp=[ACMP(542, "Бит-реверс"), ACMP(563, "Задача про XOR")], preferred=[],
-         lc=[("78", "Subsets", "subsets"), ("1310", "XOR Queries of a Subarray", "xor-queries-of-a-subarray")]),
-    dict(key="11-number-theory", title="Теория чисел: gcd, простые, факторизация, решето", priority="A", total=10,
-         acmp=[ACMP(14, "НОК"), ACMP(170, "Разложение числа")], preferred=[],
-         lc=[("204", "Count Primes", "count-primes"), ("1979", "Find Greatest Common Divisor of Array", "find-greatest-common-divisor-of-array")]),
-    dict(key="12-combinatorics", title="Модульная арифметика и комбинаторика", priority="A", total=10,
-         acmp=[ACMP(158, "Великий комбинатор"), ACMP(629, "Сочетания")], preferred=[],
-         lc=[("62", "Unique Paths", "unique-paths"), ("1641", "Count Sorted Vowel Strings", "count-sorted-vowel-strings")]),
-    dict(key="13-strings-basic", title="Строки: префикс-функция, Z-функция и хеширование", priority="A", total=10,
-         acmp=[ACMP(202, "Поиск подстроки"), ACMP(204, "Циклическая строка")],
-         preferred=["96A", "208A", "43A", "126B", "471D", "535D", "1200E", "7D"],
-         lc=[("28", "Find the Index of the First Occurrence", "find-the-index-of-the-first-occurrence-in-a-string"), ("214", "Shortest Palindrome", "shortest-palindrome")]),
-    dict(key="14-graph-basic", title="Обходы графа, компоненты, циклы и двудольность", priority="A", total=10,
-         acmp=[ACMP(15, "Дороги"), ACMP(99, "Лабиринт")],
-         preferred=["500A", "1829E", "445A", "1433D", "893C", "1702E", "377A", "1365D"],
-         lc=[("200", "Number of Islands", "number-of-islands"), ("785", "Is Graph Bipartite?", "is-graph-bipartite")]),
-    dict(key="15-shortest-paths", title="Кратчайшие пути: BFS, 0–1 BFS, Дейкстра, Флойд, Беллман—Форд", priority="A", total=10,
-         acmp=[ACMP(132, "Алгоритм Дейкстры"), ACMP(135, "Алгоритм Флойда")],
-         preferred=["3A", "520B", "1661B", "1418C", "295B", "242C", "20C", "449B"],
-         lc=[("743", "Network Delay Time", "network-delay-time"), ("787", "Cheapest Flights Within K Stops", "cheapest-flights-within-k-stops")]),
-    dict(key="16-tree-basic", title="Деревья: Эйлеров обход, двоичные подъёмы и LCA", priority="A", total=10,
-         acmp=[ACMP(141, "Дерево")],
-         preferred=["115A", "580C", "1843D", "862B", "1676G", "1328E", "1304E", "519E", "1037D"],
-         lc=[("236", "Lowest Common Ancestor of a Binary Tree", "lowest-common-ancestor-of-a-binary-tree"), ("863", "All Nodes Distance K in Binary Tree", "all-nodes-distance-k-in-binary-tree")]),
-    dict(key="17-dp-basic", title="Базовое DP: пути, рюкзак, LIS и восстановление ответа", priority="A", total=10,
-         acmp=[ACMP(11, "Зайчик"), ACMP(121, "Гвоздики")],
-         preferred=["580A", "189A", "455A", "327A", "1195C", "698A", "474D", "706C"],
-         lc=[("322", "Coin Change", "coin-change"), ("300", "Longest Increasing Subsequence", "longest-increasing-subsequence")]),
-    dict(key="18-range-structures", title="Fenwick, segment tree, lazy propagation и sparse table", priority="A", total=10,
-         acmp=[ACMP(112, "Армия"), ACMP(418, "Редактор")],
-         preferred=["339D", "61E", "380C", "52C", "474F", "242E", "438D", "459D"],
-         lc=[("307", "Range Sum Query — Mutable", "range-sum-query-mutable"), ("715", "Range Module", "range-module")]),
-    dict(key="19-geometry", title="Вычислительная геометрия", priority="B", total=7,
-         acmp=[ACMP(348, "Пересечение отрезков")], preferred=["766B", "507B", "514B", "1486B", "1730B", "1552C"],
-         lc=[("973", "K Closest Points to Origin", "k-closest-points-to-origin"), ("149", "Max Points on a Line", "max-points-on-a-line")]),
-    dict(key="20-graph-structure", title="DAG, топосортировка, SCC, мосты и точки сочленения", priority="B", total=7,
-         acmp=[ACMP(124, "Светофорчики")], preferred=["510C", "427C", "977E", "687A", "118E", "1000E"],
-         lc=[("1192", "Critical Connections in a Network", "critical-connections-in-a-network"), ("802", "Find Eventual Safe States", "find-eventual-safe-states")]),
-    dict(key="21-dsu-mst", title="DSU, MST и офлайн-связность", priority="B", total=7,
-         acmp=[ACMP(142, "Минимальный каркас")], preferred=["277A", "1167C", "25D", "1249B2", "160D", "609E"],
-         lc=[("1584", "Min Cost to Connect All Points", "min-cost-to-connect-all-points"), ("721", "Accounts Merge", "accounts-merge")]),
-    dict(key="22-structural-dp", title="DP по отрезкам, решёткам, графам и деревьям", priority="B", total=7,
-         acmp=[ACMP(123, "Восстановление скобок")],
-         preferred=["1249E", "1528A", "607B", "1114D", "161D", "1363E"],
-         lc=[("312", "Burst Balloons", "burst-balloons"), ("337", "House Robber III", "house-robber-iii")]),
-    dict(key="23-state-dp", title="DP по подмножествам, цифрам и профилю", priority="B", total=7,
-         acmp=[ACMP(29, "Компьютерная игра")],
-         preferred=["580D", "577B", "1288D", "165E", "628D", "55D"],
-         lc=[("464", "Can I Win", "can-i-win"), ("902", "Numbers At Most N Given Digit Set", "numbers-at-most-n-given-digit-set")]),
-    dict(key="24-ordered-structures", title="Декартово дерево, treap и порядковые структуры", priority="B", total=7,
-         acmp=[ACMP(505, "Забор")],
-         preferred=["1354D", "706D", "915E", "558E", "1748E", "702F"],
-         lc=[("315", "Count of Smaller Numbers After Self", "count-of-smaller-numbers-after-self"), ("327", "Count of Range Sum", "count-of-range-sum")]),
-    dict(key="25-flow-matching", title="Потоки и паросочетания", priority="B", total=7,
-         acmp=[ACMP(151, "Банкет")], preferred=["1530D", "1525D", "1437C", "1426E", "546E", "468B"],
-         lc=[("1820", "Maximum Number of Accepted Invitations", "maximum-number-of-accepted-invitations"), ("1066", "Campus Bikes II", "campus-bikes-ii")]),
-    dict(key="26-strings-advanced", title="Ахо—Корасик, Манакер, suffix array/automaton", priority="B", total=7,
-         acmp=[ACMP(70, "Степень строки")],
-         preferred=["271D", "432D", "559B", "1326D2", "710F", "873F"],
-         lc=[("1044", "Longest Duplicate Substring", "longest-duplicate-substring"), ("336", "Palindrome Pairs", "palindrome-pairs")]),
-    dict(key="27-trees-advanced", title="HLD, центроидная декомпозиция, small-to-large и rerooting", priority="B", total=7,
-         acmp=[ACMP(116, "Фермер - 2")], preferred=["191C", "383C", "321C", "342E", "600E", "375D"],
-         lc=[("834", "Sum of Distances in Tree", "sum-of-distances-in-tree"), ("1483", "Kth Ancestor of a Tree Node", "kth-ancestor-of-a-tree-node")]),
-    dict(key="28-games", title="Теория игр: выигрыш/проигрыш, Nim и Sprague—Grundy", priority="B", total=7,
-         acmp=[ACMP(4, "Игра")], preferred=["1527B1", "1747C", "276B", "1472D", "1370C", "1363C"],
-         lc=[("292", "Nim Game", "nim-game"), ("486", "Predict the Winner", "predict-the-winner")]),
-    dict(key="29-mitm", title="Meet-in-the-middle и разбиение пространства поиска", priority="B", total=7,
-         acmp=[], preferred=["769D", "888E", "552C", "1006F", "525E", "1105E", "1257F"],
-         lc=[("1755", "Closest Subsequence Sum", "closest-subsequence-sum")]),
-    dict(key="30-sqrt-mo", title="Корневая декомпозиция, Mo и офлайн-запросы", priority="C", total=5,
-         acmp=[], preferred=["13E", "86D", "220B", "617E", "455D"],
-         lc=[("493", "Reverse Pairs", "reverse-pairs")]),
-    dict(key="31-rollback-persistent", title="Rollback, персистентность и динамическая связность", priority="C", total=5,
-         acmp=[], preferred=["292D", "707D", "813E", "891C", "484E"],
-         lc=[("1146", "Snapshot Array", "snapshot-array")]),
-    dict(key="32-dp-optimization", title="Оптимизации DP: CHT/Li Chao, divide-and-conquer, Knuth", priority="C", total=5,
-         acmp=[], preferred=["319C", "868F", "321E", "1083E", "932F"],
-         lc=[("410", "Split Array Largest Sum", "split-array-largest-sum")]),
-    dict(key="33-algebra-fft", title="Матрицы, линейная алгебра, FFT/NTT", priority="C", total=5,
-         acmp=[], preferred=["1557C", "1117D", "222E", "718C", "528D"],
-         lc=[("509", "Fibonacci Number", "fibonacci-number"), ("43", "Multiply Strings", "multiply-strings")]),
-    dict(key="34-random-interactive", title="Вероятность, рандомизация, interactive и output-only", priority="C", total=5,
-         acmp=[], preferred=["453A", "839C", "1407C", "1479A", "148D"],
-         lc=[("528", "Random Pick with Weight", "random-pick-with-weight")]),
-]
-
-
-CUSTOM_CF = {
-    "26B": ("Regular Bracket Sequence", 1400), "343B": ("Alternating Current", 1600),
-    "450A": ("Jzzhu and Children", 1000), "545D": ("Queue", 1300),
-    "797C": ("Minimal string", 1700), "1092D1": ("Great Vova Wall (Version 1)", 2200),
-    "363B": ("Fence", 1100), "433B": ("Kuriyama Mirai's Stones", 1200),
-    "313B": ("Ilya and Queries", 1100), "380C": ("Sereja and Brackets", 2000),
-    "52C": ("Circular RMQ", 2200), "474F": ("Ant colony", 2100),
-    "242E": ("XOR on Segment", 2000), "438D": ("The Child and Sequence", 2300),
-    "459D": ("Pashmak and Parmida's problem", 1800), "118E": ("Bertown roads", 2000),
-    "1000E": ("We Need More Bosses", 2100), "160D": ("Edges in MST", 2300),
-    "13E": ("Holes", 2700), "220B": ("Little Elephant and Array", 1800),
-    "617E": ("XOR and Favorite Number", 2200), "455D": ("Serega and Fun", 2700),
-    "292D": ("Connected Components", 1900), "707D": ("Persistent Bookcase", 2200),
-    "813E": ("Army Creation", 2200), "891C": ("Envy", 2300),
-    "484E": ("Sign on Fence", 2500), "319C": ("Kalila and Dimna in the Logging Industry", 2100),
-    "321E": ("Ciel and Gondolas", 2600), "1083E": ("The Fair Nut and Rectangles", 2400),
-    "932F": ("Escape Through Leaf", 2700), "148D": ("Bag of mice", 1800),
-    "222E": ("Decoding Genome", 1900),
-    "1304E": ("1-Trees and Queries", 2000),
-    "1195C": ("Basketball Exercise", 1400), "698A": ("Vacations", 1400),
-    "474D": ("Flowers", 1700), "706C": ("Hard problem", 1600),
-    "1249E": ("By Elevator or Stairs?", 1700), "607B": ("Zuma", 1900),
-    "1114D": ("Flood Fill", 1900), "628D": ("Magic Numbers", 2200),
-    "55D": ("Beautiful numbers", 2500), "1354D": ("Multiset", 1900),
-    "915E": ("Physical Education Lessons", 2300), "558E": ("A Simple Task", 2300),
-    "1748E": ("Yet Another Array Counting Problem", 2300), "702F": ("T-Shirts", 2800),
-    "710F": ("String Set Queries", 2400), "873F": ("Forbidden Indices", 2400),
-    "1000C": ("Covered Points Count", 1700), "1200E": ("Compress Words", 2000),
-    "471D": ("MUH and Cube Walls", 1800), "535D": ("Tavas and Malekas", 1900),
-    "7D": ("Palindrome Degree", 2200),
+EXPECTED_TOPIC_COUNTS = {"A": 18, "B": 11, "C": 5}
+EXPECTED_TASK_COUNTS = {"A": 180, "B": 77, "C": 25}
+EXPECTED_ROLE_BUDGETS = {
+    "A": Counter({"D": 1, "L": 3, "R": 3, "H": 1, "F": 1, "X": 1}),
+    "B": Counter({"D": 1, "L": 2, "R": 1, "H": 1, "F": 1, "X": 1}),
+    "C": Counter({"D": 0, "L": 1, "R": 1, "H": 1, "F": 1, "X": 1}),
 }
+VISIBLE_ROLES = {"L", "R", "H"}
+HIDDEN_ROLES = {"D", "F", "X"}
+ROLE_ORDER = {"D": 0, "L": 1, "R": 2, "H": 3, "F": 4, "X": 5}
 
 
-ROLE_PATTERNS = {
-    "A": ["D", "L", "L", "L", "R", "R", "R", "H", "F", "X"],
-    "B": ["D", "L", "L", "R", "H", "F", "X"],
-    "C": ["L", "R", "H", "F", "X"],
-}
+def fail(message: str) -> None:
+    raise ValueError(message)
 
 
-def flatten_candidates(raw: dict) -> tuple[dict[str, dict], dict[str, list[dict]]]:
-    by_id: dict[str, dict] = {}
-    for values in raw.values():
-        for item in values:
-            by_id.setdefault(item["id"], item)
-    return by_id, raw
+def escape_cell(text: str) -> str:
+    return text.replace("|", "&#124;").replace("\n", " ")
 
 
-def select_tasks(topic: dict, by_id: dict[str, dict], raw: dict, globally_used: set[str]) -> list[tuple]:
-    selected: list[tuple] = list(topic["acmp"])
-    need_cf = topic["total"] - len(selected)
-    chosen_cf: list[tuple] = []
-
-    for task_id in topic["preferred"]:
-        key = "CF:" + task_id
-        if key in globally_used:
-            continue
-        item = by_id.get(task_id)
-        if item:
-            chosen_cf.append(("CF", task_id, item["name"], item.get("rating")))
-        elif task_id in CUSTOM_CF:
-            name, rating = CUSTOM_CF[task_id]
-            chosen_cf.append(("CF", task_id, name, rating))
-        else:
-            raise RuntimeError(f"Missing metadata for Codeforces {task_id}")
-        globally_used.add(key)
-        if len(chosen_cf) == need_cf:
-            break
-
-    if len(chosen_cf) < need_cf:
-        # The browser-side research snapshot is deliberately interleaved by
-        # rating bands; preserve that order so a topic does not collapse into
-        # ten nearly identical easy tasks.
-        for item in raw[topic["key"]]:
-            key = "CF:" + item["id"]
-            if key in globally_used:
-                continue
-            chosen_cf.append(("CF", item["id"], item["name"], item.get("rating")))
-            globally_used.add(key)
-            if len(chosen_cf) == need_cf:
-                break
-
-    if len(chosen_cf) != need_cf:
-        raise RuntimeError(f"Not enough unique tasks for {topic['key']}: {len(chosen_cf)}/{need_cf}")
-
-    selected.extend(sorted(chosen_cf, key=lambda x: x[3] or 0))
-    if len(selected) != topic["total"]:
-        raise AssertionError(topic["key"])
-    return selected
-
-
-def task_link(platform: str, task_id: str, name: str) -> str:
+def task_label(task: dict) -> str:
+    platform = task["platform"]
     if platform == "CF":
-        contest = task_id[:-1]
-        index = task_id[-1]
-        # Indices such as D1/D2 have two trailing characters.
-        if task_id[-2:].startswith(("A", "B", "C", "D", "E", "F", "G", "H")) and task_id[-1].isdigit():
-            contest, index = task_id[:-2], task_id[-2:]
-        return f"[CF {task_id} — {name}](https://codeforces.com/problemset/problem/{contest}/{index})"
-    return f"[ACMP {task_id} — {name}](https://acmp.ru/index.asp?main=task&id_task={task_id})"
+        prefix = f"CF {task['id']}"
+    elif platform == "ACMP":
+        prefix = f"ACMP {task['id']}"
+    elif platform == "GYM":
+        prefix = f"CF Gym {task['id']}"
+    else:
+        fail(f"unsupported platform: {platform}")
+    label = f"[{prefix} — {task['title']}]({task['url']})"
+    if task.get("practice_url"):
+        label += f" · [регистрация/отправка]({task['practice_url']})"
+    return label
 
 
-def main() -> None:
-    raw = json.loads(CF_DATA.read_text(encoding="utf-8"))
-    by_id, pools = flatten_candidates(raw)
-    used: set[str] = set()
-    sections: list[str] = []
-    totals = {"A": 0, "B": 0, "C": 0}
-    required = 0
+def pattern_cell(task: dict) -> str:
+    pattern = escape_cell(task["pattern_label"])
+    if task["pattern_visibility"] == "visible":
+        return pattern
+    return (
+        "<details><summary>Показать после попытки</summary>"
+        f"{pattern}</details>"
+    )
 
-    for number, topic in enumerate(TOPICS, start=1):
-        tasks = select_tasks(topic, by_id, pools, used)
-        roles = ROLE_PATTERNS[topic["priority"]]
-        totals[topic["priority"]] += len(tasks)
-        required += sum(role not in {"H", "X"} for role in roles)
 
-        lines = [
+def validate_catalog(catalog: dict) -> dict:
+    if catalog.get("schema_version") != 1:
+        fail("unsupported practice catalog schema")
+    policy = catalog.get("selection_policy", {})
+    if policy.get("automatic_tag_fallback") is not False:
+        fail("automatic tag fallback must stay disabled")
+    if policy.get("manual_semantic_roles") is not True:
+        fail("semantic roles must be manually audited")
+    if set(policy.get("visible_pattern_roles", [])) != VISIBLE_ROLES:
+        fail("visible pattern roles do not match the rendering policy")
+    if set(policy.get("hidden_pattern_roles", [])) != HIDDEN_ROLES:
+        fail("hidden pattern roles do not match the rendering policy")
+    declared_budgets = {
+        priority: Counter(roles)
+        for priority, roles in catalog.get("role_budgets", {}).items()
+    }
+    if declared_budgets != EXPECTED_ROLE_BUDGETS:
+        fail("declared role budgets do not match the enforced budgets")
+
+    topics = catalog.get("topics")
+    if not isinstance(topics, list) or len(topics) != 34:
+        fail("catalog must contain exactly 34 topics")
+
+    topic_numbers = [topic.get("number") for topic in topics]
+    if topic_numbers != list(range(1, 35)):
+        fail("topic numbers must be consecutive from 1 to 34")
+
+    topic_counts = Counter(topic["priority"] for topic in topics)
+    if dict(topic_counts) != EXPECTED_TOPIC_COUNTS:
+        fail(f"unexpected topic priorities: {dict(topic_counts)}")
+
+    used: set[tuple[str, str]] = set()
+    task_counts = Counter()
+    core_count = 0
+    for topic in topics:
+        priority = topic["priority"]
+        tasks = topic.get("tasks", [])
+        if len(tasks) != topic["task_budget"]:
+            fail(
+                f"topic {topic['number']} task count: "
+                f"{len(tasks)} != {topic['task_budget']}"
+            )
+        roles = Counter(task.get("role") for task in tasks)
+        if roles != EXPECTED_ROLE_BUDGETS[priority]:
+            fail(
+                f"topic {topic['number']} role budget: "
+                f"{dict(roles)} != {dict(EXPECTED_ROLE_BUDGETS[priority])}"
+            )
+        role_order = [ROLE_ORDER.get(task.get("role"), -1) for task in tasks]
+        if role_order != sorted(role_order):
+            fail(f"topic {topic['number']} tasks are not ordered D/L/R/H/F/X")
+        task_counts[priority] += len(tasks)
+
+        for task in tasks:
+            key = (task["platform"], str(task["id"]))
+            if key in used:
+                fail(f"duplicate task: {key[0]} {key[1]}")
+            used.add(key)
+
+            if task["platform"] not in {"CF", "ACMP", "GYM"}:
+                fail(f"task is outside Codeforces/ACMP: {key[0]} {key[1]}")
+            expected_domain = (
+                "codeforces.com" if task["platform"] in {"CF", "GYM"} else "acmp.ru"
+            )
+            if expected_domain not in task.get("url", ""):
+                fail(f"unexpected task URL domain: {key[0]} {key[1]}")
+            if task.get("practice_url") and "codeforces.com" not in task["practice_url"]:
+                fail(f"unexpected practice URL domain: {key[0]} {key[1]}")
+            rating = task.get("rating")
+            if rating is not None and (
+                not isinstance(rating, int) or isinstance(rating, bool)
+            ):
+                fail(f"invalid rating: {key[0]} {key[1]}")
+
+            for field in (
+                "title",
+                "url",
+                "role",
+                "primary_pattern",
+                "pattern_label",
+                "why_selected",
+                "expected_solution",
+            ):
+                if not task.get(field):
+                    fail(
+                        f"topic {topic['number']} {key[0]} {key[1]} "
+                        f"has empty {field}"
+                    )
+            if not task.get("verified_statement"):
+                fail(f"statement not verified: {key[0]} {key[1]}")
+            if not task.get("verified_solution"):
+                fail(f"solution not verified: {key[0]} {key[1]}")
+            if not task.get("verified_on"):
+                fail(f"verification date missing: {key[0]} {key[1]}")
+            if not isinstance(task.get("secondary_patterns"), list):
+                fail(f"secondary_patterns must be a list: {key[0]} {key[1]}")
+            if not isinstance(task.get("prerequisites"), list) or not task["prerequisites"]:
+                fail(f"prerequisites missing: {key[0]} {key[1]}")
+
+            expected_visibility = (
+                "visible" if task["role"] in VISIBLE_ROLES else "after_attempt"
+            )
+            if task.get("pattern_visibility") != expected_visibility:
+                fail(
+                    f"wrong pattern visibility for {key[0]} {key[1]}: "
+                    f"{task.get('pattern_visibility')}"
+                )
+            if task["role"] not in {"H", "X"}:
+                core_count += 1
+
+        for lc in topic.get("leetcode", []):
+            for field in ("id", "title", "url", "focus"):
+                if not lc.get(field):
+                    fail(f"topic {topic['number']} LeetCode entry misses {field}")
+
+    special_practice = catalog.get("special_practice", [])
+    if not isinstance(special_practice, list):
+        fail("special_practice must be a list")
+    special_topics: set[int] = set()
+    for item in special_practice:
+        for field in ("topic", "kind", "title", "steps"):
+            if not item.get(field):
+                fail(f"special practice entry misses {field}")
+        if item["topic"] not in range(1, 35):
+            fail(f"special practice has invalid topic: {item['topic']}")
+        if item["topic"] in special_topics:
+            fail(f"duplicate special practice for topic {item['topic']}")
+        special_topics.add(item["topic"])
+        if item.get("counts_toward_task_budget") is not False:
+            fail("special practice must not silently change the task budget")
+        if not isinstance(item["steps"], list) or not all(
+            isinstance(step, str) and step.strip() for step in item["steps"]
+        ):
+            fail(f"special practice for topic {item['topic']} has invalid steps")
+
+    if dict(task_counts) != EXPECTED_TASK_COUNTS:
+        fail(f"unexpected task priorities: {dict(task_counts)}")
+    if sum(task_counts.values()) != 282:
+        fail("catalog must contain exactly 282 required tasks")
+    if core_count != 214:
+        fail(f"core route must contain 214 tasks, found {core_count}")
+
+    return {
+        "topics": topics,
+        "task_counts": task_counts,
+        "core_count": core_count,
+        "leetcode_count": sum(len(topic.get("leetcode", [])) for topic in topics),
+        "special_practice_count": len(special_practice),
+    }
+
+
+def render(catalog: dict) -> str:
+    validated = validate_catalog(catalog)
+    topics = validated["topics"]
+    counts = validated["task_counts"]
+    total = sum(counts.values())
+
+    parts = [
+        "# Банк задач",
+        "",
+        "Этот каталог построен под календарь «лето → отборы в октябре–ноябре → "
+        "финалы в марте–апреле». Он не требует решить все задачи подряд.",
+        "",
+        "## Объём и маршрут",
+        "",
+        f"- приоритет A: **{counts['A']}** задач — фундамент и наиболее вероятные темы отборов;",
+        f"- приоритет B: **{counts['B']}** задач — усиление после прохождения отбора;",
+        f"- приоритет C: **{counts['C']}** задач — финальный и выборочный продвинутый слой;",
+        f"- полный каталог: **{total}** задач Codeforces/ACMP;",
+        f"- основной маршрут без `H` и `X`: **{validated['core_count']}** задач;",
+        f"- LeetCode-база: **{validated['leetcode_count']}** задач, в основной лимит не входит.",
+        "",
+        "Роли: `D` — диагностика; `L` — изучение приёма; `R` — закрепление; "
+        "`H` — трудная задача; `F` — контрольная без подсказок; `X` — сочетание тем. "
+        "Для быстрого маршрута решать `D/L/R/F`; `H/X` переносить на финальный цикл "
+        "или брать по слабым местам.",
+        "",
+        "Колонка **«Что тренирует»** описывает целевой учебный способ решения, а не "
+        "утверждает, что других решений не существует. Для `D/F/X` точный паттерн "
+        "скрыт: раскрывать его следует только после ограниченной самостоятельной попытки.",
+        "",
+        "## Правила работы",
+        "",
+        "1. До начала темы решить `D` за ограниченное время, не раскрывая паттерн. "
+        "Если идея не найдена, изучить теорию и перейти к `L`.",
+        "2. Если задача дала переносимый вывод, записать его одной короткой строкой "
+        "в [`NOTES.md`](NOTES.md). Для обычного решения без нового вывода заметка не нужна.",
+        "3. `F` решать как мини-контест: без раскрытия паттерна, подсказок и старого кода, "
+        "с полным тестированием и разбором после сдачи.",
+        "4. ACMP используется как русскоязычный вход и тренировка реализации; "
+        "Codeforces — как основная шкала сложности.",
+        "5. Рейтинг Codeforces — ориентир, а не строгий порядок. Релевантность приёма "
+        "и педагогическая роль важнее рейтинга.",
+    ]
+
+    for topic in topics:
+        number = topic["number"]
+        tasks = topic["tasks"]
+        parts.extend([
+            "",
             f"## {number}. {topic['title']}",
             "",
             f"Приоритет **{topic['priority']}**. Задач: **{len(tasks)}**. "
-            f"Связь с этапом и признаки распознавания: [ROADMAP.md — тема {number}](ROADMAP.md#тема-{number}).",
+            f"Связь с этапом и признаки распознавания: "
+            f"[ROADMAP.md — тема {number}](ROADMAP.md#тема-{number}).",
             "",
+        ])
+
+        leetcode = topic.get("leetcode", [])
+        if leetcode:
+            lc_links = [
+                f"[LC {item['id']} — {item['title']}]({item['url']})"
+                f" — {item['focus']}"
+                for item in leetcode
+            ]
+            parts.extend([
+                "База LeetCode, не входит в лимит: " + "; ".join(lc_links) + ".",
+                "",
+            ])
+
+        parts.extend([
+            "| № | Задача | Рейтинг CF | Роль | Что тренирует |",
+            "|---:|---|---:|:---:|---|",
+        ])
+        for index, task in enumerate(tasks, start=1):
+            rating = task["rating"] if task["rating"] is not None else "—"
+            parts.append(
+                f"| {index} | {task_label(task)} | {rating} | "
+                f"`{task['role']}` | {pattern_cell(task)} |"
+            )
+
+        special_items = [
+            item
+            for item in catalog.get("special_practice", [])
+            if item.get("topic") == number
         ]
-        if topic["lc"]:
-            lc_links = [f"[LC {num} — {name}](https://leetcode.com/problems/{slug}/)" for num, name, slug in topic["lc"]]
-            lines.extend(["База LeetCode, не входит в лимит: " + "; ".join(lc_links) + ".", ""])
+        for special in special_items:
+            parts.extend([
+                "",
+                "Отдельная практика, не входит в лимит:",
+                "",
+                f"**{special['title']}.**",
+                "",
+                *[
+                    f"{index}. {step}"
+                    for index, step in enumerate(special["steps"], start=1)
+                ],
+            ])
 
-        lines.extend(["| № | Задача | Рейтинг CF | Роль |", "|---:|---|---:|:---:|"])
-        for idx, ((platform, task_id, name, rating), role) in enumerate(zip(tasks, roles), start=1):
-            rating_text = str(rating) if rating else "—"
-            lines.append(f"| {idx} | {task_link(platform, task_id, name)} | {rating_text} | `{role}` |")
-        sections.append("\n".join(lines))
+    return "\n".join(parts) + "\n"
 
-    grand_total = sum(totals.values())
-    if grand_total != 282:
-        raise AssertionError(f"Expected 282 tasks, got {grand_total}")
 
-    intro = f"""# Банк задач
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--check",
+        action="store_true",
+        help="fail if PRACTICE.md differs from the audited catalog",
+    )
+    return parser.parse_args()
 
-Этот каталог построен под календарь «лето → отборы в октябре–ноябре → финалы в марте–апреле». Он не требует решить все задачи подряд.
 
-## Объём и маршрут
+def main() -> int:
+    args = parse_args()
+    catalog = json.loads(CATALOG.read_text(encoding="utf-8"))
+    rendered = render(catalog)
+    if args.check:
+        current = OUTPUT.read_text(encoding="utf-8") if OUTPUT.exists() else ""
+        if current != rendered:
+            print(
+                "PRACTICE.md is out of date; run tools/generate_practice.py",
+                file=sys.stderr,
+            )
+            return 1
+        print("PRACTICE.md matches the audited catalog")
+        return 0
 
-- приоритет A: **{totals['A']}** задач — фундамент и наиболее вероятные темы отборов;
-- приоритет B: **{totals['B']}** задач — усиление после прохождения отбора;
-- приоритет C: **{totals['C']}** задач — финальный и выборочный продвинутый слой;
-- полный каталог: **{grand_total}** задач Codeforces/ACMP;
-- основной маршрут без `H` и `X`: **{required}** задач;
-- LeetCode вынесен отдельно и в эти числа не входит.
-
-Роли: `D` — диагностика; `L` — изучение приёма; `R` — закрепление; `H` — трудная/stretch-задача; `F` — контрольная задача без подсказок; `X` — задача на сочетание тем. Для быстрого маршрута решать `D/L/R/F`; `H/X` переносить на финальный цикл или брать по слабым местам.
-
-## Правила работы
-
-1. До начала темы решить `D` за ограниченное время. Если идея не найдена, изучить теорию и перейти к `L`.
-2. После каждой задачи записать не пересказ решения, а три пункта: признак темы, ключевой инвариант, ошибка реализации.
-3. `F` решать как мини-контест: без подсказок, с полным тестированием и разбором после сдачи.
-4. ACMP используется как русскоязычный вход и тренировка реализации; Codeforces — как основная шкала сложности.
-5. Рейтинг Codeforces — ориентир, а не строгий порядок: редкая знакомая тема может оказаться легче незнакомой задачи с меньшим рейтингом.
-
-"""
-    OUTPUT.write_text(intro + "\n\n".join(sections) + "\n", encoding="utf-8")
-    print(f"wrote {OUTPUT}: {grand_total} tasks, {required} on the core route")
+    OUTPUT.write_text(rendered, encoding="utf-8")
+    print(
+        f"wrote {OUTPUT}: 282 tasks, "
+        f"{sum(len(t.get('leetcode', [])) for t in catalog['topics'])} LeetCode"
+    )
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

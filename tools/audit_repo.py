@@ -3,6 +3,8 @@
 
 from __future__ import annotations
 
+import importlib.util
+import json
 import re
 import sys
 from pathlib import Path
@@ -57,23 +59,95 @@ def check_contests() -> None:
 
 
 def check_practice() -> None:
+    catalog_path = ROOT / "research_data" / "practice-catalog.json"
+    catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
+
+    generator_path = ROOT / "tools" / "generate_practice.py"
+    spec = importlib.util.spec_from_file_location("generate_practice", generator_path)
+    generator = importlib.util.module_from_spec(spec)
+    assert spec.loader
+    spec.loader.exec_module(generator)
+
+    try:
+        validated = generator.validate_catalog(catalog)
+        expected = generator.render(catalog)
+    except ValueError as error:
+        require(False, f"practice catalog validation failed: {error}")
+        return
+
     text = (ROOT / "PRACTICE.md").read_text(encoding="utf-8")
-    cf_ids = re.findall(r"\[CF ([0-9]+[A-Z][0-9]?) —", text)
-    acmp_ids = re.findall(r"\[ACMP ([0-9]+) —", text)
-    require(len(cf_ids) + len(acmp_ids) == 282, "practice task count is not 282")
-    require(len(cf_ids) == len(set(cf_ids)), "duplicate Codeforces task IDs")
-    require(len(acmp_ids) == len(set(acmp_ids)), "duplicate ACMP task IDs")
-    require(len(re.findall(r"^## [0-9]+\. ", text, re.MULTILINE)) == 34, "practice topic count is not 34")
-    require("приоритет A: **180**" in text, "priority A count missing")
-    require("приоритет B: **77**" in text, "priority B count missing")
-    require("приоритет C: **25**" in text, "priority C count missing")
-    require("основной маршрут без `H` и `X`: **214**" in text, "core route count missing")
+    require(text == expected, "PRACTICE.md is not generated from practice-catalog.json")
+    require(len(validated["topics"]) == 34, "practice topic count is not 34")
+    require(sum(validated["task_counts"].values()) == 282, "practice task count is not 282")
+    require(validated["core_count"] == 214, "core practice route count is not 214")
+    require(validated["leetcode_count"] == 63, "LeetCode foundation count is not 63")
+    require(
+        validated["special_practice_count"] == 2,
+        "expected Java and checker special practice entries",
+    )
+    require(text.count("| Что тренирует |") == 34, "pattern column missing from a topic")
+    hidden_count = sum(
+        task["role"] in {"D", "F", "X"}
+        for topic in validated["topics"]
+        for task in topic["tasks"]
+    )
+    require(
+        text.count("<details><summary>Показать после попытки</summary>") == hidden_count,
+        "hidden D/F/X pattern count does not match the catalog",
+    )
+
+    audit = (ROOT / "research_data" / "practice-audit.md").read_text(encoding="utf-8")
+    legacy = re.search(
+        r"Из прежних 282 слотов: \*\*(\d+) KEEP\*\*, "
+        r"\*\*(\d+) MOVE\*\*, \*\*(\d+) REPLACE\*\*",
+        audit,
+    )
+    require(legacy is not None, "practice audit summary is missing")
+    if legacy:
+        expected_verdicts = tuple(map(int, legacy.groups()))
+        require(
+            sum(expected_verdicts) == 282,
+            "practice audit does not classify all 282 legacy tasks",
+        )
+        actual_verdicts = tuple(
+            len(re.findall(rf"\| `{verdict}` \|", audit))
+            for verdict in ("KEEP", "MOVE", "REPLACE")
+        )
+        require(
+            actual_verdicts == expected_verdicts,
+            "practice audit verdict rows do not match its summary",
+        )
+
+    for topic in catalog["topics"]:
+        start = f"## Тема {topic['number']}."
+        next_start = f"## Тема {topic['number'] + 1}."
+        require(start in audit, f"practice audit section is missing: topic {topic['number']}")
+        section = audit.split(start, 1)[1]
+        if next_start in section:
+            section = section.split(next_start, 1)[0]
+        require("### Новое покрытие" in section, f"new coverage is missing: topic {topic['number']}")
+        coverage = section.split("### Новое покрытие", 1)[1]
+        for task in topic["tasks"]:
+            prefix = {"CF": "CF", "ACMP": "ACMP", "GYM": "GYM"}[task["platform"]]
+            pattern = task["pattern_label"].replace("|", r"\|")
+            solution = task["expected_solution"].replace("|", r"\|")
+            expected_row = (
+                f"| {prefix} {task['id']} — {task['title']} | `{task['role']}` | "
+                f"{pattern} | {solution} |"
+            )
+            require(
+                expected_row in coverage,
+                f"practice audit coverage differs from catalog: topic {topic['number']}, "
+                f"{task['platform']} {task['id']}",
+            )
 
 
 def main() -> None:
     for filename in [
         "research.md", "ROADMAP.md", "PRACTICE.md", "PROGRESS.md",
         "CONTEST_STRATEGY.md", "contests/MANIFEST.md", "templates/java/README.md",
+        "research_data/practice-catalog.json",
+        "research_data/practice-audit.md",
     ]:
         require((ROOT / filename).is_file(), f"missing deliverable: {filename}")
     check_local_links()

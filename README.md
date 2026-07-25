@@ -8,9 +8,11 @@
 
 - [`research.md`](research.md) — методика исследования, анализ трёх официальных сезонов и полная карта знаний;
 - [`ROADMAP.md`](ROADMAP.md) — календарный план, зависимости тем и признаки распознавания;
-- [`PRACTICE.md`](PRACTICE.md) — 282 задачи Codeforces/ACMP и отдельная LeetCode-база;
+- [`PRACTICE.md`](PRACTICE.md) — 282 проверенные задачи Codeforces/ACMP с ролями, паттернами и отдельной LeetCode-базой;
 - [`PROGRESS.md`](PROGRESS.md) — уровни освоения, метрики и журнал контестов;
 - [`NOTES.md`](NOTES.md) — короткие заметки о полезных идеях, признаках и ошибках;
 - [`CONTEST_STRATEGY.md`](CONTEST_STRATEGY.md) — стратегия чтения, переключения, дебага и отправки;
 - [`templates/java/`](templates/java/README.md) — компилируемые Java 17 заготовки;
 - [`contests/`](contests/README.md) — официальный корпус олимпиадных материалов и манифест полноты.
+
+Банк задач формируется только из вручную проверенного [`practice-catalog.json`](research_data/practice-catalog.json). Сырой срез тегов Codeforces используется для поиска кандидатов, но не выбирает задачи автоматически. История 282 прежних слотов и причины замен сохранены в [`practice-audit.md`](research_data/practice-audit.md).
