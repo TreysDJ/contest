@@ -42,6 +42,18 @@ Roadmap рассчитан на старт в конце июля 2026 года,
 условии, второй связывает навык с реальными олимпиадами. Полное доказательство и код находятся не здесь: roadmap
 определяет, что именно изучать и до какого рабочего результата довести тему.
 
+Блок **«Материалы»** устроен как лестница, а не как каталог ссылок. Внутри темы сначала идут модель и базовый
+алгоритм, затем реализация и типовые применения, после них — модификации и углубление.
+
+- **MUST-WATCH** — основной маршрут: статью нужно прочитать, видео посмотреть, а встроенную практику курса выполнить.
+  Название приоритета едино для материалов всех форматов.
+- **BACKUP** — другое объяснение той же идеи, более строгое доказательство, редкий вариант или материал финального
+  уровня. К нему возвращаются, если основной источник не подошёл или задача требует расширения темы.
+- Метки `[статья]`, `[видео]`, `[курс]` и `[конспект]` показывают формат. Пометка `Java` предупреждает о
+  языковых особенностях; C++-код из источника не следует переносить механически.
+- У Codeforces EDU ссылка **«теория»** ведёт на конкретный шаг, а **«практика»** — на его тематический набор задач.
+  Эти наборы дополняют, но не заменяют отобранный банк в `PRACTICE.md`.
+
 ## Критерий освоения темы
 
 Тема считается рабочей, если одновременно выполнены четыре условия.
@@ -73,6 +85,39 @@ Roadmap рассчитан на старт в конце июля 2026 года,
   суммы произведений требуют `long`.
 - **Зачем:** значительная доля отборочных задач проигрывается не идеей, а TLE, overflow или неверной индексацией.
   Пример: «Новый язык», Открытая олимпиада ИТМО 2025/26, требует парсинга и точной 32-битной арифметики.
+- **Материалы:**
+  - **MUST-WATCH:**
+    - [статья] [Algorithmica: «Асимптотический анализ»](https://ru.algorithmica.org/cs/complexity/asymptotic/) —
+      перевод ограничений в порядок роста и честная оценка нескольких фаз алгоритма.
+    - [статья] [Яндекс Хэндбук: «Алгоритмы и сложность»](https://education.yandex.ru/handbook/algorithms/article/algoritmy-i-slozhnost) —
+      псевдокод, корректность и различие полиномиального и экспоненциального роста.
+    - [видео] [Павел Маврин: «Алгоритмы. Оценка времени. Сортировка слиянием»](https://www.youtube.com/watch?v=apR9GhhjBjM) —
+      связать оценку времени с реальной рекурсивной реализацией.
+    - [статья] [Algorithmica: «Стресс-тестирование»](https://ru.algorithmica.org/cs/programming/stress-test/) —
+      генератор, медленный эталон и автоматический поиск контрпримера.
+  - **BACKUP:**
+    - [статья] [Algorithmica: «Мастер-теорема»](https://ru.algorithmica.org/cs/complexity/master-theorem/) —
+      оценка стандартных рекурсий divide-and-conquer; не заучивать без дерева рекурсии.
+    - [статьи] Algorithmica: [массивы и кортежи](https://ru.algorithmica.org/cs/basic-structures/array/),
+      [итераторы](https://ru.algorithmica.org/cs/basic-structures/iterators/) и
+      [динамический массив](https://ru.algorithmica.org/cs/basic-structures/vector/) — модель памяти и амортизированная
+      стоимость; C++-детали сопоставлять с примитивными массивами и `ArrayList` в Java.
+    - [статья] [Яндекс Хэндбук: «Односвязный список»](https://education.yandex.ru/handbook/algorithms/article/odnosvyaznyj-spisok) —
+      модель узлов и ссылок; в Java отдельно сопоставить её с массивами индексов и объяснить, почему `LinkedList`
+      редко является удачным олимпиадным контейнером.
+    - [конспект] [ИТМО: «Амортизационный анализ»](https://neerc.ifmo.ru/wiki/index.php?title=Амортизационный_анализ) —
+      строгий разбор агрегатного метода, метода счетов и потенциалов.
+    - [статья] [Algorithmica: «Векторизация»](https://ru.algorithmica.org/cs/arithmetic/simd/) — почему константы
+      тоже важны; SIMD/AVX не переносится в Java-шаблон и нужен только как углубление.
+    - [статья] [Algorithmica: «Просто интересные задачи»](https://ru.algorithmica.org/cs/programming/bayans/) —
+      набор технических приёмов для расширения кругозора, а не последовательный урок.
+    - [видео, C++] Tinkoff Generation:
+      [«STL»](https://www.youtube.com/watch?v=ymhJTpFjf0Y),
+      [«C++ и базовые структуры»](https://www.youtube.com/watch?v=TsmiCiL55fQ),
+      [«Большой разбор»](https://www.youtube.com/watch?v=eg3MqOeuXSk),
+      [«C++, AVX, тестирование и отладка»](https://www.youtube.com/watch?v=lBTfwJPsx90) и
+      [«Тестирование и C++»](https://www.youtube.com/watch?v=Tx0PhkJN4xg) — брать методику разбора и отладки,
+      но не C++ API и низкоуровневые оптимизации.
 - **Практика:** [10 задач и LeetCode-база](PRACTICE.md#1-оценка-сложности-java-и-аккуратная-реализация).
 
 <a id="тема-2"></a>
@@ -95,6 +140,15 @@ Roadmap рассчитан на старт в конце июля 2026 года,
   доказать бесперспективность ветки.
 - **Зачем:** перебор часто является полным решением отбора и подзадачей финала. «Board Game», Innopolis Open 2023/24,
   сочетает перебор, мемоизацию и рюкзак.
+- **Материалы:**
+  - **MUST-WATCH:**
+    - [статья] [Яндекс Хэндбук: «Полный перебор и оптимизация перебора»](https://education.yandex.ru/handbook/algorithms/article/polnyj-perebor-i-optimizaciya-perebora) —
+      пространство вариантов, сокращение перебора и проверка, что отсечение безопасно.
+    - [статья] [Яндекс Хэндбук: «Рекурсивные алгоритмы»](https://education.yandex.ru/handbook/algorithms/article/rekursivnye-algoritmy) —
+      база рекурсии, условие остановки и сбор ответа из подзадач.
+  - **BACKUP:**
+    - [статья] [Яндекс Хэндбук: «Разделяй и властвуй»](https://education.yandex.ru/handbook/algorithms/article/razdelyaj-i-vlastvuj) —
+      отличить независимые рекурсивные подзадачи от backtracking с общим изменяемым состоянием.
 - **Практика:** [10 задач](PRACTICE.md#2-полный-перебор-рекурсия-и-отсечения).
 
 <a id="тема-3"></a>
@@ -117,6 +171,36 @@ Roadmap рассчитан на старт в конце июля 2026 года,
   различных значений не больше `n`.
 - **Зачем:** это подготовка к sweep line, Fenwick и greedy. В «Почти наверное», inf-open 2023/24, сортировка соединяется
   с префиксами и компонентами.
+- **Материалы:**
+  - **MUST-WATCH:**
+    - [статья] [Algorithmica: «Сжатие координат»](https://ru.algorithmica.org/cs/sequences/compression/) — `sorted
+      unique`, переход к рангам и сохранение отношения порядка.
+    - [статьи] Algorithmica: [сортировка подсчётом](https://ru.algorithmica.org/cs/sorting/counting/) и
+      [цифровая сортировка](https://ru.algorithmica.org/cs/sorting/radix/) — когда диапазон ключа позволяет уйти от
+      сравнений.
+    - [видео] [Павел Маврин: «Быстрая сортировка. K-я порядковая статистика»](https://www.youtube.com/watch?v=u7WFnSD6lco) —
+      partition как общий инвариант quicksort и quickselect.
+    - [видео] [Павел Маврин: «Lower bound for sorting. Digital sorting»](https://www.youtube.com/watch?v=_4DQPW3M-PM) —
+      нижняя оценка сравнительной сортировки и radix sort.
+    - [видео] [Tinkoff Generation: «Введение, сортировки»](https://www.youtube.com/watch?v=Cp29aYBCQ9o) —
+      олимпиадный выбор сортировки и типовые ошибки реализации.
+  - **BACKUP:**
+    - [статьи] Algorithmica:
+      [сортировка пузырьком](https://ru.algorithmica.org/cs/sorting/bubble/),
+      [выбором](https://ru.algorithmica.org/cs/sorting/selection/),
+      [вставками](https://ru.algorithmica.org/cs/sorting/insertion/) и
+      [кучей](https://ru.algorithmica.org/cs/sorting/heapsort/) — сравнительная база и инварианты; вручную
+      реализовывать все четыре для соревнований не требуется.
+    - [статьи] Яндекс Хэндбук:
+      [«Модификация быстрой сортировки»](https://education.yandex.ru/handbook/algorithms/article/modifikaciya-bystroj-sortirovki),
+      [«Подсчёт инверсий»](https://education.yandex.ru/handbook/algorithms/article/podschet-inversij) и
+      [«Поиск доминирующего элемента»](https://education.yandex.ru/handbook/algorithms/article/poisk-dominiruyushego-elementa) —
+      partition, merge-sort counting и сокращение кандидатов.
+    - [конспекты] ИТМО:
+      [быстрая сортировка](https://neerc.ifmo.ru/wiki/index.php?title=Быстрая_сортировка),
+      [сортировка слиянием](https://neerc.ifmo.ru/wiki/index.php?title=Сортировка_слиянием) и
+      [поиск k-й порядковой статистики за линейное время](https://neerc.ifmo.ru/wiki/index.php?title=Поиск_k-ой_порядковой_статистики_за_линейное_время) —
+      доказательства ожидаемой и гарантированной сложности.
 - **Практика:** [10 задач](PRACTICE.md#3-сортировка-компараторы-и-сжатие-координат).
 
 <a id="тема-4"></a>
@@ -137,6 +221,21 @@ Roadmap рассчитан на старт в конце июля 2026 года,
   массива частот.
 - **Зачем:** это основа строк, окон и подсчёта пар. Финальная задача A «Биби и его папа», Когнитивные технологии
   2025/26, оптимизирует повторную отправку строк по истории сообщений.
+- **Материалы:**
+  - **MUST-WATCH:**
+    - [статьи] Яндекс Хэндбук: [«Множество»](https://education.yandex.ru/handbook/algorithms/article/mnozhestvo) и
+      [«Словарь»](https://education.yandex.ru/handbook/algorithms/article/slovar) — операции принадлежности,
+      ключ–значение и выбор между массивом частот и hash-структурой.
+    - [видео] [Павел Маврин: «Хеш-таблицы, фильтр Блума»](https://www.youtube.com/watch?v=nsi80-mbEPY) —
+      устройство таблицы, коэффициент заполнения, коллизии и вероятностная проверка принадлежности.
+  - **BACKUP:**
+    - [видео] [Павел Маврин: «Perfect Hashing, Cuckoo Hashing»](https://www.youtube.com/watch?v=x27h6WmC6YU) —
+      продвинутые схемы статического и динамического хеширования.
+    - [конспекты] ИТМО: [«Хеш-таблица»](https://neerc.ifmo.ru/wiki/index.php?title=Хеш-таблица) и
+      [«Разрешение коллизий»](https://neerc.ifmo.ru/wiki/index.php?title=Разрешение_коллизий) — формальная модель и
+      сравнение chaining/open addressing.
+    - [статья, C++] [Algorithmica: «Деревья в STL»](https://ru.algorithmica.org/cs/tree-structures/stl-trees/) —
+      упорядоченные множества и поиск соседей; в Java сопоставлять с `TreeSet`/`TreeMap`.
 - **Практика:** [9 задач](PRACTICE.md#4-частоты-hashmaphashset-и-множества).
 
 <a id="тема-5"></a>
@@ -157,6 +256,24 @@ Roadmap рассчитан на старт в конце июля 2026 года,
   обработка в порядке расстояния.
 - **Зачем:** эти структуры появляются внутри графов, строк и DP. «Химическое уравнение», Ломоносов 2024/25, требует
   аккуратного парсинга; «Helicopter», Innopolis Open 2023/24, использует очередь/heap в кратчайших путях.
+- **Материалы:**
+  - **MUST-WATCH:**
+    - [статьи] Яндекс Хэндбук:
+      [«Дек»](https://education.yandex.ru/handbook/algorithms/article/dek-%28veque-double-ended-queue%29),
+      [«Стек»](https://education.yandex.ru/handbook/algorithms/article/stek) и
+      [«Очередь с приоритетом»](https://education.yandex.ru/handbook/algorithms/article/ochered-s-prioritetom) —
+      выбрать порядок извлечения по инварианту алгоритма.
+    - [статья] [Algorithmica: «Двоичная куча»](https://ru.algorithmica.org/cs/basic-structures/heap/) — `siftUp`,
+      `siftDown`, построение за `O(n)` и операции heap.
+    - [видео] [Павел Маврин: «Структуры данных. Куча. Сортировка кучей»](https://www.youtube.com/watch?v=G71EZ0qBNuw) —
+      дерево в массиве и доказательство сложности.
+    - [видео] [Павел Маврин: «Стеки, очереди. Амортизированное время»](https://www.youtube.com/watch?v=tBzHkdl99OA) —
+      базовые структуры и амортизационный анализ операций.
+  - **BACKUP:**
+    - [конспект] [ИТМО: «Двоичная куча»](https://neerc.ifmo.ru/wiki/index.php?title=Двоичная_куча) — строгая
+      спецификация и варианты операций.
+    - [видео] [Павел Маврин: «Фибоначчиева куча»](https://www.youtube.com/watch?v=IXcdJuRbqPU) — теоретическое
+      углубление; для школьных контестов реализация обычно не нужна.
 - **Практика:** [10 задач](PRACTICE.md#5-стек-очередь-дек-и-приоритетная-очередь).
 
 ## Этап I. Массивы, поиск, математика и строки
@@ -180,6 +297,25 @@ Roadmap рассчитан на старт в конце июля 2026 года,
   отрезками/прямоугольниками.
 - **Зачем:** позволяет заменить `O(nq)` на `O(n+q)`. Вузовско-академическая 2024/25 использовала 2D-префиксы вместе с
   DP; «Пишущая головка», Всесибирская 2024/25, опирается на префиксы.
+- **Материалы:**
+  - **MUST-WATCH:**
+    - [статья] [Algorithmica: «Префиксные суммы»](https://ru.algorithmica.org/cs/range-queries/prefix-sum/) —
+      полуинтервалы, обратимые операции и переход от диапазона к двум префиксам.
+    - [курс] Codeforces EDU, «Префиксные суммы и разностные массивы»:
+      [шаг 1, определение и построение](https://codeforces.com/edu/course/3/lesson/10/1) ·
+      [практика](https://codeforces.com/edu/course/3/lesson/10/1/practice) — соглашение `[l,r)` и переполнение;
+      [шаг 2, запросы и обобщение операций](https://codeforces.com/edu/course/3/lesson/10/2) ·
+      [практика](https://codeforces.com/edu/course/3/lesson/10/2/practice) — сумма, xor и условие обратимости;
+      [шаг 3, 2D/многомерные префиксы](https://codeforces.com/edu/course/3/lesson/10/3) ·
+      [практика](https://codeforces.com/edu/course/3/lesson/10/3/practice) — включения–исключения для прямоугольника;
+      [шаг 4, разностный массив](https://codeforces.com/edu/course/3/lesson/10/4) ·
+      [практика](https://codeforces.com/edu/course/3/lesson/10/4/practice) — прибавление константы, арифметической
+      прогрессии и квадратичной функции на диапазоне.
+    - [статья] [Algorithmica: «Сканирующая прямая»](https://ru.algorithmica.org/cs/decomposition/scanline/) —
+      превращение геометрии/интервалов в события и порядок событий при равных координатах.
+  - **BACKUP:**
+    - [конспект] [ИТМО: «Пересечение множества отрезков»](https://neerc.ifmo.ru/wiki/index.php?title=Пересечение_множества_отрезков) —
+      более геометрический пример sweep line после освоения одномерных событий.
 - **Практика:** [11 задач](PRACTICE.md#6-префиксные-суммы-разности-2d-префиксы-и-sweep-line).
 
 <a id="тема-7"></a>
@@ -200,6 +336,19 @@ Roadmap рассчитан на старт в конце июля 2026 года,
   допустимые окна.
 - **Зачем:** один из самых частых способов получить линейное решение. «Заоблачная экономия», Всесибирская 2022/23,
   сочетает два указателя с CHT.
+- **Материалы:**
+  - **MUST-WATCH:**
+    - [курс] Codeforces EDU, «Метод двух указателей»:
+      [шаг 1, слияние и два монотонных индекса](https://codeforces.com/edu/course/2/lesson/9/1) ·
+      [практика](https://codeforces.com/edu/course/2/lesson/9/1/practice);
+      [шаг 2, окно с ограничением на сумму](https://codeforces.com/edu/course/2/lesson/9/2) ·
+      [практика](https://codeforces.com/edu/course/2/lesson/9/2/practice) — доказательство линейности через число
+      перемещений границ;
+      [шаг 3, самостоятельное распознавание вариантов](https://codeforces.com/edu/course/2/lesson/9/3) ·
+      [практика](https://codeforces.com/edu/course/2/lesson/9/3/practice).
+  - **BACKUP:**
+    - Вернуться к материалам темы 6, если условие окна становится монотонным только после перехода к префиксным
+      суммам; отдельная структура данных здесь не заменяет доказательство движения границ.
 - **Практика:** [12 задач](PRACTICE.md#7-два-указателя-и-скользящее-окно).
 
 <a id="тема-8"></a>
@@ -221,6 +370,38 @@ Roadmap рассчитан на старт в конце июля 2026 года,
 - **Зачем:** встречается как оболочка вокруг greedy/DP/структур. Во Вузовско-академической 2024/25 запрос максимума на
   отрезке соединён с бинарным поиском; в Когнитивных технологиях 2025/26 бинарный поиск используется в физической
   модели.
+- **Материалы:**
+  - **MUST-WATCH:**
+    - [статьи] Algorithmica: [«Бинарный поиск»](https://ru.algorithmica.org/cs/interactive/binary-search/) и
+      [«Бинарный поиск по ответу»](https://ru.algorithmica.org/cs/interactive/answer-search/) — инварианты границ,
+      `first true` и построение монотонного предиката.
+    - [видео] [Павел Маврин: «Двоичный поиск»](https://www.youtube.com/watch?v=Kn2DtmsN8f8) — единый шаблон для
+      целых и вещественных ответов.
+    - [курс] Codeforces EDU, «Двоичный поиск»:
+      [шаг 1, поиск границы в массиве](https://codeforces.com/edu/course/2/lesson/6/1) ·
+      [практика](https://codeforces.com/edu/course/2/lesson/6/1/practice);
+      [шаг 2, поиск по ответу](https://codeforces.com/edu/course/2/lesson/6/2) ·
+      [практика](https://codeforces.com/edu/course/2/lesson/6/2/practice);
+      [шаг 3, минимакс](https://codeforces.com/edu/course/2/lesson/6/3) ·
+      [практика](https://codeforces.com/edu/course/2/lesson/6/3/practice);
+      [шаг 4, максимальное среднее](https://codeforces.com/edu/course/2/lesson/6/4) ·
+      [практика](https://codeforces.com/edu/course/2/lesson/6/4/practice);
+      [шаг 5, k-й элемент через функцию подсчёта](https://codeforces.com/edu/course/2/lesson/6/5) ·
+      [практика](https://codeforces.com/edu/course/2/lesson/6/5/practice).
+    - [статья] [Яндекс Хэндбук: «Двоичный поиск»](https://education.yandex.ru/handbook/algorithms/article/dvoichnyj-poisk) —
+      дополнительная визуальная модель сокращения области поиска.
+    - [видео] Tinkoff Generation:
+      [«Бинарный поиск 1»](https://www.youtube.com/watch?v=qAsh3qCgN98) и
+      [«Бинарный поиск 2»](https://www.youtube.com/watch?v=0FlPfDMBPLI) — переход от стандартных границ к
+      олимпиадным проверкам ответа.
+  - **BACKUP:**
+    - [конспекты] ИТМО:
+      [целочисленный двоичный поиск](https://neerc.ifmo.ru/wiki/index.php?title=Целочисленный_двоичный_поиск),
+      [вещественный двоичный поиск](https://neerc.ifmo.ru/wiki/index.php?title=Вещественный_двоичный_поиск) и
+      [троичный поиск](https://neerc.ifmo.ru/wiki/index.php?title=Троичный_поиск) — формальные варианты инвариантов
+      и область применимости унимодальности.
+    - [статья] [Algorithmica: «Метод Ньютона»](https://ru.algorithmica.org/cs/numerical/newton/) — быстрый
+      численный поиск корня, только когда доказана сходимость и бинарного поиска недостаточно.
 - **Практика:** [10 задач](PRACTICE.md#8-бинарныйтернарный-поиск-и-поиск-по-ответу).
 
 <a id="тема-9"></a>
@@ -241,6 +422,25 @@ Roadmap рассчитан на старт в конце июля 2026 года,
   безопасным; состояние можно свести к одному экстремуму.
 - **Зачем:** код обычно короток, но без доказательства легко получить правдоподобное WA. Во многих отборах Когнитивных
   технологий и Шага в будущее простая модель превращается в greedy после правильной сортировки.
+- **Материалы:**
+  - **MUST-WATCH:**
+    - [статья] [Algorithmica: «Жадные алгоритмы»](https://ru.algorithmica.org/cs/combinatorial-optimization/greedy/) —
+      обменный аргумент, stays-ahead и отличие доказательства от эвристики.
+    - [статья] [Яндекс Хэндбук: «Жадные алгоритмы»](https://education.yandex.ru/handbook/algorithms/article/zhadnye-algoritmy) —
+      локальный выбор, контрпримеры и интервальный scheduling.
+    - [разборы] Яндекс Хэндбук:
+      [«Размен»](https://education.yandex.ru/handbook/algorithms/article/zadacha-razmen),
+      [«Специи»](https://education.yandex.ru/handbook/algorithms/article/zadacha-specii),
+      [«Рекламная кампания»](https://education.yandex.ru/handbook/algorithms/article/zadacha-reklamnaya-kampaniya),
+      [«Сбор подписей»](https://education.yandex.ru/handbook/algorithms/article/zadacha-sbor-podpisej),
+      [«Количество призов»](https://education.yandex.ru/handbook/algorithms/article/zadacha-kolichestvo-prizov) и
+      [«Максимальный оклад»](https://education.yandex.ru/handbook/algorithms/article/zadacha-maksimalnyj-oklad) —
+      шесть разных причин, по которым жадный выбор работает или ломается.
+  - **BACKUP:**
+    - [статья] [Algorithmica: «Матроиды»](https://ru.algorithmica.org/cs/combinatorial-optimization/matroid/) —
+      общий критерий корректности жадного набора; финальный теоретический уровень.
+    - [статья] [Algorithmica: «Метод отжига»](https://ru.algorithmica.org/cs/combinatorial-optimization/annealing/) —
+      эвристическая оптимизация без гарантии; не подменять ею доказуемый greedy.
 - **Практика:** [11 задач](PRACTICE.md#9-жадные-алгоритмы-инварианты-и-обменный-аргумент).
 
 <a id="тема-10"></a>
@@ -262,6 +462,16 @@ Roadmap рассчитан на старт в конце июля 2026 года,
   признаков.
 - **Зачем:** маски — и самостоятельная тема, и язык для DP. Отбор Innopolis Open 2025/26 соединяет маски, граф и решето;
   Изумруд 2025/26 содержит системы побитовых ограничений и булеву логику.
+- **Материалы:**
+  - **MUST-WATCH:**
+    - [статья] [Algorithmica: «Битовое представление чисел»](https://ru.algorithmica.org/cs/arithmetic/bit-representation/) —
+      двоичная запись, знаковые типы и базовые bit tricks.
+    - [статья] [Algorithmica: «Битсет и битовое сжатие»](https://ru.algorithmica.org/cs/set-structures/bitset/) —
+      пакетные операции над множествами и оценка ускорения в машинных словах.
+  - **BACKUP:**
+    - [конспект] [ИТМО: «Булевы функции»](https://neerc.ifmo.ru/wiki/index.php?title=Булевы_функции) — таблицы
+      истинности и алгебраические свойства операций; нужен для доказательных побитовых задач, а не для заучивания
+      полной теории функций.
 - **Практика:** [10 задач](PRACTICE.md#10-биты-маски-подмаски-и-булева-алгебра).
 
 <a id="тема-11"></a>
@@ -283,6 +493,21 @@ Roadmap рассчитан на старт в конце июля 2026 года,
 - **Как обнаружить:** делимость, взаимная простота, период по модулю, число делителей, много запросов о факторизации.
 - **Зачем:** часто смешивается с массивами/графами. КФУ 2025/26: «ГЦД везде ГЦД!!» считает gcd-пары; Innopolis Open
   2025/26 использует SPF в структуре запросов.
+- **Материалы:**
+  - **MUST-WATCH:**
+    - [статья] [Algorithmica: «Алгоритм Евклида»](https://ru.algorithmica.org/cs/modular/euclid/) — gcd,
+      инвариант замены пары и оценка числа итераций.
+    - [статья] [Algorithmica: «Решето Эратосфена»](https://ru.algorithmica.org/cs/factorization/eratosthenes/) —
+      простые, линейное/обычное решето и предподсчёт минимального простого делителя.
+    - [видео] [Tinkoff Generation: «Теория чисел»](https://www.youtube.com/watch?v=T9VmIB5eRtE) — gcd, решета,
+      факторизация и типовые олимпиадные переходы.
+    - [статья] [Яндекс Хэндбук: «Вычисление НОК и НОД»](https://education.yandex.ru/handbook/algorithms/article/vychislenie-nok-i-nod) —
+      базовое доказательство Евклида и безопасное вычисление `lcm`.
+  - **BACKUP:**
+    - [статья] [Algorithmica: «Ро-алгоритм Полларда»](https://ru.algorithmica.org/cs/factorization/pollard/) —
+      факторизация больших 64-битных чисел; только после modular multiplication и вероятностной проверки простоты.
+    - [видео] [Tinkoff Generation: «Математические сюжеты»](https://www.youtube.com/watch?v=WHGgadWTQH0) —
+      дополнительные редукции и идеи, которые не образуют один обязательный шаблон.
 - **Практика:** [13 задач](PRACTICE.md#11-теория-чисел-gcd-простые-факторизация-решето).
 
 <a id="тема-12"></a>
@@ -306,6 +531,23 @@ Roadmap рассчитан на старт в конце июля 2026 года,
   классов.
 - **Зачем:** счётные задачи регулярны и в коде, и в письменных олимпиадах. «Разнообразие десертов», Всесибирская
   2025/26, использует DP/комбинаторику по модулю; Изумруд явно проверяет расширенную комбинаторику.
+- **Материалы:**
+  - **MUST-WATCH:**
+    - [статьи] Algorithmica:
+      [«Бинарное возведение в степень»](https://ru.algorithmica.org/cs/algebra/binpow/),
+      [«Расширенный алгоритм Евклида»](https://ru.algorithmica.org/cs/modular/extended-euclid/) и
+      [«Деление по модулю»](https://ru.algorithmica.org/cs/modular/reciprocal/) — степенной моноид, коэффициенты
+      Безу и точное условие существования обратного элемента.
+    - [видео] [Tinkoff Generation: «Комбинаторика 1»](https://www.youtube.com/watch?v=vpHar9_gBxI) — правило
+      суммы/произведения, сочетания и первые методы подсчёта.
+    - [видео] [Tinkoff Generation: «Комбинаторика и DP»](https://www.youtube.com/watch?v=YkktotjKKbA) —
+      переход от формулы к состояниям, когда независимый подсчёт ломается.
+    - [видео] [Tinkoff Generation: «Математика 1»](https://www.youtube.com/watch?v=uTCyucN_KPQ) — extended gcd,
+      CRT, простые и модульная арифметика в задачах сильной параллели.
+  - **BACKUP:**
+    - [конспект] [ИТМО: «Комбинаторика»](https://neerc.ifmo.ru/wiki/index.php?title=Комбинаторика) — строгие
+      определения, включения–исключения, рекуррентности и производящие идеи; выбирать только разделы, нужные текущей
+      задаче.
 - **Практика:** [11 задач](PRACTICE.md#12-модульная-арифметика-и-комбинаторика).
 
 <a id="тема-13"></a>
@@ -326,6 +568,33 @@ Roadmap рассчитан на старт в конце июля 2026 года,
 - **Как обнаружить:** поиск образца; совпадение префикса с суффиксом; период; много сравнений подстрок.
 - **Зачем:** наивное сравнение легко становится квадратным. В СПбГУ 2023/24 встречаются циклические строки; в IOIP и
   Всесибирской базовые Z/LCP-приёмы входят в более тяжёлые решения.
+- **Материалы:**
+  - **MUST-WATCH:**
+    - [статьи] Algorithmica:
+      [«Префикс-функция»](https://ru.algorithmica.org/cs/string-searching/prefix-function/) и
+      [«Z-функция»](https://ru.algorithmica.org/cs/string-searching/z-function/) — инварианты границы уже
+      известного совпадения, поиск образца, грани и периоды.
+    - [курс] Codeforces EDU, «Z-функция»:
+      [шаг 1, строка/подстрока/префикс и постановка поиска](https://codeforces.com/edu/course/2/lesson/3/1) ·
+      [практика](https://codeforces.com/edu/course/2/lesson/3/1/practice);
+      [шаг 2, определение и наивный алгоритм](https://codeforces.com/edu/course/2/lesson/3/2) ·
+      [практика](https://codeforces.com/edu/course/2/lesson/3/2/practice);
+      [шаг 3, линейный Z-алгоритм](https://codeforces.com/edu/course/2/lesson/3/3) ·
+      [практика](https://codeforces.com/edu/course/2/lesson/3/3/practice);
+      [шаг 4, грани, периоды, различные подстроки и одна ошибка](https://codeforces.com/edu/course/2/lesson/3/4) ·
+      [практика](https://codeforces.com/edu/course/2/lesson/3/4/practice).
+    - [видео] [Павел Маврин: «Строки. Хеширование. КМП»](https://www.youtube.com/watch?v=cGfKt5q1qu8) —
+      сопоставление точного KMP и вероятностного rolling hash.
+    - [видео] [Павел Маврин: «Z-функция. Бор»](https://www.youtube.com/watch?v=BP9LXwosFco) — Z-алгоритм и trie
+      как следующий способ хранить множество префиксов.
+    - [статья] [Algorithmica: «Полиномиальное хеширование»](https://ru.algorithmica.org/cs/hashing/polynomial/) —
+      префиксные хеши, нормализация степеней и сравнение подстрок.
+  - **BACKUP:**
+    - [статьи] Algorithmica: [«Коллизии хешей»](https://ru.algorithmica.org/cs/hashing/collision/) и
+      [«Проверки на изоморфизм»](https://ru.algorithmica.org/cs/hashing/isomorphism/) — оценка риска, двойные хеши
+      и хеширование структур, а не только строк.
+    - [конспект] [ИТМО: «Алгоритм Кнута—Морриса—Пратта»](https://neerc.ifmo.ru/wiki/index.php?title=Алгоритм_Кнута-Морриса-Пратта) —
+      строгий вывод автомата откатов и линейной сложности.
 - **Практика:** [9 задач](PRACTICE.md#13-строки-префикс-функция-z-функция-и-хеширование).
 
 ## Этап II. Графы, деревья, DP и запросы
@@ -348,6 +617,35 @@ Roadmap рассчитан на старт в конце июля 2026 года,
 - **Как обнаружить:** объекты и парные связи; достижимость; группы, соединённые транзитивно; решётка с переходами.
 - **Зачем:** это prerequisite почти всех продвинутых графов. Финал Вузовско-академической 2025/26 содержит BFS по
   компонентам; «Разноцветный граф», inf-open 2023/24, начинается с понимания связности и остова.
+- **Материалы:**
+  - **MUST-WATCH:**
+    - [статьи] Algorithmica:
+      [хранение графов](https://ru.algorithmica.org/cs/graph-traversals/storing-graphs/),
+      [DFS](https://ru.algorithmica.org/cs/graph-traversals/dfs/),
+      [компоненты связности](https://ru.algorithmica.org/cs/graph-traversals/connectivity/),
+      [двудольность и раскраска](https://ru.algorithmica.org/cs/graph-traversals/bipartite/) и
+      [поиск цикла](https://ru.algorithmica.org/cs/graph-traversals/cycle/) — единая лестница от представления к
+      свойствам обхода.
+    - [курс] Codeforces EDU, «Введение в теорию графов»:
+      [шаг 1, неориентированные графы](https://codeforces.com/edu/course/2/lesson/8/1) ·
+      [практика](https://codeforces.com/edu/course/2/lesson/8/1/practice);
+      [шаг 2, классы графов](https://codeforces.com/edu/course/2/lesson/8/2) ·
+      [практика](https://codeforces.com/edu/course/2/lesson/8/2/practice);
+      [шаг 3, ориентированные графы](https://codeforces.com/edu/course/2/lesson/8/3) ·
+      [практика](https://codeforces.com/edu/course/2/lesson/8/3/practice);
+      [шаг 4, представления в памяти](https://codeforces.com/edu/course/2/lesson/8/4) ·
+      [практика](https://codeforces.com/edu/course/2/lesson/8/4/practice).
+    - [статьи] Яндекс Хэндбук:
+      [«Природа графа»](https://education.yandex.ru/handbook/algorithms/article/priroda-grafa),
+      [«Представление графа в памяти»](https://education.yandex.ru/handbook/algorithms/article/predstavlenie-grafa-v-pamyati-kompyutera),
+      [«Обходы графа»](https://education.yandex.ru/handbook/algorithms/article/obhody-grafa) и
+      [«Компоненты связности»](https://education.yandex.ru/handbook/algorithms/article/algoritm-nahozhdeniya-komponent-svyaznosti-v-grafe) —
+      дополнительная визуальная траектория для первого уверенного обхода.
+  - **BACKUP:**
+    - [видео] [Павел Маврин: «Графы. DFS. Топологическая сортировка»](https://www.youtube.com/watch?v=80icIrhJ6G0) —
+      первую часть смотреть здесь, топологическую сортировку повторить после перехода к теме 20.
+    - [конспект] [ИТМО: «Обход в глубину, цвета вершин»](https://neerc.ifmo.ru/wiki/index.php?title=Обход_в_глубину,_цвета_вершин) —
+      формальный смысл белого, серого и чёрного состояний DFS.
 - **Практика:** [8 задач](PRACTICE.md#14-обходы-графа-компоненты-циклы-и-двудольность).
 
 <a id="тема-15"></a>
@@ -370,6 +668,25 @@ Roadmap рассчитан на старт в конце июля 2026 года,
   быть отрицательными.
 - **Зачем:** неправильный выбор алгоритма даёт TLE или неверность. «Helicopter», Innopolis Open 2023/24, использует 0–1
   BFS и Дейкстру; задача о маршруте, Ломоносов 2024/25, допускает Дейкстру/Флойда.
+- **Материалы:**
+  - **MUST-WATCH:**
+    - [статьи] Algorithmica:
+      [пути в DAG](https://ru.algorithmica.org/cs/shortest-paths/acyclic-paths/),
+      [BFS](https://ru.algorithmica.org/cs/shortest-paths/bfs/) и
+      [алгоритм Дейкстры](https://ru.algorithmica.org/cs/shortest-paths/dijkstra/) — выбирать порядок релаксаций по
+      ограничениям на веса.
+    - [видео] [Павел Маврин: «BFS, Дейкстра»](https://www.youtube.com/watch?v=GJkCzQo-rAc) — очередь слоёв,
+      приоритетная очередь и момент фиксации расстояния.
+    - [видео] [Павел Маврин: «Форд—Беллман и Флойд»](https://www.youtube.com/watch?v=0drmQj1RsEQ) — отрицательные
+      рёбра, отрицательные циклы и all-pairs DP.
+    - [статья] [Яндекс Хэндбук: «Задача поиска кратчайшего пути в графе»](https://education.yandex.ru/handbook/algorithms/article/zadacha-poiska-kratchajshego-puti-v-grafe) —
+      восстановление пути и сравнение BFS с алгоритмами для взвешенных графов.
+  - **BACKUP:**
+    - [конспекты] ИТМО:
+      [Форд—Беллман](https://neerc.ifmo.ru/wiki/index.php?title=Алгоритм_Форда-Беллмана),
+      [Дейкстра](https://neerc.ifmo.ru/wiki/index.php?title=Алгоритм_Дейкстры) и
+      [Флойд](https://neerc.ifmo.ru/wiki/index.php?title=Алгоритм_Флойда) — строгие инварианты релаксации и
+      доказательства корректности.
 - **Практика:** [10 задач](PRACTICE.md#15-кратчайшие-пути-bfs-01-bfs-дейкстра-флойд-беллманфорд).
 
 <a id="тема-16"></a>
@@ -391,6 +708,21 @@ Roadmap рассчитан на старт в конце июля 2026 года,
 - **Как обнаружить:** связный граф с `n−1` ребром; запросы предок/путь/расстояние; поддерево нужно превратить в отрезок.
 - **Зачем:** это основа HLD, centroid и множества финальных задач. «Мутации РНК», Ломоносов 2024/25, использует
   дерево/LCA; Вузовско-академическая 2024/25 — эйлеров порядок.
+- **Материалы:**
+  - **MUST-WATCH:**
+    - [статьи] Algorithmica:
+      [«Запросы на деревьях»](https://ru.algorithmica.org/cs/trees/tree-queries/),
+      [«Связь LCA и static RMQ»](https://ru.algorithmica.org/cs/trees/lca-rmq/) и
+      [«Метод двоичных подъёмов»](https://ru.algorithmica.org/cs/trees/binary-lifting/) — эйлеров порядок,
+      предки степеней двойки, LCA и расстояния.
+    - [видео] [Tinkoff Generation: «Структуры данных 2»](https://www.youtube.com/watch?v=ASUrBGlIUc8) — RMQ,
+      sparse table, LCA, FCB и сжатые деревья; HLD из второй половины повторить в теме 27.
+  - **BACKUP:**
+    - [конспекты] ИТМО:
+      [двоичный подъём](https://neerc.ifmo.ru/wiki/index.php?title=Метод_двоичного_подъема),
+      [сведение LCA к RMQ](https://neerc.ifmo.ru/wiki/index.php?title=Сведение_задачи_LCA_к_задаче_RMQ) и
+      [алгоритм Фарака—Колтона—Бендера](https://neerc.ifmo.ru/wiki/index.php?title=Алгоритм_Фарака-Колтона_и_Бендера) —
+      от рабочего `O(log n)` решения к теоретическому `O(1)` RMQ.
 - **Практика:** [12 задач](PRACTICE.md#16-деревья-эйлеров-обход-двоичные-подъёмы-и-lca).
 
 <a id="тема-17"></a>
@@ -412,6 +744,36 @@ Roadmap рассчитан на старт в конце июля 2026 года,
   состояния прошлого.
 - **Зачем:** DP — не набор формул, а способ проектировать состояние. «Тестирование уровней», Всесибирская 2024/25, и
   задачи C Высшей пробы 2023/24 требуют базового DP.
+- **Материалы:**
+  - **MUST-WATCH:**
+    - [статья] [Algorithmica: «Ленивая динамика»](https://ru.algorithmica.org/cs/general-dynamic/memoization/) —
+      граф состояний, memoization и условие, при котором вычисляется только достижимая часть.
+    - [статьи] Яндекс Хэндбук:
+      [«Динамическое программирование»](https://education.yandex.ru/handbook/algorithms/article/dinamicheskoe-programmirovanie) и
+      [«Принципы построения алгоритмов»](https://education.yandex.ru/handbook/algorithms/article/principy-postroeniya-algoritmov) —
+      точное определение состояния, порядок и восстановление.
+    - [видео] Павел Маврин:
+      [«Динамическое программирование»](https://www.youtube.com/watch?v=q_n2vzVNXE4) и
+      [«Динамическое программирование. Часть 2»](https://www.youtube.com/watch?v=skEkTaAy8Ek) — базовые семейства,
+      переходы и оптимизация памяти.
+    - [видео] Tinkoff Generation:
+      [«DP, часть 1»](https://www.youtube.com/watch?v=d1nO_SOMN7g) и
+      [«DP, часть 2»](https://www.youtube.com/watch?v=t4l2iuj5ZGk) — практика проектирования состояния на задачах
+      отборочного и финального уровней.
+    - [разборы] Яндекс Хэндбук:
+      [Фибоначчи](https://education.yandex.ru/handbook/algorithms/article/zadachi-o-chislah-fibonachchi),
+      [«Размен 2»](https://education.yandex.ru/handbook/algorithms/article/zadacha-razmen-2),
+      [«Простой калькулятор»](https://education.yandex.ru/handbook/algorithms/article/zadacha-prostoj-kalkulyator),
+      [редакционное расстояние](https://education.yandex.ru/handbook/algorithms/article/zadacha-rasstoyanie-redaktirovaniya),
+      [LCS](https://education.yandex.ru/handbook/algorithms/article/zadacha-lcs) и
+      [рюкзак](https://education.yandex.ru/handbook/algorithms/article/zadacha-o-ryukzake) — пройти как лестницу
+      `1D → восстановление → 2D → выбор предметов`.
+  - **BACKUP:**
+    - [конспекты] ИТМО:
+      [LCS](https://neerc.ifmo.ru/wiki/index.php?title=Задача_о_наибольшей_общей_подпоследовательности),
+      [LIS](https://neerc.ifmo.ru/wiki/index.php?title=Задача_о_наибольшей_возрастающей_подпоследовательности) и
+      [рюкзак](https://neerc.ifmo.ru/wiki/index.php?title=Задача_о_рюкзаке) — формальные состояния, сложности и
+      способы восстановления.
 - **Практика:** [13 задач](PRACTICE.md#17-базовое-dp-пути-рюкзак-lis-и-восстановление-ответа).
 
 <a id="тема-18"></a>
@@ -439,6 +801,52 @@ max`, затем собственный агрегат, затем базовы�
   idempotent-запросы.
 - **Зачем:** это самая частая «структура вне базовой школы». «Опять запросы», inf-open 2023/24, требует lazy segment
   tree; Высшая проба 2023/24–2024/25 и Московская «Трудоголики» 2025/26 используют segment/Fenwick.
+- **Материалы:**
+  - **MUST-WATCH:**
+    - [статьи] Algorithmica:
+      [«Дерево Фенвика»](https://ru.algorithmica.org/cs/range-queries/fenwick/) и
+      [«Разреженная таблица»](https://ru.algorithmica.org/cs/range-queries/sparse-table/) — сначала обратимые
+      префиксы, затем статические идемпотентные запросы.
+    - [курс] Codeforces EDU, «Дерево отрезков, часть 1»:
+      [шаг 1, построение и базовый запрос](https://codeforces.com/edu/course/2/lesson/4/1) ·
+      [практика](https://codeforces.com/edu/course/2/lesson/4/1/practice);
+      [шаг 2, собственные агрегаты и спуск](https://codeforces.com/edu/course/2/lesson/4/2) ·
+      [практика](https://codeforces.com/edu/course/2/lesson/4/2/practice);
+      [шаг 3, инверсии и задачи на интервалы](https://codeforces.com/edu/course/2/lesson/4/3) ·
+      [практика](https://codeforces.com/edu/course/2/lesson/4/3/practice);
+      [шаг 4, смешанные задачи на агрегат и поиск](https://codeforces.com/edu/course/2/lesson/4/4) ·
+      [практика](https://codeforces.com/edu/course/2/lesson/4/4/practice).
+    - [статья] [Algorithmica: «Отложенные операции»](https://ru.algorithmica.org/cs/segment-tree/lazy-propagation/) —
+      смысл lazy-тега, `apply/push/pull` и композиция обновлений.
+    - [курс] Codeforces EDU, «Дерево отрезков, часть 2»:
+      [шаг 1, массовое прибавление и значение в точке](https://codeforces.com/edu/course/2/lesson/5/1) ·
+      [практика](https://codeforces.com/edu/course/2/lesson/5/1/practice);
+      [шаг 2, range add + range min](https://codeforces.com/edu/course/2/lesson/5/2) ·
+      [практика](https://codeforces.com/edu/course/2/lesson/5/2/practice);
+      [шаг 3, присваивание и максимальная сумма подотрезка](https://codeforces.com/edu/course/2/lesson/5/3) ·
+      [практика](https://codeforces.com/edu/course/2/lesson/5/3/practice);
+      [шаг 4, композиция присваивания/прибавления и сложные теги](https://codeforces.com/edu/course/2/lesson/5/4) ·
+      [практика](https://codeforces.com/edu/course/2/lesson/5/4/practice).
+    - [курс] Codeforces EDU, «Sparse Tables»:
+      [шаг 1, статическая декомпозиция диапазона](https://codeforces.com/edu/course/3/lesson/18/1) ·
+      [практика](https://codeforces.com/edu/course/3/lesson/18/1/practice);
+      [шаг 2, `O(1)` для idempotent `min/gcd`](https://codeforces.com/edu/course/3/lesson/18/2) ·
+      [практика](https://codeforces.com/edu/course/3/lesson/18/2/practice);
+      [шаг 3, associative non-idempotent запросы / Disjoint Sparse Table](https://codeforces.com/edu/course/3/lesson/18/3) ·
+      [практика](https://codeforces.com/edu/course/3/lesson/18/3/practice).
+    - [видео] [Tinkoff Generation: «Структуры данных #1»](https://www.youtube.com/watch?v=jZsUJ7TEFPo) — sparse
+      table, Fenwick, implicit/multidimensional segment tree и merge-sort tree в одной карте выбора структуры.
+  - **BACKUP:**
+    - [статьи] Algorithmica:
+      [«Дерево отрезков на указателях»](https://ru.algorithmica.org/cs/segment-tree/pointers/) и
+      [«Отложенное построение»](https://ru.algorithmica.org/cs/segment-tree/lazy-initialization/) — динамические
+      координаты и создание только посещённых узлов; в Java оценить память объектов и чаще использовать массивы.
+    - [конспекты] ИТМО:
+      [дерево Фенвика](https://neerc.ifmo.ru/wiki/index.php?title=Дерево_Фенвика),
+      [построение segment tree](https://neerc.ifmo.ru/wiki/index.php?title=Дерево_отрезков._Построение),
+      [массовое обновление](https://neerc.ifmo.ru/wiki/index.php?title=Несогласованные_поддеревья._Реализация_массового_обновления)
+      и [sparse table для RMQ](https://neerc.ifmo.ru/wiki/index.php?title=Решение_RMQ_с_помощью_разреженной_таблицы) —
+      независимая строгая спецификация каждой структуры.
 - **Практика:** [12 задач](PRACTICE.md#18-fenwick-segment-tree-lazy-propagation-и-sparse-table).
 
 ## Этап III. Финальный рабочий слой
@@ -463,6 +871,30 @@ max`, затем собственный агрегат, затем базовы�
 - **Как обнаружить:** координаты и точная топология важнее рисунка; нужно сравнить повороты, пересечения или оболочку.
 - **Зачем:** целые финалы могут быть геометрическими. СПбГУ 2025/26 посвятил финал поворотам, фигурам и ближайшим
   точкам; inf-open 2025/26 «Играем в го» использует convex hull.
+- **Материалы:**
+  - **MUST-WATCH:**
+    - [статьи] Algorithmica:
+      [«Точки и вектора»](https://ru.algorithmica.org/cs/geometry-basic/vectors/),
+      [«Скалярное и векторное произведение»](https://ru.algorithmica.org/cs/geometry-basic/products/),
+      [«Прямые и отрезки»](https://ru.algorithmica.org/cs/geometry-basic/segments/) и
+      [«Многоугольники»](https://ru.algorithmica.org/cs/geometry-basic/polygons/) — точные предикаты, ориентация,
+      пересечения, площадь и point-in-polygon.
+    - [статья] [Algorithmica: «Алгоритм Грэхэма»](https://ru.algorithmica.org/cs/convex-hulls/graham/) —
+      сортировка по полярному углу и стек поворотов для convex hull.
+  - **BACKUP:**
+    - [статьи] Algorithmica:
+      [применения выпуклых оболочек](https://ru.algorithmica.org/cs/convex-hulls/hull-applications/),
+      [алгоритм Джарвиса](https://ru.algorithmica.org/cs/convex-hulls/jarvis/),
+      [алгоритм Чана](https://ru.algorithmica.org/cs/convex-hulls/chan/) и
+      [верхние/нижние огибающие](https://ru.algorithmica.org/cs/convex-hulls/envelope/) — варианты по ограничениям
+      и связь оболочки с оптимизацией.
+    - [статья] [Яндекс Хэндбук: «Пара ближайших точек»](https://education.yandex.ru/handbook/algorithms/article/zadacha-para-blizhajshih-tochek) —
+      геометрическое divide-and-conquer.
+    - [конспекты] ИТМО:
+      [вычисление геометрических предикатов](https://neerc.ifmo.ru/wiki/index.php?title=Вычисление_геометрических_предикатов),
+      [пересечение отрезков и поворот](https://neerc.ifmo.ru/wiki/index.php?title=Пересечение_отрезков_и_поворот:_определение,_свойства,_вычисление)
+      и [выпуклые оболочки](https://neerc.ifmo.ru/wiki/index.php?title=Выпуклые_оболочки) — доказательства и
+      вырожденные случаи.
 - **Практика:** [7 задач](PRACTICE.md#19-вычислительная-геометрия).
 
 <a id="тема-20"></a>
@@ -482,6 +914,26 @@ max`, затем собственный агрегат, затем базовы�
 - **Как обнаружить:** зависимости без циклов; взаимная достижимость; критичное ребро/вершина; «что разрушит связность».
 - **Зачем:** эти структуры превращают граф в дерево/DAG для дальнейшего DP. Вузовско-академическая 2025/26 использует
   мосты, двусвязность и LCA; «Непалиндромное заклинание», ИОИП 2025/26, — SCC/DAG/toposort/DP/trie.
+- **Материалы:**
+  - **MUST-WATCH:**
+    - [статьи] Algorithmica:
+      [топологическая сортировка](https://ru.algorithmica.org/cs/graph-traversals/topological-sorting/),
+      [мосты и точки сочленения](https://ru.algorithmica.org/cs/graph-traversals/bridges/),
+      [компоненты сильной связности](https://ru.algorithmica.org/cs/graph-traversals/scc/) и
+      [2-SAT](https://ru.algorithmica.org/cs/graph-traversals/2-sat/) — порядок зависимостей, `tin/low`,
+      condensation и сведение логики к импликациям.
+    - [видео] [Павел Маврин: «SCC, 2-SAT»](https://www.youtube.com/watch?v=HNXRlFh9EkQ) — Kosaraju/condensation и
+      проверка выполнимости через пары компонент.
+    - [видео] [Павел Маврин: «Мосты, точки сочленения, Эйлеров цикл»](https://www.youtube.com/watch?v=ouK3FBRaJJA) —
+      `tin/low`, корень DFS и восстановление эйлерова обхода.
+  - **BACKUP:**
+    - [статья] [Algorithmica: «Эйлеров цикл»](https://ru.algorithmica.org/cs/graph-traversals/euler-cycle/) —
+      критерии и алгоритм Хиерхольцера; это отдельный паттерн, не разновидность SCC.
+    - [конспекты] ИТМО:
+      [SCC через DFS](https://neerc.ifmo.ru/wiki/index.php?title=Использование_обхода_в_глубину_для_поиска_компонент_сильной_связности),
+      [точки сочленения](https://neerc.ifmo.ru/wiki/index.php?title=Использование_обхода_в_глубину_для_поиска_точек_сочленения)
+      и [мосты](https://neerc.ifmo.ru/wiki/index.php?title=Использование_обхода_в_глубину_для_поиска_мостов) —
+      строгий вывод условий на время входа и low-link.
 - **Практика:** [9 задач](PRACTICE.md#20-dag-топосортировка-scc-мосты-и-точки-сочленения).
 
 <a id="тема-21"></a>
@@ -501,6 +953,34 @@ max`, затем собственный агрегат, затем базовы�
 - **Как обнаружить:** только объединения компонентов; рёбра добавляются по весу/времени; нужен минимальный остов.
 - **Зачем:** DSU часто скрыт под динамическим процессом. «Фрирен и интересные вопросы», ИОИП 2023/24, использует DSU;
   «Робот-строитель», Всесибирская 2022/23, сочетает DSU с gcd/циклами.
+- **Материалы:**
+  - **MUST-WATCH:**
+    - [статья] [Algorithmica: «Система непересекающихся множеств»](https://ru.algorithmica.org/cs/set-structures/dsu/) —
+      union by size, path compression и амортизированная стоимость.
+    - [курс] Codeforces EDU, «Система непересекающихся множеств»:
+      [шаг 1, структура и эвристики](https://codeforces.com/edu/course/2/lesson/7/1) ·
+      [практика](https://codeforces.com/edu/course/2/lesson/7/1/practice);
+      [шаг 2, DSU-next и дополнительная информация](https://codeforces.com/edu/course/2/lesson/7/2) ·
+      [практика](https://codeforces.com/edu/course/2/lesson/7/2/practice).
+    - [видео] [Павел Маврин: «Система непересекающихся множеств»](https://www.youtube.com/watch?v=r6JVt4NIR1Y) —
+      реализации DSU и доказательство эффекта эвристик.
+    - [статьи] Algorithmica:
+      [лемма о безопасном ребре](https://ru.algorithmica.org/cs/spanning-trees/safe-edge/),
+      [Прим](https://ru.algorithmica.org/cs/spanning-trees/prim/) и
+      [Краскал](https://ru.algorithmica.org/cs/spanning-trees/kruskal/) — доказательство MST через разрез и два
+      практических алгоритма.
+    - [видео] [Павел Маврин: «MST»](https://www.youtube.com/watch?v=VmNPG__osBE) — общая теория минимального остова,
+      Prim и Kruskal.
+  - **BACKUP:**
+    - [статья] [Algorithmica: «Алгоритм Борувки»](https://ru.algorithmica.org/cs/spanning-trees/boruvka/) —
+      параллельное сжатие компонент и логарифмическое число фаз.
+    - [видео] [Павел Маврин: «Ещё раз про MST»](https://www.youtube.com/watch?v=W9ATr9WM4Vg) — свойства остовов и
+      более сложные приложения.
+    - [конспекты] ИТМО:
+      [DSU как лес корневых деревьев](https://neerc.ifmo.ru/wiki/index.php?title=Реализация_с_помощью_леса_корневых_деревьев),
+      [Краскал](https://neerc.ifmo.ru/wiki/index.php?title=Алгоритм_Краскала) и
+      [Прим](https://neerc.ifmo.ru/wiki/index.php?title=Алгоритм_Прима) — альтернативные доказательства и
+      спецификации.
 - **Практика:** [7 задач](PRACTICE.md#21-dsu-mst-и-офлайн-связность).
 
 <a id="тема-22"></a>
@@ -521,6 +1001,19 @@ max`, затем собственный агрегат, затем базовы�
   для всех корней.
 - **Зачем:** финальные DP редко остаются одномерными. «Binary Power», Открытая олимпиада ИТМО 2024/25, — tree DP;
   «Эфемерный сад», Всесибирская 2025/26, — DP по состояниям.
+- **Материалы:**
+  - **MUST-WATCH:**
+    - [статья] [Algorithmica: «Динамика по подотрезкам»](https://ru.algorithmica.org/cs/general-dynamic/segments/) —
+      порядок по длине, выбор точки разделения и восстановление структуры ответа.
+    - [статья] [Яндекс Хэндбук: «Расставить скобки»](https://education.yandex.ru/handbook/algorithms/article/zadacha-rasstavit-skobki) —
+      полноценный пример interval DP, где значение зависит от всех разбиений.
+    - [конспект] [ИТМО: «Кратчайший путь в ациклическом графе»](https://neerc.ifmo.ru/wiki/index.php?title=Кратчайший_путь_в_ациклическом_графе) —
+      DP по топологическому порядку как граф состояний.
+    - [конспект] [ИТМО: «Динамика по поддеревьям»](https://neerc.ifmo.ru/wiki/index.php?title=Динамика_по_поддеревьям) —
+      объединение независимых вкладов детей и выбор состояния для родителя.
+  - **BACKUP:**
+    - [конспект] [ИТМО: «Порядок перемножения матриц»](https://neerc.ifmo.ru/wiki/index.php?title=Задача_о_порядке_перемножения_матриц) —
+      каноническое interval DP с доказуемой стоимостью разреза.
 - **Практика:** [8 задач](PRACTICE.md#22-dp-по-отрезкам-решёткам-графам-и-деревьям).
 
 <a id="тема-23"></a>
@@ -543,6 +1036,27 @@ max`, затем собственный агрегат, затем базовы�
 - **Как обнаружить:** `n≤20`; задача о числе до `10^18`; локальная совместимость соседних строк/столбцов.
 - **Зачем:** это регулярный финальный паттерн. «Рабочие пары», ИОИП 2025/26, использует SOS DP; «Задача Арсения»,
   Innopolis Open 2025/26, — digit DP/конструктив; «Переезд», inf-open 2025/26, — DP по маскам вместе с matching.
+- **Материалы:**
+  - **MUST-WATCH:**
+    - [видео] [Павел Маврин: «Задача о рюкзаке. ДП по подмножествам»](https://www.youtube.com/watch?v=6XHWHnvBiu4) —
+      переход от обычного рюкзака к состоянию `mask` и TSP-подобным переходам.
+    - [видео] [Павел Маврин: «ДП по профилю»](https://www.youtube.com/watch?v=IISXNH1ROds) — граница обработанной
+      области, совместимость соседних профилей и оценка `2^width`.
+    - [конспекты] ИТМО:
+      [TSP / DP по подмножествам](https://neerc.ifmo.ru/wiki/index.php?title=Задача_коммивояжера,_ДП_по_подмножествам)
+      и [DP по профилю](https://neerc.ifmo.ru/wiki/index.php?title=Динамическое_программирование_по_профилю) —
+      две разные геометрии масочного состояния.
+  - **BACKUP:**
+    - [статья] [Яндекс Хэндбук: «Сувениры»](https://education.yandex.ru/handbook/algorithms/article/zadacha-suveniry) —
+      разбиение множества по суммам как более мягкий вход в subset DP.
+    - [конспект] [Алгокод: «ДП по цифрам»](https://wiki.algocode.ru/index.php?title=ДП_по_цифрам) — `tight`,
+      ведущие нули, восстановление k-го подходящего числа и примеры задач.
+    - [конспект] [Алгокод: «Перебор всех подмасок данной маски»](https://wiki.algocode.ru/index.php?title=Перебор_всех_подмасок_данной_маски) —
+      формула `(submask - 1) & mask` и суммарная оценка `O(3^n)`; это необходимая ступень перед SOS DP, но не замена
+      zeta-преобразованию за `O(n·2^n)`.
+    - [курс] [Т-Поколение C 2025/26: «ДП по подмаскам и подотрезкам»](https://algocourses.ru/courses/c2025) —
+      русская запись занятия и задачи на выбор масочного состояния; смотреть как дополнительную практическую
+      ступень, а точное отличие обычного перебора подмасок от SOS DP закрепить на задачах банка.
 - **Практика:** [7 задач](PRACTICE.md#23-dp-по-подмножествам-цифрам-и-профилю).
 
 <a id="тема-24"></a>
@@ -569,6 +1083,23 @@ max`, затем собственный агрегат, затем базовы�
   минимум XOR.
 - **Зачем:** редкая тема, но она резко сокращает сложные запросы. «Минимумы на дугах», inf-open 2025/26, использует
   декартово дерево + LCA; «Годовой отчёт», ИОИП 2023/24, включает bit trie и персистентные/merge-техники.
+- **Материалы:**
+  - **MUST-WATCH:**
+    - [статьи] Algorithmica:
+      [«Декартово дерево»](https://ru.algorithmica.org/cs/tree-structures/treap/) и
+      [«Неявный ключ»](https://ru.algorithmica.org/cs/tree-structures/implicit/) — инварианты BST+heap,
+      `split/merge` и переход от значения ключа к позиции.
+    - [конспекты] ИТМО:
+      [декартово дерево](https://neerc.ifmo.ru/wiki/index.php?title=Декартово_дерево) и
+      [декартово дерево по неявному ключу](https://neerc.ifmo.ru/wiki/index.php?title=Декартово_дерево_по_неявному_ключу) —
+      независимая спецификация операций и агрегатов.
+  - **BACKUP:**
+    - [видео] [Павел Маврин: «van Emde Boas tree»](https://www.youtube.com/watch?v=CkMQBBGl07o) — рекурсивная
+      декомпозиция universe для `O(log log U)` операций.
+    - [видео] [Павел Маврин: «Fusion Tree»](https://www.youtube.com/watch?v=4H_EfG7ly3s) — теоретическое ускорение
+      predecessor search на word RAM; реализация для школьных контестов не требуется.
+    - [конспект] [ИТМО: «Дерево ван Эмде Боаса»](https://neerc.ifmo.ru/wiki/index.php?title=Дерево_ван_Эмде_Боаса) —
+      формальная рекуррентность и требования к universe.
 - **Практика:** [6 задач](PRACTICE.md#24-декартово-дерево-treap-и-порядковые-структуры).
 
 <a id="тема-25"></a>
@@ -595,6 +1126,27 @@ max`, затем собственный агрегат, затем базовы�
   сети.
 - **Зачем:** matching может быть как алгоритмом, так и доказательством невозможности. «Переезд», inf-open 2025/26,
   соединяет Kuhn/Hall с DP по маскам; Изумруд 2025/26 содержит доказательную задачу о паросочетании.
+- **Материалы:**
+  - **MUST-WATCH:**
+    - [статьи] Algorithmica:
+      [лемма Бержа](https://ru.algorithmica.org/cs/matching/berge/),
+      [алгоритм Куна](https://ru.algorithmica.org/cs/matching/kuhn/),
+      [задачи на паросочетания](https://ru.algorithmica.org/cs/matching/matching-problems/) и
+      [теорема Холла](https://ru.algorithmica.org/cs/matching/hall/) — увеличивающий путь, восстановление и
+      доказательство существования полного matching.
+    - [видео] [Tinkoff Generation: «Потоки 1»](https://www.youtube.com/watch?v=fpf7vU7W_1E) — остаточная сеть,
+      увеличивающие пути и базовые редукции.
+    - [конспект] [ИТМО: «Схема алгоритма Диница»](https://neerc.ifmo.ru/wiki/index.php?title=Схема_алгоритма_Диница) —
+      level graph, блокирующий поток и текущие указатели.
+    - [статья] [Algorithmica: «Поток минимальной стоимости»](https://ru.algorithmica.org/cs/flows/mincost-maxflow/) —
+      остаточные стоимости, potentials и отличие max-flow от min-cost flow.
+  - **BACKUP:**
+    - [конспект] [ИТМО: «Алгоритм Куна для максимального паросочетания»](https://neerc.ifmo.ru/wiki/index.php?title=Алгоритм_Куна_для_поиска_максимального_паросочетания) —
+      подробное доказательство через увеличивающие пути.
+    - [конспекты] ИТМО:
+      [поток минимальной стоимости](https://neerc.ifmo.ru/wiki/index.php?title=Поток_минимальной_стоимости) и
+      [потенциалы Джонсона](https://neerc.ifmo.ru/wiki/index.php?title=Использование_потенциалов_Джонсона_при_поиске_потока_минимальной_стоимости) —
+      отрицательные остаточные рёбра и Dijkstra с приведёнными стоимостями.
 - **Практика:** [7 задач](PRACTICE.md#25-потоки-и-паросочетания).
 
 <a id="тема-26"></a>
@@ -616,6 +1168,41 @@ max`, затем собственный агрегат, затем базовы�
 - **Как обнаружить:** много шаблонов; все палиндромы; лексикографический порядок суффиксов; различные подстроки/повторы.
 - **Зачем:** suffix-техники явно встречаются в финалах. Задача о бухгалтерии, Всесибирская 2024/25, использует LCP
   DP/suffix array/sparse/Z; финал ИОИП 2025/26 соединяет trie со SCC/DAG.
+- **Материалы:**
+  - **MUST-WATCH:**
+    - [статьи] Algorithmica:
+      [алгоритм Манакера](https://ru.algorithmica.org/cs/string-searching/manacher/),
+      [префиксное дерево](https://ru.algorithmica.org/cs/string-structures/trie/),
+      [Ахо–Корасик](https://ru.algorithmica.org/cs/string-structures/aho-corasick/) и
+      [суффиксный массив](https://ru.algorithmica.org/cs/string-structures/suffix-array/) — радиусы палиндромов,
+      trie с суффиксными ссылками и doubling-построение массива суффиксов.
+    - [курс] Codeforces EDU, «Суффиксный массив»:
+      [шаг 1 — теория](https://codeforces.com/edu/course/2/lesson/2/1) /
+      [практика](https://codeforces.com/edu/course/2/lesson/2/1/practice),
+      [шаг 2 — теория](https://codeforces.com/edu/course/2/lesson/2/2) /
+      [практика](https://codeforces.com/edu/course/2/lesson/2/2/practice),
+      [шаг 3 — теория](https://codeforces.com/edu/course/2/lesson/2/3) /
+      [практика](https://codeforces.com/edu/course/2/lesson/2/3/practice),
+      [шаг 4 — теория](https://codeforces.com/edu/course/2/lesson/2/4) /
+      [практика](https://codeforces.com/edu/course/2/lesson/2/4/practice),
+      [шаг 5 — теория](https://codeforces.com/edu/course/2/lesson/2/5) /
+      [практика](https://codeforces.com/edu/course/2/lesson/2/5/practice) — строить лестницей: циклические сдвиги,
+      counting sort классов, поиск образца, LCP и применения.
+    - [видео] [Павел Маврин: «Ахо–Корасик»](https://www.youtube.com/watch?v=pctMrLsWPbU) — автомат из trie,
+      суффиксные ссылки и агрегация совпадений.
+    - [видео] [Павел Маврин: «Суффиксный массив»](https://www.youtube.com/watch?v=gzmmrUMnSEA) — построение,
+      LCP и запросы к суффиксам.
+  - **BACKUP:**
+    - [статья] [Algorithmica: «Дерево палиндромов»](https://ru.algorithmica.org/cs/string-structures/palindromic-tree/) —
+      онлайн-поддержка различных палиндромов; брать после уверенного Manacher.
+    - [конспекты] ИТМО:
+      [Манакер](https://neerc.ifmo.ru/wiki/index.php?title=Алгоритм_Манакера),
+      [Ахо–Корасик](https://neerc.ifmo.ru/wiki/index.php?title=Алгоритм_Ахо-Корасик),
+      [суффиксный автомат](https://neerc.ifmo.ru/wiki/index.php?title=Суффиксный_автомат) и
+      [суффиксный массив](https://neerc.ifmo.ru/wiki/index.php?title=Суффиксный_массив) — независимые спецификации
+      инвариантов, сложности и типовых запросов.
+    - [видео] [Павел Маврин: «Суффиксное дерево. Алгоритм Укконена»](https://www.youtube.com/watch?v=LNBs3xZMGLc) —
+      продвинутая альтернатива suffix array/automaton; не нужна как первый суффиксный шаблон.
 - **Практика:** [8 задач](PRACTICE.md#26-ахокорасик-манакер-suffix-arrayautomaton).
 
 <a id="тема-27"></a>
@@ -638,6 +1225,24 @@ max`, затем собственный агрегат, затем базовы�
 - **Зачем:** это один из наиболее подтверждённых финальных блоков корпуса. «Innopolis Data Center» 2023/24 —
   rerooting/HLD/2D segment tree; inf-open 2023/24 — HLD/link-cut; ИОИП 2023/24 и Всесибирская 2024/25 —
   centroid/small-to-large.
+- **Материалы:**
+  - **MUST-WATCH:**
+    - [статьи] Algorithmica:
+      [«Heavy-light декомпозиция»](https://ru.algorithmica.org/cs/trees/heavy-light/) и
+      [«Центроидная декомпозиция»](https://ru.algorithmica.org/cs/trees/centroid/) — сначала запросы на путях,
+      затем независимая декомпозиция по расстояниям.
+    - [конспекты] ИТМО:
+      [Heavy-light декомпозиция](https://neerc.ifmo.ru/wiki/index.php?title=Heavy-light_декомпозиция) и
+      [Centroid decomposition](https://neerc.ifmo.ru/wiki/index.php?title=Centroid_decomposition) — доказательства
+      логарифмического числа лёгких рёбер и высоты дерева центроидов.
+    - [видео] [Tinkoff Generation: «Структуры данных 2: RMQ, LCA, FCB, HLD»](https://www.youtube.com/watch?v=ASUrBGlIUc8) —
+      собрать HLD из эйлерова порядка, LCA и структуры запросов; C++-контейнеры заменить Java-массивами.
+  - **BACKUP:**
+    - [конспект] [ИТМО: «Динамика по поддеревьям»](https://neerc.ifmo.ru/wiki/index.php?title=Динамика_по_поддеревьям) —
+      вернуться к состоянию «вклад детей → родитель», после чего самостоятельно вывести два прохода rerooting.
+    - Для small-to-large зафиксировать отдельное доказательство амортизации: при каждом переносе размер контейнера
+      элемента как минимум удваивается, поэтому один элемент перемещается `O(log n)` раз. Не подменять эту технику
+      HLD: первая объединяет данные поддеревьев, вторая раскладывает пути.
 - **Практика:** [7 задач](PRACTICE.md#27-hld-центроидная-декомпозиция-small-to-large-и-rerooting).
 
 <a id="тема-28"></a>
@@ -658,6 +1263,16 @@ max`, затем собственный агрегат, затем базовы�
 - **Как обнаружить:** два игрока, идеальная игра, нормальная игра, независимая сумма компонент.
 - **Зачем:** игры встречаются в Изумруде, Граните и СПбГУ, нередко требуют доказать стратегию, а не только посчитать
   ответ. Методическая программа Изумруда явно включает Nim и Sprague–Grundy.
+- **Материалы:**
+  - **MUST-WATCH:**
+    - [видео] [Павел Маврин: «Игры на графах»](https://www.youtube.com/watch?v=o4eZBJspDzU) — win/lose-состояния,
+      retrograde-анализ и отдельная обработка ничьих в циклическом графе.
+    - [статья] [Algorithmica: «Игра Ним»](https://ru.algorithmica.org/cs/games/nim/) — xor-sum, выигрышный ход и
+      доказательство критерия проигрышной позиции.
+  - **BACKUP:**
+    - После Нима самостоятельно вывести Sprague–Grundy для маленького DAG: `grundy[v] = mex(grundy[to])`, проверить
+      xor независимых компонент и только затем переходить к задачам со скрытой суммой игр. Этот вывод важнее
+      запоминания готовой формулы без условий применимости.
 - **Практика:** [7 задач](PRACTICE.md#28-теория-игр-выигрышпроигрыш-nim-и-spraguegrundy).
 
 <a id="тема-29"></a>
@@ -677,6 +1292,16 @@ max`, затем собственный агрегат, затем базовы�
 - **Как обнаружить:** `n≈35–45`: `2^n` невозможно, но `2^(n/2)` допустимо; сумма/маска разделяется между половинами.
 - **Зачем:** техника закрывает зазор между перебором и полноценным DP. «Годовой отчёт», ИОИП 2023/24, использует MITM и
   maximum clique.
+- **Материалы:**
+  - **MUST-WATCH:**
+    - [статья] [Algorithmica: «Meet-in-the-middle»](https://ru.algorithmica.org/cs/decomposition/mitm/) — разбиение
+      пространства вариантов, сортировка половины и поиск совместимого дополнения.
+    - [конспект] [ИТМО: «Meet-in-the-middle»](https://neerc.ifmo.ru/wiki/index.php?title=Meet-in-the-middle) —
+      альтернативный вывод сложности и варианты объединения двух списков.
+  - **BACKUP:**
+    - [конспект] [Алгокод: «ДП по цифрам»](https://wiki.algocode.ru/index.php?title=ДП_по_цифрам) — раздел
+      «MITM в задачах на числа» показывает, как та же идея возникает не только в subset sum; основной digit DP из
+      этой страницы относится к теме 23.
 - **Практика:** [7 задач](PRACTICE.md#29-meet-in-the-middle-и-разбиение-пространства-поиска).
 
 ## Этап IV. Выборочный финальный слой
@@ -702,6 +1327,22 @@ max`, затем собственный агрегат, затем базовы�
   укладывается.
 - **Зачем:** «Погоня за патентом», ИОИП 2025/26, использует SPF/Mo/блоки/segment tree; «Эксперимент», Всесибирская
   2024/25, допускает корневую декомпозицию.
+- **Материалы:**
+  - **MUST-WATCH:**
+    - [статьи] Algorithmica:
+      [«Корневые эвристики»](https://ru.algorithmica.org/cs/decomposition/sqrt-heuristics/),
+      [«Алгоритм Мо»](https://ru.algorithmica.org/cs/decomposition/mo/) и
+      [«Корневые структуры»](https://ru.algorithmica.org/cs/range-queries/sqrt-structures/) — вывести баланс размера
+      блока, затем перейти от готовых блоков к переупорядочиванию запросов.
+    - [конспекты] ИТМО:
+      [«Корневая декомпозиция: get, insert, erase»](https://neerc.ifmo.ru/wiki/index.php?title=Корневая_декомпозиция_с_операциями:_get,_insert,_erase)
+      и [«Алгоритм Мо»](https://neerc.ifmo.ru/wiki/index.php?title=Алгоритм_Мо) — две разные причины появления `√n`:
+      хранение блоков и ограничение движения границ.
+    - [видео] [Tinkoff Generation: «Корневые оптимизации и Segment Tree Beats»](https://www.youtube.com/watch?v=t4bMkpkfQQ4) —
+      финальные варианты амортизации; сначала извлечь sqrt-паттерны, Segment Tree Beats считать отдельным углублением.
+  - **BACKUP:**
+    - Для Mo с изменениями добавить ось времени только после статической версии: выписать три пары симметричных
+      операций — `add/remove` слева, справа и `apply/rollback` изменения — и проверить инвариант ответа после каждой.
 - **Практика:** [5 задач](PRACTICE.md#30-корневая-декомпозиция-mo-и-офлайн-запросы).
 
 <a id="тема-31"></a>
@@ -724,6 +1365,30 @@ max`, затем собственный агрегат, затем базовы�
 - **Как обнаружить:** запросы к прошлым версиям; DFS по дереву состояний; рёбра добавляются и удаляются офлайн.
 - **Зачем:** «Шустрик и коробки», Innopolis Open 2025/26, прямо требует rollback DSU; ИОИП 2023/24 использует
   persistence/small-to-large.
+- **Материалы:**
+  - **MUST-WATCH:**
+    - [статья] [Algorithmica: «Откатывание состояний»](https://ru.algorithmica.org/cs/decomposition/rollback/) —
+      история изменений, snapshot и обратный порядок отката.
+    - [статьи] Algorithmica:
+      [структуры с откатами](https://ru.algorithmica.org/cs/persistent/persistent-array/),
+      [копирование пути](https://ru.algorithmica.org/cs/persistent/path-copying/) и
+      [персистентное дерево отрезков](https://ru.algorithmica.org/cs/persistent/persistent-segtree/) — различить
+      rollback и persistence, затем посчитать число новых узлов на версию.
+    - [статья] [Algorithmica: «Динамическая связность»](https://ru.algorithmica.org/cs/spanning-trees/dcp/) —
+      интервалы жизни рёбер, segment tree по времени и rollback DSU.
+    - [курс] Codeforces EDU, «СНМ», шаг 3:
+      [теория](https://codeforces.com/edu/course/2/lesson/7/3) /
+      [практика](https://codeforces.com/edu/course/2/lesson/7/3/practice) — объединить rollback DSU, персистентность
+      и офлайн-запросы после базовых шагов из темы 21.
+    - [видео] [Tinkoff Generation: «Персистентность и dynamic connectivity problem»](https://www.youtube.com/watch?v=11t1MAyHFi0) —
+      полный переход от версий структуры к динамической связности.
+  - **BACKUP:**
+    - [статья] [Algorithmica: «Персистентное декартово дерево»](https://ru.algorithmica.org/cs/persistent/persistent-treap/) —
+      path copying в динамической последовательности; сначала должна быть рабочей обычная treap из темы 24.
+    - [конспекты] ИТМО:
+      [«Персистентные структуры данных»](https://neerc.ifmo.ru/wiki/index.php?title=Персистентные_структуры_данных) и
+      [«Динамическая связность оффлайн»](https://neerc.ifmo.ru/wiki/index.php?title=Задача_о_динамической_связности_оффлайн) —
+      формальная модель версий и независимое описание временных интервалов рёбер.
 - **Практика:** [5 задач](PRACTICE.md#31-rollback-персистентность-и-динамическая-связность).
 
 <a id="тема-32"></a>
@@ -746,6 +1411,24 @@ max`, затем собственный агрегат, затем базовы�
   `O(n²)` почти проходит.
 - **Зачем:** это дорогая, но реальная финальная тема. «Заоблачная экономия», Всесибирская 2022/23, соединяет два
   указателя с CHT.
+- **Материалы:**
+  - **MUST-WATCH:**
+    - [статья] [Algorithmica: «Convex Hull Trick»](https://ru.algorithmica.org/cs/layer-optimizations/convex-hull-trick/) —
+      алгебраическое выделение прямой, монотонный deque-вариант и границы применимости.
+    - [конспект] [ИТМО: «Convex hull trick»](https://neerc.ifmo.ru/wiki/index.php?title=Convex_hull_trick) —
+      другое доказательство удаления бесполезных прямых и запросов экстремума.
+    - [статьи] Algorithmica:
+      [divide-and-conquer optimization](https://ru.algorithmica.org/cs/layer-optimizations/divide-and-conquer/) и
+      [оптимизация Кнута](https://ru.algorithmica.org/cs/layer-optimizations/knuth/) — начинать с квадратичного
+      перехода и отдельно доказывать монотонность оптимальной точки.
+    - [видео] [Tinkoff Generation: «Оптимизации динамического программирования»](https://www.youtube.com/watch?v=lkusWVpTPIw) —
+      сопоставить формулу задачи с CHT, divide-and-conquer и Knuth; C++-реализацию перенести в Java только после
+      самостоятельного вывода перехода.
+  - **BACKUP:**
+    - [статья] [Algorithmica: «Дискретный метод Лагранжа»](https://ru.algorithmica.org/cs/layer-optimizations/lagrange/) —
+      параметрическая оптимизация для ограничения на число выбранных объектов; брать после уверенного CHT.
+    - Для Li Chao использовать инвариант из блока «Освоить» и задачу CF 660F: в отобранных русских источниках нет
+      отдельного объяснения, которое качественно дополняло бы уже выбранную практику.
 - **Практика:** [5 задач](PRACTICE.md#32-оптимизации-dp-chtli-chao-divide-and-conquer-knuth).
 
 <a id="тема-33"></a>
@@ -772,6 +1455,24 @@ max`, затем собственный агрегат, затем базовы�
 - **Зачем:** трёхсезонный корпус редко требует FFT напрямую, поэтому это generalist-страховка, а не приоритет до отбора.
   Изумруд официально включает матрицы и линейные системы; задачи на рекуррентности регулярно сводятся к матричному
   возведению.
+- **Материалы:**
+  - **MUST-WATCH:**
+    - [статьи] Algorithmica:
+      [«Матрицы»](https://ru.algorithmica.org/cs/algebra/matrix/) и
+      [«Задачи на умножение матриц»](https://ru.algorithmica.org/cs/algebra/matmul/) — матрица перехода, бинарное
+      возведение и моделирование линейных рекуррентностей.
+    - [статья] [Algorithmica: «Линейные уравнения»](https://ru.algorithmica.org/cs/algebra/gauss/) — прямой и обратный
+      ход Гаусса, выбор ведущего элемента и классификация числа решений.
+    - [статья] [Algorithmica: «Быстрое преобразование Фурье»](https://ru.algorithmica.org/cs/algebra/fft/) — связь
+      умножения многочленов со свёрткой и divide-and-conquer структура преобразования.
+  - **BACKUP:**
+    - [статьи] Algorithmica:
+      [многочлены](https://ru.algorithmica.org/cs/algebra/polynomials/),
+      [интерполяция](https://ru.algorithmica.org/cs/algebra/interpolation/) и
+      [алгоритм Карацубы](https://ru.algorithmica.org/cs/algebra/karatsuba/) — лестница от представления коэффициентов
+      через восстановление полинома к первой быстрой свёртке.
+    - В Java для FFT заранее проверить накопление ошибки `double`; для NTT — переполнение произведений и приведение
+      через `long`. Низкоуровневые C++-оптимизации из источника не копировать без измерений.
 - **Практика:** [5 задач](PRACTICE.md#33-матрицы-линейная-алгебра-fftntt).
 
 <a id="тема-34"></a>
@@ -798,6 +1499,29 @@ max`, затем собственный агрегат, затем базовы�
   проверяется не единственный ответ.
 - **Зачем:** формат меняет стратегию реализации. СПбГУ 2023/24–2025/26 публикует interactive, double-run и
   open/output-only задачи; inf-open хранит grader/checker-пакеты.
+- **Материалы:**
+  - **MUST-WATCH:**
+    - [конспекты] ИТМО:
+      [«Теория вероятностей»](https://neerc.ifmo.ru/wiki/index.php?title=Теория_вероятностей) и
+      [«Математическое ожидание случайной величины»](https://neerc.ifmo.ru/wiki/index.php?title=Математическое_ожидание_случайной_величины) —
+      пространство исходов, условная вероятность и линейность ожидания без требования независимости.
+    - [статья] [Яндекс Хэндбук: «Рандомизированные алгоритмы»](https://education.yandex.ru/handbook/algorithms/article/randomizirovannye-algoritmy) —
+      ожидаемое время, случайный pivot и отличие случайного запуска от недетерминированной корректности.
+    - [статья] [Algorithmica: «Методы Монте-Карло»](https://ru.algorithmica.org/cs/numerical/monte-carlo/) —
+      оценка вероятности ошибки и усиление повторными независимыми запусками.
+    - [статья] [Codeforces: «Интерактивные задачи — руководство для участника»](https://codeforces.com/blog/entry/45307?locale=ru) —
+      протокол, `flush`, лимит запросов и завершение после ответа `-1`; в Java использовать `PrintWriter.flush()`.
+  - **BACKUP:**
+    - [статья] [Codeforces: «Интерактивные задачи: алгоритм тестирования»](https://codeforces.com/blog/entry/5152?locale=ru) —
+      как связаны решение и interactor и почему обычного файла ввода недостаточно для локального теста.
+    - [конспект] [ИТМО: «Алгоритм Каргера»](https://neerc.ifmo.ru/wiki/index.php?title=Алгоритм_Каргера_для_нахождения_минимального_разреза) —
+      конкретный Monte Carlo алгоритм с повторением и явной вероятностью неудачи.
+    - [официальные материалы] СПбГУ:
+      [сезон 2023/24](contests/03-spbu/2023-2024/final-statements.pdf),
+      [2024/25](contests/03-spbu/2024-2025/final-statements.pdf) и
+      [2025/26](contests/03-spbu/2025-2026/final/statements.pdf) — практикум по распознаванию interactive,
+      double-run и open/output-only формата; перед решением читать критерии того же сезона и проверять доступный
+      checker, а не переносить правила между задачами.
 - **Практика:** [5 задач](PRACTICE.md#34-вероятность-рандомизация-interactive-и-output-only).
 
 ## Параллельная дорожка: доказательства и теоретическая информатика
