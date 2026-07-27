@@ -39,6 +39,9 @@ public final class TemplateSelfTest {
         SparseTableMin sparse = new SparseTableMin(new long[]{5, 2, 7, 4});
         check(sparse.min(1, 4) == 2);
 
+        testTreapMultiset();
+        testImplicitTreap();
+
         List<Integer>[] graph = new ArrayList[4];
         for (int i = 0; i < graph.length; i++) graph[i] = new ArrayList<>();
         addUndirected(graph, 0, 1);
@@ -105,6 +108,122 @@ public final class TemplateSelfTest {
         check(ModMath.gcd(42, 30) == 6 && ModMath.powMod(2, 10, 1_000_000_007) == 1024);
         check(ModMath.inverse(3, 11) == 4 && ModMath.factorize(60).equals(Map.of(2L, 2, 3L, 1, 5L, 1)));
         System.out.println("TemplateSelfTest: OK");
+    }
+
+    private static void testTreapMultiset() {
+        TreapMultiset treap = new TreapMultiset(0x13579BDFL);
+        ArrayList<Long> expected = new ArrayList<>();
+
+        treap.add(Long.MIN_VALUE);
+        treap.add(Long.MAX_VALUE);
+        treap.add(7);
+        treap.add(7);
+        check(treap.size() == 4 && treap.count(7) == 2);
+        check(treap.kth(0) == Long.MIN_VALUE && treap.kth(3) == Long.MAX_VALUE);
+        check(treap.removeOne(7) && treap.count(7) == 1 && !treap.removeOne(8));
+
+        treap = new TreapMultiset(0x2468ACE0L);
+        Random random = new Random(0xC0FFEE);
+        for (int iteration = 0; iteration < 5_000; iteration++) {
+            long value = random.nextInt(101) - 50;
+            int action = random.nextInt(4);
+            if (action <= 1 || expected.isEmpty()) {
+                treap.add(value);
+                expected.add(lowerBound(expected, value), value);
+            } else if (action == 2) {
+                int position = Collections.binarySearch(expected, value);
+                boolean removed = treap.removeOne(value);
+                check(removed == (position >= 0));
+                if (position >= 0) expected.remove(position);
+            } else {
+                int left = lowerBound(expected, value);
+                int right = upperBound(expected, value);
+                check(treap.countLessThan(value) == left);
+                check(treap.count(value) == right - left);
+            }
+
+            check(treap.size() == expected.size());
+            if (!expected.isEmpty()) {
+                int index = random.nextInt(expected.size());
+                check(treap.kth(index) == expected.get(index));
+            }
+        }
+    }
+
+    private static void testImplicitTreap() {
+        ImplicitTreap treap = new ImplicitTreap(new long[]{1, 2, 3, 4}, 0x12345678L);
+        treap.reverse(1, 4);
+        treap.insert(2, 10);
+        check(Arrays.equals(treap.toArray(), new long[]{1, 4, 10, 3, 2}));
+        check(treap.rangeSum(1, 4) == 17 && treap.rangeMin(1, 4) == 3);
+        check(treap.remove(3) == 3);
+        check(Arrays.equals(treap.toArray(), new long[]{1, 4, 10, 2}));
+
+        treap = new ImplicitTreap(0xCAFEBABEL);
+        ArrayList<Long> expected = new ArrayList<>();
+        Random random = new Random(0xBADC0DE);
+        for (int iteration = 0; iteration < 5_000; iteration++) {
+            int action = random.nextInt(6);
+            if (expected.isEmpty() || action == 0 && expected.size() < 100) {
+                int index = random.nextInt(expected.size() + 1);
+                long value = random.nextInt(2_001) - 1_000;
+                treap.insert(index, value);
+                expected.add(index, value);
+            } else if (action == 1) {
+                int index = random.nextInt(expected.size());
+                check(treap.remove(index) == expected.remove(index));
+            } else if (action == 2) {
+                int left = random.nextInt(expected.size() + 1);
+                int right = left + random.nextInt(expected.size() - left + 1);
+                treap.reverse(left, right);
+                Collections.reverse(expected.subList(left, right));
+            } else if (action == 3) {
+                int left = random.nextInt(expected.size() + 1);
+                int right = left + random.nextInt(expected.size() - left + 1);
+                long sum = 0;
+                for (int i = left; i < right; i++) sum += expected.get(i);
+                check(treap.rangeSum(left, right) == sum);
+                if (left < right) {
+                    long min = Long.MAX_VALUE;
+                    for (int i = left; i < right; i++) min = Math.min(min, expected.get(i));
+                    check(treap.rangeMin(left, right) == min);
+                }
+            } else {
+                int index = random.nextInt(expected.size());
+                check(treap.get(index) == expected.get(index));
+            }
+
+            check(treap.size() == expected.size());
+            check(Arrays.equals(treap.toArray(), toLongArray(expected)));
+        }
+    }
+
+    private static int lowerBound(List<Long> values, long target) {
+        int left = 0;
+        int right = values.size();
+        while (left < right) {
+            int middle = (left + right) >>> 1;
+            if (values.get(middle) < target) left = middle + 1;
+            else right = middle;
+        }
+        return left;
+    }
+
+    private static int upperBound(List<Long> values, long target) {
+        int left = 0;
+        int right = values.size();
+        while (left < right) {
+            int middle = (left + right) >>> 1;
+            if (values.get(middle) <= target) left = middle + 1;
+            else right = middle;
+        }
+        return left;
+    }
+
+    private static long[] toLongArray(List<Long> values) {
+        long[] result = new long[values.size()];
+        for (int i = 0; i < values.size(); i++) result[i] = values.get(i);
+        return result;
     }
 
     private static void addUndirected(List<Integer>[] graph, int a, int b) {

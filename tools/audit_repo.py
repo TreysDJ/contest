@@ -146,6 +146,79 @@ def check_practice() -> None:
             )
 
 
+def check_template_cross_references() -> None:
+    readme_path = ROOT / "templates" / "java" / "README.md"
+    readme = readme_path.read_text(encoding="utf-8")
+    roadmap = (ROOT / "ROADMAP.md").read_text(encoding="utf-8")
+
+    require(
+        not re.search(r"https?://", readme),
+        "templates/java/README.md duplicates external theory links; keep them in ROADMAP.md",
+    )
+
+    topic_matches = list(re.finditer(r'<a id="тема-(\d+)"></a>', roadmap))
+    topic_sections: dict[int, str] = {}
+    for index, match in enumerate(topic_matches):
+        end = topic_matches[index + 1].start() if index + 1 < len(topic_matches) else len(roadmap)
+        topic_sections[int(match.group(1))] = roadmap[match.start():end]
+
+    anchor_matches = list(re.finditer(r'<a id="(template-[^"]+)"></a>', readme))
+    require(anchor_matches, "template README has no stable template anchors")
+
+    documented_files: set[str] = set()
+    anchors: set[str] = set()
+    for index, match in enumerate(anchor_matches):
+        anchor = match.group(1)
+        anchors.add(anchor)
+        end = anchor_matches[index + 1].start() if index + 1 < len(anchor_matches) else len(readme)
+        section = readme[match.start():end]
+
+        java_files = [
+            Path(target).name
+            for target in re.findall(r"\[[^\]]*]\(([^)#]+\.java)\)", section)
+        ]
+        topics = {
+            int(number)
+            for number in re.findall(r"\.\./\.\./ROADMAP\.md#тема-(\d+)", section)
+        }
+        require(java_files, f"template section #{anchor} has no Java file")
+        require(topics, f"template section #{anchor} has no ROADMAP topic")
+        if java_files:
+            primary_file = java_files[0]
+            require(
+                primary_file not in documented_files,
+                f"Java file {primary_file} is primary in more than one template section",
+            )
+            documented_files.add(primary_file)
+
+        backlink = f"templates/java/README.md#{anchor}"
+        for topic in topics:
+            require(topic in topic_sections, f"template section #{anchor} links missing topic {topic}")
+            if topic in topic_sections:
+                require(
+                    backlink in topic_sections[topic],
+                    f"ROADMAP topic {topic} has no backlink to #{anchor}",
+                )
+
+    actual_files = {path.name for path in (ROOT / "templates" / "java").glob("*.java")}
+    require(
+        documented_files == actual_files,
+        "template README inventory differs from Java files: "
+        f"missing={sorted(actual_files - documented_files)}, "
+        f"extra={sorted(documented_files - actual_files)}",
+    )
+
+    roadmap_anchors = set(
+        re.findall(r"templates/java/README\.md#(template-[^)]+)", roadmap)
+    )
+    require(
+        roadmap_anchors == anchors,
+        "ROADMAP/template anchor inventory differs: "
+        f"missing in ROADMAP={sorted(anchors - roadmap_anchors)}, "
+        f"unknown in ROADMAP={sorted(roadmap_anchors - anchors)}",
+    )
+
+
 def main() -> None:
     for filename in [
         "research.md", "ROADMAP.md", "PRACTICE.md", "PROGRESS.md",
@@ -157,6 +230,7 @@ def main() -> None:
     check_local_links()
     check_contests()
     check_practice()
+    check_template_cross_references()
     if ERRORS:
         print("Audit failed:")
         for error in ERRORS:

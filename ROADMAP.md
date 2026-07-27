@@ -121,6 +121,7 @@ Roadmap рассчитан на старт в конце июля 2026 года,
       [«C++, AVX, тестирование и отладка»](https://www.youtube.com/watch?v=lBTfwJPsx90) и
       [«Тестирование и C++»](https://www.youtube.com/watch?v=Tx0PhkJN4xg) — брать методику разбора и отладки,
       но не C++ API и низкоуровневые оптимизации.
+- **Java-шаблон:** [FastScanner](templates/java/README.md#template-fast-scanner).
 - **Практика:** [10 задач и LeetCode-база](PRACTICE.md#1-оценка-сложности-java-и-аккуратная-реализация).
 
 <a id="тема-2"></a>
@@ -508,6 +509,7 @@ unique`, переход к рангам и сохранение отношени
   - **BACKUP:**
     - [статья] [Algorithmica: «Ро-алгоритм Полларда»](https://ru.algorithmica.org/cs/factorization/pollard/) —
       факторизация больших 64-битных чисел; только после modular multiplication и вероятностной проверки простоты.
+- **Java-шаблон:** [ModMath](templates/java/README.md#template-mod-math).
 - **Практика:** [13 задач](PRACTICE.md#11-теория-чисел-gcd-простые-факторизация-решето).
 
 <a id="тема-12"></a>
@@ -550,6 +552,7 @@ unique`, переход к рангам и сохранение отношени
       [«Перестановка как набор циклов»](https://neerc.ifmo.ru/wiki/index.php?title=Действие_перестановки_на_набор_из_элементов,_представление_в_виде_циклов)
       и [«Числа Каталана»](https://neerc.ifmo.ru/wiki/index.php?title=Числа_Каталана) — выбирать только конспект,
       нужный текущей задаче; производящие функции в обязательную программу не входят.
+- **Java-шаблон:** [ModMath](templates/java/README.md#template-mod-math).
 - **Практика:** [11 задач](PRACTICE.md#12-модульная-арифметика-и-комбинаторика).
 
 <a id="тема-13"></a>
@@ -597,6 +600,7 @@ unique`, переход к рангам и сохранение отношени
       и хеширование структур, а не только строк.
     - [конспект] [ИТМО: «Алгоритм Кнута—Морриса—Пратта»](https://neerc.ifmo.ru/wiki/index.php?title=Алгоритм_Кнута-Морриса-Пратта) —
       строгий вывод автомата откатов и линейной сложности.
+- **Java-шаблон:** [StringAlgorithms](templates/java/README.md#template-string-algorithms).
 - **Практика:** [9 задач](PRACTICE.md#13-строки-префикс-функция-z-функция-и-хеширование).
 
 ## Этап II. Графы, деревья, DP и запросы
@@ -648,6 +652,7 @@ unique`, переход к рангам и сохранение отношени
       первую часть смотреть здесь, топологическую сортировку повторить после перехода к теме 20.
     - [конспект] [ИТМО: «Обход в глубину, цвета вершин»](https://neerc.ifmo.ru/wiki/index.php?title=Обход_в_глубину,_цвета_вершин) —
       формальный смысл белого, серого и чёрного состояний DFS.
+- **Java-шаблон:** [GraphAlgorithms](templates/java/README.md#template-graph-algorithms).
 - **Практика:** [8 задач](PRACTICE.md#14-обходы-графа-компоненты-циклы-и-двудольность).
 
 <a id="тема-15"></a>
@@ -689,6 +694,7 @@ unique`, переход к рангам и сохранение отношени
       [Дейкстра](https://neerc.ifmo.ru/wiki/index.php?title=Алгоритм_Дейкстры) и
       [Флойд](https://neerc.ifmo.ru/wiki/index.php?title=Алгоритм_Флойда) — строгие инварианты релаксации и
       доказательства корректности.
+- **Java-шаблон:** [GraphAlgorithms](templates/java/README.md#template-graph-algorithms).
 - **Практика:** [10 задач](PRACTICE.md#15-кратчайшие-пути-bfs-01-bfs-дейкстра-флойд-беллманфорд).
 
 <a id="тема-16"></a>
@@ -725,6 +731,7 @@ unique`, переход к рангам и сохранение отношени
       [сведение LCA к RMQ](https://neerc.ifmo.ru/wiki/index.php?title=Сведение_задачи_LCA_к_задаче_RMQ) и
       [алгоритм Фарака—Колтона—Бендера](https://neerc.ifmo.ru/wiki/index.php?title=Алгоритм_Фарака-Колтона_и_Бендера) —
       от рабочего `O(log n)` решения к теоретическому `O(1)` RMQ.
+- **Java-шаблон:** [TreeAlgorithms](templates/java/README.md#template-tree-algorithms).
 - **Практика:** [12 задач](PRACTICE.md#16-деревья-эйлеров-обход-двоичные-подъёмы-и-lca).
 
 <a id="тема-17"></a>
@@ -849,6 +856,10 @@ max`, затем собственный агрегат, затем базовы�
       [массовое обновление](https://neerc.ifmo.ru/wiki/index.php?title=Несогласованные_поддеревья._Реализация_массового_обновления)
       и [sparse table для RMQ](https://neerc.ifmo.ru/wiki/index.php?title=Решение_RMQ_с_помощью_разреженной_таблицы) —
       независимая строгая спецификация каждой структуры.
+- **Java-шаблоны:** [Fenwick](templates/java/README.md#template-fenwick),
+  [SegmentTree](templates/java/README.md#template-segment-tree),
+  [LazyMinTree](templates/java/README.md#template-lazy-min-tree),
+  [SparseTableMin](templates/java/README.md#template-sparse-table-min).
 - **Практика:** [12 задач](PRACTICE.md#18-fenwick-segment-tree-lazy-propagation-и-sparse-table).
 
 ## Этап III. Финальный рабочий слой
@@ -897,6 +908,7 @@ max`, затем собственный агрегат, затем базовы�
       [пересечение отрезков и поворот](https://neerc.ifmo.ru/wiki/index.php?title=Пересечение_отрезков_и_поворот:_определение,_свойства,_вычисление)
       и [выпуклые оболочки](https://neerc.ifmo.ru/wiki/index.php?title=Выпуклые_оболочки) — доказательства и
       вырожденные случаи.
+- **Java-шаблон:** [Geometry](templates/java/README.md#template-geometry).
 - **Практика:** [7 задач](PRACTICE.md#19-вычислительная-геометрия).
 
 <a id="тема-20"></a>
@@ -936,6 +948,7 @@ max`, затем собственный агрегат, затем базовы�
       [точки сочленения](https://neerc.ifmo.ru/wiki/index.php?title=Использование_обхода_в_глубину_для_поиска_точек_сочленения)
       и [мосты](https://neerc.ifmo.ru/wiki/index.php?title=Использование_обхода_в_глубину_для_поиска_мостов) —
       строгий вывод условий на время входа и low-link.
+- **Java-шаблон:** [GraphAlgorithms](templates/java/README.md#template-graph-algorithms).
 - **Практика:** [9 задач](PRACTICE.md#20-dag-топосортировка-scc-мосты-и-точки-сочленения).
 
 <a id="тема-21"></a>
@@ -983,6 +996,8 @@ max`, затем собственный агрегат, затем базовы�
       [Краскал](https://neerc.ifmo.ru/wiki/index.php?title=Алгоритм_Краскала) и
       [Прим](https://neerc.ifmo.ru/wiki/index.php?title=Алгоритм_Прима) — альтернативные доказательства и
       спецификации.
+- **Java-шаблоны:** [DSU](templates/java/README.md#template-dsu),
+  [GraphAlgorithms](templates/java/README.md#template-graph-algorithms).
 - **Практика:** [7 задач](PRACTICE.md#21-dsu-mst-и-офлайн-связность).
 
 <a id="тема-22"></a>
@@ -1083,8 +1098,8 @@ max`, затем собственный агрегат, затем базовы�
     отдельных объектов.
 - **Как обнаружить:** динамическая последовательность со вставками/реверсами; k-й элемент; RMQ-структура задаёт дерево;
   минимум XOR.
-- **Зачем:** редкая тема, но она резко сокращает сложные запросы. «Минимумы на дугах», inf-open 2025/26, использует
-  декартово дерево + LCA; «Годовой отчёт», ИОИП 2023/24, включает bit trie и персистентные/merge-техники.
+- **Зачем:** редкая тема, но она резко сокращает сложные запросы. `DequeQL`, Innopolis Open 2023, использует implicit
+  treap на эйлеровом обходе; «Монстры и мечи», inf-open 2025/26, допускает декартово дерево для оптимизации DP.
 - **Материалы:**
   - **MUST-WATCH:**
     - [статьи] Algorithmica:
@@ -1102,6 +1117,8 @@ max`, затем собственный агрегат, затем базовы�
       predecessor search на word RAM; реализация для школьных контестов не требуется.
     - [конспект] [ИТМО: «Дерево ван Эмде Боаса»](https://neerc.ifmo.ru/wiki/index.php?title=Дерево_ван_Эмде_Боаса) —
       формальная рекуррентность и требования к universe.
+- **Java-шаблоны:** [TreapMultiset](templates/java/README.md#template-treap-multiset),
+  [ImplicitTreap](templates/java/README.md#template-implicit-treap).
 - **Практика:** [6 задач](PRACTICE.md#24-декартово-дерево-treap-и-порядковые-структуры).
 
 <a id="тема-25"></a>
@@ -1149,6 +1166,7 @@ max`, затем собственный агрегат, затем базовы�
       [поток минимальной стоимости](https://neerc.ifmo.ru/wiki/index.php?title=Поток_минимальной_стоимости) и
       [потенциалы Джонсона](https://neerc.ifmo.ru/wiki/index.php?title=Использование_потенциалов_Джонсона_при_поиске_потока_минимальной_стоимости) —
       отрицательные остаточные рёбра и Dijkstra с приведёнными стоимостями.
+- **Java-шаблон:** [FlowAlgorithms](templates/java/README.md#template-flow-algorithms).
 - **Практика:** [7 задач](PRACTICE.md#25-потоки-и-паросочетания).
 
 <a id="тема-26"></a>
@@ -1205,6 +1223,7 @@ max`, затем собственный агрегат, затем базовы�
       инвариантов, сложности и типовых запросов.
     - [видео] [Павел Маврин: «Суффиксное дерево. Алгоритм Укконена»](https://www.youtube.com/watch?v=LNBs3xZMGLc) —
       продвинутая альтернатива suffix array/automaton; не нужна как первый суффиксный шаблон.
+- **Java-шаблон:** [StringAlgorithms](templates/java/README.md#template-string-algorithms).
 - **Практика:** [8 задач](PRACTICE.md#26-ахокорасик-манакер-suffix-arrayautomaton).
 
 <a id="тема-27"></a>
@@ -1245,6 +1264,7 @@ max`, затем собственный агрегат, затем базовы�
     - Для small-to-large зафиксировать отдельное доказательство амортизации: при каждом переносе размер контейнера
       элемента как минимум удваивается, поэтому один элемент перемещается `O(log n)` раз. Не подменять эту технику
       HLD: первая объединяет данные поддеревьев, вторая раскладывает пути.
+- **Java-шаблон:** [TreeAlgorithms](templates/java/README.md#template-tree-algorithms).
 - **Практика:** [7 задач](PRACTICE.md#27-hld-центроидная-декомпозиция-small-to-large-и-rerooting).
 
 <a id="тема-28"></a>
@@ -1391,6 +1411,7 @@ max`, затем собственный агрегат, затем базовы�
       [«Персистентные структуры данных»](https://neerc.ifmo.ru/wiki/index.php?title=Персистентные_структуры_данных) и
       [«Динамическая связность оффлайн»](https://neerc.ifmo.ru/wiki/index.php?title=Задача_о_динамической_связности_оффлайн) —
       формальная модель версий и независимое описание временных интервалов рёбер.
+- **Java-шаблон:** [RollbackDSU](templates/java/README.md#template-rollback-dsu).
 - **Практика:** [5 задач](PRACTICE.md#31-rollback-персистентность-и-динамическая-связность).
 
 <a id="тема-32"></a>
