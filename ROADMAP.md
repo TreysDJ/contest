@@ -904,9 +904,10 @@ max`, затем собственный агрегат, затем базовы�
     - [статья] [Яндекс Хэндбук: «Пара ближайших точек»](https://education.yandex.ru/handbook/algorithms/article/zadacha-para-blizhajshih-tochek) —
       геометрическое divide-and-conquer.
     - [конспекты] ИТМО:
-      [вычисление геометрических предикатов](https://neerc.ifmo.ru/wiki/index.php?title=Вычисление_геометрических_предикатов),
+      [предикат «левый поворот»](https://neerc.ifmo.ru/wiki/index.php?title=Предикат_%22левый_поворот%22),
       [пересечение отрезков и поворот](https://neerc.ifmo.ru/wiki/index.php?title=Пересечение_отрезков_и_поворот:_определение,_свойства,_вычисление)
-      и [выпуклые оболочки](https://neerc.ifmo.ru/wiki/index.php?title=Выпуклые_оболочки) — доказательства и
+      и [статические выпуклые оболочки](https://neerc.ifmo.ru/wiki/index.php?title=Статические_выпуклые_оболочки:_Джарвис,_Грэхем,_Эндрю,_Чен,_QuickHull) —
+      доказательства и
       вырожденные случаи.
 - **Java-шаблон:** [Geometry](templates/java/README.md#template-geometry).
 - **Практика:** [7 задач](PRACTICE.md#19-вычислительная-геометрия).
@@ -992,7 +993,7 @@ max`, затем собственный агрегат, затем базовы�
     - [видео] [Павел Маврин: «Ещё раз про MST»](https://www.youtube.com/watch?v=W9ATr9WM4Vg) — свойства остовов и
       более сложные приложения.
     - [конспекты] ИТМО:
-      [DSU как лес корневых деревьев](https://neerc.ifmo.ru/wiki/index.php?title=Реализация_с_помощью_леса_корневых_деревьев),
+      [DSU как лес корневых деревьев](https://neerc.ifmo.ru/wiki/index.php?title=СНМ_%28реализация_с_помощью_леса_корневых_деревьев%29),
       [Краскал](https://neerc.ifmo.ru/wiki/index.php?title=Алгоритм_Краскала) и
       [Прим](https://neerc.ifmo.ru/wiki/index.php?title=Алгоритм_Прима) — альтернативные доказательства и
       спецификации.

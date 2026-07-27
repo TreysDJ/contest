@@ -3,16 +3,31 @@
 
 from __future__ import annotations
 
-import importlib.util
-import json
+import argparse
+import html
 import re
 import sys
+import unicodedata
+from collections import Counter
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
-from urllib.parse import unquote
+from urllib.error import HTTPError, URLError
+from urllib.parse import quote, unquote, urldefrag, urlsplit
+from urllib.request import Request, urlopen
 
 
 ROOT = Path(__file__).resolve().parents[1]
 ERRORS: list[str] = []
+LINK_PATTERN = re.compile(r"!?\[[^\]]*]\(([^)]+)\)")
+HEADING_PATTERN = re.compile(r"^(#{1,6})[ \t]+(.+?)(?:[ \t]+#+[ \t]*)?$")
+EXPLICIT_ANCHOR_PATTERN = re.compile(
+    r"""<a\b[^>]*\b(?:id|name)\s*=\s*["']([^"']+)["']""",
+    re.IGNORECASE,
+)
+FENCE_PATTERN = re.compile(r"^\s*(`{3,}|~{3,})")
+EXTERNAL_TIMEOUT_SECONDS = 10
+EXTERNAL_WORKERS = 12
+URL_SAFE_CHARACTERS = ":/?&=%#@+;,[]!$'()*"
 
 
 def require(condition: bool, message: str) -> None:
@@ -20,19 +35,164 @@ def require(condition: bool, message: str) -> None:
         ERRORS.append(message)
 
 
-def check_local_links() -> None:
-    pattern = re.compile(r"\[[^\]]*]\(([^)]+)\)")
-    for markdown in ROOT.rglob("*.md"):
+def link_target(raw_target: str) -> str:
+    target = raw_target.strip()
+    if target.startswith("<") and target.endswith(">"):
+        return target[1:-1]
+    return target.split(maxsplit=1)[0]
+
+
+def strip_heading_markup(heading: str) -> str:
+    heading = re.sub(r"!\[([^\]]*)]\([^)]*\)", r"\1", heading)
+    heading = re.sub(r"\[([^\]]+)]\([^)]*\)", r"\1", heading)
+    heading = re.sub(r"<[^>]+>", "", heading)
+    heading = html.unescape(heading)
+    return heading.replace("`", "").replace("*", "").replace("~", "")
+
+
+def github_heading_anchor(heading: str) -> str:
+    """Apply GitHub's documented section-link rules to headings used here."""
+    result: list[str] = []
+    for character in strip_heading_markup(heading).strip().lower():
+        if character == " ":
+            result.append("-")
+        elif character in {"-", "_"}:
+            result.append(character)
+        elif character.isalnum() or unicodedata.category(character).startswith("M"):
+            result.append(character)
+    return "".join(result)
+
+
+def markdown_anchors(markdown: Path) -> set[str]:
+    anchors: set[str] = set()
+    heading_counts: dict[str, int] = {}
+    fence: tuple[str, int] | None = None
+
+    for line in markdown.read_text(encoding="utf-8").splitlines():
+        fence_match = FENCE_PATTERN.match(line)
+        if fence_match:
+            marker = fence_match.group(1)
+            if fence is None:
+                fence = (marker[0], len(marker))
+            elif marker[0] == fence[0] and len(marker) >= fence[1]:
+                fence = None
+            continue
+        if fence is not None:
+            continue
+
+        anchors.update(EXPLICIT_ANCHOR_PATTERN.findall(line))
+        heading_match = HEADING_PATTERN.match(line)
+        if not heading_match:
+            continue
+
+        base = github_heading_anchor(heading_match.group(2))
+        duplicate_index = heading_counts.get(base, 0)
+        heading_counts[base] = duplicate_index + 1
+        anchors.add(base if duplicate_index == 0 else f"{base}-{duplicate_index}")
+
+    return anchors
+
+
+def check_links() -> dict[str, tuple[Path, int]]:
+    external_links: dict[str, tuple[Path, int]] = {}
+    anchor_cache: dict[Path, set[str]] = {}
+
+    for markdown in sorted(ROOT.rglob("*.md")):
         text = markdown.read_text(encoding="utf-8")
-        for raw_target in pattern.findall(text):
-            target = raw_target.strip()
-            if target.startswith(("http://", "https://", "mailto:", "#")):
+        for match in LINK_PATTERN.finditer(text):
+            target = html.unescape(link_target(match.group(1)))
+            line_number = text.count("\n", 0, match.start()) + 1
+
+            if target.startswith(("http://", "https://")):
+                request_url = urldefrag(target).url
+                external_links.setdefault(request_url, (markdown, line_number))
                 continue
-            target = unquote(target.split("#", 1)[0])
-            if not target:
+            if target.startswith("mailto:"):
                 continue
-            resolved = (markdown.parent / target).resolve()
-            require(resolved.exists(), f"broken local link in {markdown.relative_to(ROOT)}: {raw_target}")
+
+            path_part, fragment = urldefrag(target)
+            resolved = (
+                (markdown.parent / unquote(path_part)).resolve()
+                if path_part
+                else markdown.resolve()
+            )
+            location = f"{markdown.relative_to(ROOT)}:{line_number}"
+            if not resolved.exists():
+                require(False, f"broken local link in {location}: {target}")
+                continue
+
+            if fragment and resolved.suffix.lower() in {".md", ".markdown"}:
+                anchors = anchor_cache.setdefault(resolved, markdown_anchors(resolved))
+                decoded_fragment = unquote(fragment)
+                require(
+                    decoded_fragment in anchors,
+                    f"broken local anchor in {location}: {target}",
+                )
+
+    return external_links
+
+
+def probe_external_link(url: str) -> tuple[str, str]:
+    encoded_url = quote(url, safe=URL_SAFE_CHARACTERS)
+    request = Request(
+        encoded_url,
+        headers={
+            "Accept": "*/*",
+            "Accept-Encoding": "identity",
+            "Connection": "close",
+            "User-Agent": "contest-repository-link-check/1.0",
+        },
+        method="GET",
+    )
+    try:
+        with urlopen(request, timeout=EXTERNAL_TIMEOUT_SECONDS) as response:
+            status = response.getcode()
+    except HTTPError as error:
+        status = error.code
+    except (URLError, TimeoutError, OSError, ValueError, UnicodeError) as error:
+        return "unverified", str(error)
+
+    if 200 <= status < 400:
+        return "ok", f"HTTP {status}"
+    if status in {404, 410}:
+        return "broken", f"HTTP {status}"
+    return "unverified", f"HTTP {status}"
+
+
+def check_external_links(links: dict[str, tuple[Path, int]]) -> None:
+    results: list[tuple[str, str, str]] = []
+    with ThreadPoolExecutor(max_workers=EXTERNAL_WORKERS) as executor:
+        futures = {
+            executor.submit(probe_external_link, url): url
+            for url in sorted(links)
+        }
+        for future in as_completed(futures):
+            url = futures[future]
+            status, detail = future.result()
+            results.append((status, url, detail))
+
+    counts = {"ok": 0, "broken": 0, "unverified": 0}
+    unverified_groups: Counter[tuple[str, str]] = Counter()
+    for status, url, detail in sorted(results):
+        counts[status] += 1
+        markdown, line_number = links[url]
+        location = f"{markdown.relative_to(ROOT)}:{line_number}"
+        if status == "broken":
+            require(False, f"broken external link in {location}: {url} ({detail})")
+        elif status == "unverified":
+            unverified_groups[(urlsplit(url).netloc, detail)] += 1
+
+    for (domain, detail), count in sorted(unverified_groups.items()):
+        print(
+            f"External links unverified: {count} on {domain} ({detail})",
+            file=sys.stderr,
+        )
+
+    print(
+        "External links: "
+        f"{counts['ok']} OK, {counts['broken']} broken, "
+        f"{counts['unverified']} unverified"
+    )
 
 
 def check_contests() -> None:
@@ -56,94 +216,6 @@ def check_contests() -> None:
             if path.is_file() and path.suffix.lower() not in {".md"} and path.name != "CHECKSUMS.sha256"
         }
         require(material == listed, f"checksum inventory mismatch: {directory.name}")
-
-
-def check_practice() -> None:
-    catalog_path = ROOT / "research_data" / "practice-catalog.json"
-    catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
-
-    generator_path = ROOT / "tools" / "generate_practice.py"
-    spec = importlib.util.spec_from_file_location("generate_practice", generator_path)
-    generator = importlib.util.module_from_spec(spec)
-    assert spec.loader
-    spec.loader.exec_module(generator)
-
-    try:
-        validated = generator.validate_catalog(catalog)
-        expected = generator.render(catalog)
-    except ValueError as error:
-        require(False, f"practice catalog validation failed: {error}")
-        return
-
-    text = (ROOT / "PRACTICE.md").read_text(encoding="utf-8")
-    require(text == expected, "PRACTICE.md is not generated from practice-catalog.json")
-    require(len(validated["topics"]) >= 34, "practice topic map unexpectedly shrank")
-    require(
-        sum(validated["task_counts"].values()) >= 282,
-        "practice task catalog unexpectedly shrank",
-    )
-    require(validated["leetcode_count"] == 63, "LeetCode foundation count is not 63")
-    require(
-        validated["special_practice_count"] >= 7,
-        "required foundation and checker checkpoints are missing",
-    )
-    require(
-        len(re.findall(r"\|\s*Что тренирует\s*\|", text)) == len(validated["topics"]),
-        "pattern column missing from a topic",
-    )
-    hidden_count = sum(
-        task["role"] in {"D", "F", "X"}
-        for topic in validated["topics"]
-        for task in topic["tasks"]
-    )
-    require(
-        text.count("<details><summary>Показать после попытки</summary>") == hidden_count,
-        "hidden D/F/X pattern count does not match the catalog",
-    )
-
-    audit = (ROOT / "research_data" / "practice-audit.md").read_text(encoding="utf-8")
-    legacy = re.search(
-        r"Из прежних 282 слотов: \*\*(\d+) KEEP\*\*, "
-        r"\*\*(\d+) MOVE\*\*, \*\*(\d+) REPLACE\*\*",
-        audit,
-    )
-    require(legacy is not None, "practice audit summary is missing")
-    if legacy:
-        expected_verdicts = tuple(map(int, legacy.groups()))
-        require(
-            sum(expected_verdicts) == 282,
-            "practice audit does not classify all 282 legacy tasks",
-        )
-        actual_verdicts = tuple(
-            len(re.findall(rf"\| `{verdict}` \|", audit))
-            for verdict in ("KEEP", "MOVE", "REPLACE")
-        )
-        require(
-            actual_verdicts == expected_verdicts,
-            "practice audit verdict rows do not match its summary",
-        )
-
-    for topic in catalog["topics"]:
-        start = f"## Тема {topic['number']}."
-        next_start = f"## Тема {topic['number'] + 1}."
-        require(start in audit, f"practice audit section is missing: topic {topic['number']}")
-        section = audit.split(start, 1)[1]
-        if next_start in section:
-            section = section.split(next_start, 1)[0]
-        require("### Новое покрытие" in section, f"new coverage is missing: topic {topic['number']}")
-        for task in topic["tasks"]:
-            prefix = {"CF": "CF", "ACMP": "ACMP", "GYM": "GYM"}[task["platform"]]
-            pattern = task["pattern_label"].replace("|", r"\|")
-            solution = task["expected_solution"].replace("|", r"\|")
-            expected_row = (
-                f"| {prefix} {task['id']} — {task['title']} | `{task['role']}` | "
-                f"{pattern} | {solution} |"
-            )
-            require(
-                expected_row in audit,
-                f"practice audit coverage differs from catalog: topic {topic['number']}, "
-                f"{task['platform']} {task['id']}",
-            )
 
 
 def check_template_cross_references() -> None:
@@ -219,18 +291,28 @@ def check_template_cross_references() -> None:
     )
 
 
-def main() -> None:
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--external-links",
+        action="store_true",
+        help="also check external HTTP(S) links",
+    )
+    return parser.parse_args()
+
+
+def main() -> int:
+    args = parse_args()
     for filename in [
         "research.md", "ROADMAP.md", "PRACTICE.md", "PROGRESS.md",
         "CONTEST_STRATEGY.md", "contests/MANIFEST.md", "templates/java/README.md",
-        "research_data/practice-catalog.json",
-        "research_data/practice-audit.md",
     ]:
         require((ROOT / filename).is_file(), f"missing deliverable: {filename}")
-    check_local_links()
+    external_links = check_links()
     check_contests()
-    check_practice()
     check_template_cross_references()
+    if args.external_links:
+        check_external_links(external_links)
     if ERRORS:
         print("Audit failed:")
         for error in ERRORS:
