@@ -14,50 +14,58 @@
 
 Просмотр теории или разбора сам по себе уровень не повышает. Одна неудачная задача тоже не понижает его автоматически: для понижения нужны две независимые проверки, показавшие одну и ту же проблему.
 
-Для ролей `D/F/X` колонка «Что тренирует» в [`PRACTICE.md`](PRACTICE.md) скрыта намеренно. Раскрытие считается
-подсказкой: оно не делает попытку бесполезной, но такая попытка не подтверждает уровень `3`. После разбора задачу
-нужно решить заново, а затем проверить перенос навыка на новой задаче или через 7–14 дней.
+Колонка `Паттерн` в [`PRACTICE.md`](PRACTICE.md) видна для всех задач. Для ролей `D/F/X` ученик сначала открывает
+только условие и не читает эту колонку: иначе попытка остаётся учебной, но не подтверждает уровень `3`. После разбора
+задачу нужно решить заново, а затем проверить перенос навыка на новой задаче или через 7-14 дней.
 
-Уровень `3` сам по себе образует очередь повторения. Каждую неделю из таких тем выбираются 2–3 темы: сначала приоритет `A`, затем темы, которые дольше не встречались в практике. Отдельный календарь повторений вести не нужно.
+Уровень `3` сам по себе образует очередь повторения. Каждую неделю из таких тем выбираются 2-3 темы: сначала
+приоритеты `A0/A1`, затем темы, которые дольше не встречались в практике. Отдельный календарь повторений вести не
+нужно.
 
 ## Карта тем
 
-|   № | Тема                           | Приоритет | Уровень `0–4` |
-| --: | ------------------------------ | :-------: | :-----------: |
-|   1 | Сложность и Java               |    A0     |       0       |
-|   2 | Перебор и отсечения            |    A0     |       0       |
-|   3 | Сортировка и compression       |    A0     |       0       |
-|   4 | Map/Set/частоты                |    A0     |       0       |
-|   5 | Stack/queue/deque/PQ           |    A0     |       0       |
-|   6 | Prefix/difference/2D/sweep     |    A1     |       0       |
-|   7 | Two pointers/window            |    A1     |       0       |
-|   8 | Binary/ternary search          |    A1     |       0       |
-|   9 | Greedy                         |    A1     |       0       |
-|  10 | Биты и маски                   |    A1     |       0       |
-|  11 | Теория чисел                   |    A1     |       0       |
-|  12 | Модуль и комбинаторика         |    A1     |       0       |
-|  13 | Базовые строки                 |    A1     |       0       |
-|  14 | Базовые графы                  |    A1     |       0       |
-|  15 | Кратчайшие пути                |    A1     |       0       |
-|  16 | Деревья и LCA                  |    A1     |       0       |
-|  17 | Базовое DP                     |    A1     |       0       |
-|  18 | Fenwick/segment/lazy/sparse    |    A1     |       0       |
-|  19 | Геометрия                      |     B     |       0       |
-|  20 | DAG/SCC/bridges                |     B     |       0       |
-|  21 | DSU/MST/offline                |     B     |       0       |
-|  22 | Interval/grid/tree DP          |     B     |       0       |
-|  23 | Subset/digit/profile DP        |     B     |       0       |
-|  24 | Treap/Cartesian/order          |     B     |       0       |
-|  25 | Flow/matching                  |     B     |       0       |
-|  26 | Продвинутые строки             |     B     |       0       |
-|  27 | HLD/centroid/small-to-large    |     B     |       0       |
-|  28 | Теория игр                     |     B     |       0       |
-|  29 | Meet-in-the-middle             |     B     |       0       |
-|  30 | Sqrt/Mo/offline queries        |     C     |       0       |
-|  31 | Rollback/persistence           |     C     |       0       |
-|  32 | Оптимизации DP                 |     C     |       0       |
-|  33 | Матрицы/FFT/NTT                |     C     |       0       |
-|  34 | Probability/interactive/output |     C     |       0       |
+|   № | Тема                                                                                 | Приоритет | Уровень `0-4` |
+| --: | ------------------------------------------------------------------------------------ | :-------: | :------------: |
+|   1 | [Сложность и Java](ROADMAP.md#topic-complexity-java)                                 |    A0     |       0        |
+|   2 | [Перебор и отсечения](ROADMAP.md#topic-bruteforce)                                   |    A0     |       0        |
+|   3 | [Сортировка и сжатие координат](ROADMAP.md#topic-sorting-compression)                 |    A0     |       0        |
+|   4 | [Map, Set и частоты](ROADMAP.md#topic-maps-sets)                                     |    A0     |       0        |
+|   5 | [Стек, очередь и дек](ROADMAP.md#topic-stack-queue-deque)                             |    A0     |       0        |
+|   6 | [Priority queue и heap](ROADMAP.md#topic-priority-queue)                              |    A0     |       0        |
+|   7 | [Prefix, difference и 2D-префиксы](ROADMAP.md#topic-prefix-difference-2d)             |    A1     |       0        |
+|   8 | [Два указателя](ROADMAP.md#topic-two-pointers)                                       |    A1     |       0        |
+|   9 | [Sliding window и монотонный дек](ROADMAP.md#topic-sliding-window)                    |    A1     |       0        |
+|  10 | [Монотонный стек](ROADMAP.md#topic-monotonic-stack)                                  |    A1     |       0        |
+|  11 | [Sweep line](ROADMAP.md#topic-sweep-line)                                            |    A1     |       0        |
+|  12 | [Binary и ternary search](ROADMAP.md#topic-binary-search)                            |    A1     |       0        |
+|  13 | [Greedy](ROADMAP.md#topic-greedy)                                                    |    A1     |       0        |
+|  14 | [Биты и маски](ROADMAP.md#topic-bitmasks)                                            |    A1     |       0        |
+|  15 | [Теория чисел](ROADMAP.md#topic-number-theory)                                       |    A1     |       0        |
+|  16 | [Модульная арифметика и комбинаторика](ROADMAP.md#topic-modular-combinatorics)       |    A1     |       0        |
+|  17 | [Базовые строки](ROADMAP.md#topic-basic-strings)                                     |    A1     |       0        |
+|  18 | [Обходы графа](ROADMAP.md#topic-graph-traversals)                                    |    A1     |       0        |
+|  19 | [Кратчайшие пути](ROADMAP.md#topic-shortest-paths)                                   |    A1     |       0        |
+|  20 | [Деревья и LCA](ROADMAP.md#topic-trees-lca)                                         |    A1     |       0        |
+|  21 | [Базовое DP](ROADMAP.md#topic-basic-dp)                                              |    A1     |       0        |
+|  22 | [Fenwick tree](ROADMAP.md#topic-fenwick)                                             |    A1     |       0        |
+|  23 | [Segment tree и lazy propagation](ROADMAP.md#topic-segment-tree)                     |    A1     |       0        |
+|  24 | [Static RMQ и sparse table](ROADMAP.md#topic-static-rmq)                             |    A1     |       0        |
+|  25 | [Геометрия](ROADMAP.md#topic-geometry)                                               |     B     |       0        |
+|  26 | [DAG, SCC, мосты и точки сочленения](ROADMAP.md#topic-advanced-graphs)                |     B     |       0        |
+|  27 | [DSU, MST и офлайн-связность](ROADMAP.md#topic-dsu-mst)                              |     B     |       0        |
+|  28 | [Interval, grid и tree DP](ROADMAP.md#topic-advanced-dp)                             |     B     |       0        |
+|  29 | [Subset, digit и profile DP](ROADMAP.md#topic-subset-dp)                             |     B     |       0        |
+|  30 | [Treap, Cartesian tree и order statistics](ROADMAP.md#topic-treap)                   |     B     |       0        |
+|  31 | [Потоки и matching](ROADMAP.md#topic-flows-matching)                                |     B     |       0        |
+|  32 | [Продвинутые строки](ROADMAP.md#topic-advanced-strings)                              |     B     |       0        |
+|  33 | [HLD, centroid и small-to-large](ROADMAP.md#topic-advanced-trees)                    |     B     |       0        |
+|  34 | [Теория игр](ROADMAP.md#topic-games)                                                |     B     |       0        |
+|  35 | [Meet-in-the-middle](ROADMAP.md#topic-meet-in-the-middle)                           |     B     |       0        |
+|  36 | [Sqrt, Mo и офлайн-запросы](ROADMAP.md#topic-sqrt-mo)                               |     C     |       0        |
+|  37 | [Rollback и persistence](ROADMAP.md#topic-rollback-persistence)                     |     C     |       0        |
+|  38 | [Оптимизации DP](ROADMAP.md#topic-dp-optimizations)                                 |     C     |       0        |
+|  39 | [Линейная алгебра, матрицы и FFT/NTT](ROADMAP.md#topic-linear-algebra-fft)           |     C     |       0        |
+|  40 | [Вероятность и нестандартные форматы](ROADMAP.md#topic-probability-interactive)      |     C     |       0        |
 
 ## Целевые уровни
 

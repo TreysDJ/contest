@@ -56,7 +56,7 @@ table. Если нужны другие операции — `max`, `gcd`, ма�
 
 Файл: [`DSU.java`](DSU.java).
 
-**Связанная тема:** [ROADMAP — тема 21](../../ROADMAP.md#тема-21).
+**Связанная тема:** [ROADMAP - DSU, MST и офлайн-связность](../../ROADMAP.md#topic-dsu-mst).
 
 ### Для чего нужна
 
@@ -138,7 +138,7 @@ if (dsu.union(edge.from(), edge.to())) {
 
 Файл: [`RollbackDSU.java`](RollbackDSU.java).
 
-**Связанная тема:** [ROADMAP — тема 31](../../ROADMAP.md#тема-31).
+**Связанная тема:** [ROADMAP - rollback и persistence](../../ROADMAP.md#topic-rollback-persistence).
 
 ### Для чего нужна
 
@@ -219,7 +219,7 @@ void dfs(int v, RollbackDSU dsu) {
 
 Файл: [`Fenwick.java`](Fenwick.java).
 
-**Связанная тема:** [ROADMAP — тема 18](../../ROADMAP.md#тема-18).
+**Связанная тема:** [ROADMAP - Fenwick tree](../../ROADMAP.md#topic-fenwick).
 
 ### Для чего нужна
 
@@ -295,7 +295,7 @@ int index = fenwick.lowerBound(k); // частоты должны быть не�
 
 Файл: [`SegmentTree.java`](SegmentTree.java).
 
-**Связанная тема:** [ROADMAP — тема 18](../../ROADMAP.md#тема-18).
+**Связанная тема:** [ROADMAP - segment tree и lazy propagation](../../ROADMAP.md#topic-segment-tree).
 
 ### Для чего нужна
 
@@ -373,7 +373,7 @@ tree[parent] = Math.min(tree[leftChild], tree[rightChild]);
 
 Файл: [`LazyMinTree.java`](LazyMinTree.java).
 
-**Связанная тема:** [ROADMAP — тема 18](../../ROADMAP.md#тема-18).
+**Связанная тема:** [ROADMAP - segment tree и lazy propagation](../../ROADMAP.md#topic-segment-tree).
 
 ### Для чего нужна
 
@@ -440,7 +440,7 @@ tree**, но её точные операции могут отличаться 
 
 Файл: [`SparseTableMin.java`](SparseTableMin.java).
 
-**Связанная тема:** [ROADMAP — тема 18](../../ROADMAP.md#тема-18).
+**Связанная тема:** [ROADMAP - static RMQ и sparse table](../../ROADMAP.md#topic-static-rmq).
 
 ### Для чего нужна
 
@@ -508,7 +508,7 @@ long minimum = table.min(left, right); // left < right
 
 Файл: [`TreapMultiset.java`](TreapMultiset.java).
 
-**Связанная тема:** [ROADMAP — тема 24](../../ROADMAP.md#тема-24).
+**Связанная тема:** [ROADMAP - treap и order statistics](../../ROADMAP.md#topic-treap).
 
 ### Для чего нужна
 
@@ -568,7 +568,7 @@ multiset.removeOne(10);
 
 - inf-open 2024/25, «Порядковая статистика» — декартово дерево указано в
   официальном разборе как один из способов поддерживать динамические изменения;
-- CF 702F из темы 24 — explicit treap с агрегатами и ленивыми изменениями
+- CF 702F из темы [treap и order statistics](../../ROADMAP.md#topic-treap) - explicit treap с агрегатами и ленивыми изменениями
   целых частей дерева.
 
 ### Ограничения
@@ -587,7 +587,7 @@ multiset.removeOne(10);
 
 Файл: [`ImplicitTreap.java`](ImplicitTreap.java).
 
-**Связанная тема:** [ROADMAP — тема 24](../../ROADMAP.md#тема-24).
+**Связанная тема:** [ROADMAP - treap и order statistics](../../ROADMAP.md#topic-treap).
 
 ### Для чего нужна
 
@@ -643,7 +643,7 @@ long removed = sequence.remove(3);
   treap на эйлеровом обходе и в полном решении делает `split` по вершине;
 - inf-open 2025/26, «Выход участников» — декартово дерево приведено как
   полный альтернативный вариант вместо splay внутри динамической структуры;
-- задачи CF Gym 102787A/B/E из темы 24 закрепляют перестановку блоков,
+- задачи CF Gym 102787A/B/E из темы [treap и order statistics](../../ROADMAP.md#topic-treap) закрепляют перестановку блоков,
   развороты и агрегаты динамической строки.
 
 ### Ограничения
@@ -694,7 +694,7 @@ Fenwick и segment tree выбирать, когда множество пози
 ### FastScanner
 
 [`FastScanner.java`](FastScanner.java) — быстрый ввод без `Scanner`.
-Связанная тема: [ROADMAP — тема 1](../../ROADMAP.md#тема-1).
+Связанная тема: [ROADMAP - сложность и Java](../../ROADMAP.md#topic-complexity-java).
 
 <a id="template-graph-algorithms"></a>
 
@@ -702,46 +702,48 @@ Fenwick и segment tree выбирать, когда множество пози
 
 [`GraphAlgorithms.java`](GraphAlgorithms.java) — BFS, 0–1 BFS, Дейкстра,
 Беллман—Форд, Флойд, SCC, Kruskal, мосты и точки сочленения. Связанные темы:
-[14](../../ROADMAP.md#тема-14), [15](../../ROADMAP.md#тема-15),
-[20](../../ROADMAP.md#тема-20) и [21](../../ROADMAP.md#тема-21).
+[обходы графа](../../ROADMAP.md#topic-graph-traversals),
+[кратчайшие пути](../../ROADMAP.md#topic-shortest-paths),
+[продвинутые графы](../../ROADMAP.md#topic-advanced-graphs) и
+[DSU/MST](../../ROADMAP.md#topic-dsu-mst).
 
 <a id="template-tree-algorithms"></a>
 
 ### TreeAlgorithms
 
 [`TreeAlgorithms.java`](TreeAlgorithms.java) — LCA и HLD без рекурсивного DFS.
-Связанные темы: [16](../../ROADMAP.md#тема-16) и
-[27](../../ROADMAP.md#тема-27).
+Связанные темы: [деревья и LCA](../../ROADMAP.md#topic-trees-lca) и
+[продвинутые деревья](../../ROADMAP.md#topic-advanced-trees).
 
 <a id="template-flow-algorithms"></a>
 
 ### FlowAlgorithms
 
 [`FlowAlgorithms.java`](FlowAlgorithms.java) — Dinic и Kuhn. Связанная тема:
-[ROADMAP — тема 25](../../ROADMAP.md#тема-25).
+[ROADMAP - потоки и matching](../../ROADMAP.md#topic-flows-matching).
 
 <a id="template-string-algorithms"></a>
 
 ### StringAlgorithms
 
 [`StringAlgorithms.java`](StringAlgorithms.java) — prefix/Z, Манакер, rolling
-hash и Ахо—Корасик. Связанные темы: [13](../../ROADMAP.md#тема-13) и
-[26](../../ROADMAP.md#тема-26).
+hash и Ахо-Корасик. Связанные темы: [базовые строки](../../ROADMAP.md#topic-basic-strings) и
+[продвинутые строки](../../ROADMAP.md#topic-advanced-strings).
 
 <a id="template-geometry"></a>
 
 ### Geometry
 
 [`Geometry.java`](Geometry.java) — ориентация, пересечение отрезков, площадь и
-convex hull. Связанная тема: [ROADMAP — тема 19](../../ROADMAP.md#тема-19).
+convex hull. Связанная тема: [ROADMAP - геометрия](../../ROADMAP.md#topic-geometry).
 
 <a id="template-mod-math"></a>
 
 ### ModMath
 
 [`ModMath.java`](ModMath.java) — gcd/lcm, modular power, расширенный Евклид,
-решето и факторизация. Связанные темы: [11](../../ROADMAP.md#тема-11) и
-[12](../../ROADMAP.md#тема-12).
+решето и факторизация. Связанные темы: [теория чисел](../../ROADMAP.md#topic-number-theory) и
+[модульная арифметика и комбинаторика](../../ROADMAP.md#topic-modular-combinatorics).
 
 ## Java-правила для олимпиады
 

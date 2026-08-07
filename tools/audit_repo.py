@@ -228,11 +228,11 @@ def check_template_cross_references() -> None:
         "templates/java/README.md duplicates external theory links; keep them in ROADMAP.md",
     )
 
-    topic_matches = list(re.finditer(r'<a id="тема-(\d+)"></a>', roadmap))
-    topic_sections: dict[int, str] = {}
+    topic_matches = list(re.finditer(r'<a id="(topic-[a-z0-9-]+)"></a>', roadmap))
+    topic_sections: dict[str, str] = {}
     for index, match in enumerate(topic_matches):
         end = topic_matches[index + 1].start() if index + 1 < len(topic_matches) else len(roadmap)
-        topic_sections[int(match.group(1))] = roadmap[match.start():end]
+        topic_sections[match.group(1)] = roadmap[match.start():end]
 
     anchor_matches = list(re.finditer(r'<a id="(template-[^"]+)"></a>', readme))
     require(anchor_matches, "template README has no stable template anchors")
@@ -250,8 +250,8 @@ def check_template_cross_references() -> None:
             for target in re.findall(r"\[[^\]]*]\(([^)#]+\.java)\)", section)
         ]
         topics = {
-            int(number)
-            for number in re.findall(r"\.\./\.\./ROADMAP\.md#тема-(\d+)", section)
+            anchor
+            for anchor in re.findall(r"\.\./\.\./ROADMAP\.md#(topic-[a-z0-9-]+)", section)
         }
         require(java_files, f"template section #{anchor} has no Java file")
         require(topics, f"template section #{anchor} has no ROADMAP topic")
@@ -265,11 +265,11 @@ def check_template_cross_references() -> None:
 
         backlink = f"templates/java/README.md#{anchor}"
         for topic in topics:
-            require(topic in topic_sections, f"template section #{anchor} links missing topic {topic}")
+            require(topic in topic_sections, f"template section #{anchor} links missing topic #{topic}")
             if topic in topic_sections:
                 require(
                     backlink in topic_sections[topic],
-                    f"ROADMAP topic {topic} has no backlink to #{anchor}",
+                    f"ROADMAP topic #{topic} has no backlink to #{anchor}",
                 )
 
     actual_files = {path.name for path in (ROOT / "templates" / "java").glob("*.java")}
