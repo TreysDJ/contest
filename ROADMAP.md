@@ -10,49 +10,52 @@ Roadmap рассчитан на старт в конце июля 2026 года,
 - **B — регулярный финальный слой.** Начать точечно до отбора и углубить после прохождения.
 - **C — выборочная продвинутая практика.** Брать только под целевые олимпиады и подтверждённые слабые места.
 
-В [`PRACTICE.md`](PRACTICE.md) основной маршрут образуют `D/L/R/F`; `H/X` — расширение для слабых мест и финалов.
-Количество задач больше не является фиксированной квотой: новая задача добавляется только ради отдельного
-необходимого паттерна или промежуточной учебной ступени.
+В [`PRACTICE.md`](PRACTICE.md) есть два приоритета. `Core` - полный основной маршрут темы, который решается сверху
+вниз. `Extra` - дополнительное закрепление, более сложный перенос или сочетание тем; его брать после Core, по
+обнаруженным пробелам и в финальном цикле. LeetCode и локальные checkpoints встроены в те же таблицы и порядок.
 
-Колонка **«Паттерн»** называет переносимый приём задачи, а не пересказывает решение. Она видна для всех ролей, чтобы
-таблица оставалась простой и одинаковой во всех темах. При диагностике `D`, контрольной `F` и расширении `X` ученик
-сначала открывает только условие и не читает эту колонку; после попытки по ней проверяется ожидаемый учебный маршрут.
+Колонка **«Паттерн»** называет переносимый прием задачи, а не пересказывает решение. Она видна как карта навыков.
+Если нужно проверить самостоятельное распознавание, сначала открыть условие отдельно, а после попытки сравнить свой
+маршрут с паттерном в каталоге.
 
 ## Календарь
 
-Актуальная точка отсчета: 7 августа завершены темы 1-4. Цель быстрого маршрута - закрыть A1 к 4 октября и перейти от
-последовательной теории к контестам до начала основных отборов.
+Точка отсчета: завершены темы 1-4. В темах 5-24 остается **108 Core**. Цель быстрого маршрута - закрыть их к 4 октября
+и перейти от последовательной теории к контестам до начала основных отборов.
 
-| Период                    | Темы                                                 | Главный результат                                      | Контроль                                           |
-| ------------------------- | ---------------------------------------------------- | ------------------------------------------------------ | -------------------------------------------------- |
-| 8-10 августа              | 5. Стек, очередь и дек                               | LIFO/FIFO, оба конца и lazy deletion                   | `D + F`, checkpoint на дек                         |
-| 11-13 августа             | 6. Priority queue и heap                             | comparator, scheduling и stale entries                 | `D + F`, точечные `L/R` только по пробелам         |
-| 14-16 августа             | 7. Prefix, difference и 2D-префиксы                  | начать A1 без дополнительной недели на базу            | `D`, выбранные `L/R`, затем `F`                    |
-| 17-23 августа             | 8-10. Два указателя, sliding window, monotonic stack | три основных линейных паттерна                         | тематические задачи и один смешанный блок          |
-| 24-30 августа             | 11-13. Sweep line, binary search, greedy             | события, монотонный предикат и доказательство жадности | `F` по каждой теме без чтения паттерна             |
-| 31 августа - 6 сентября   | 14-16. Биты, теория чисел, модуль и комбинаторика    | основная олимпиадная математика                        | смешанный математический блок                      |
-| 7-13 сентября             | 17-19. Строки, обходы графа и кратчайшие пути        | prefix/Z, DFS/BFS, Dijkstra и 0-1 BFS                  | один смешанный контест и полный upsolve            |
-| 14-20 сентября            | 20-21. Деревья/LCA и базовое DP                      | две большие темы без третьей новой темы                | checkpoints деревьев и DP                          |
-| 21-27 сентября            | 22-23. Fenwick и segment tree/lazy                   | динамические запросы и композиция обновлений           | Fenwick с нуля и checkpoint segment tree           |
-| 28 сентября - 4 октября   | 24. Static RMQ и повтор A1                           | завершить обязательный слой                            | два полных пробника отбора и upsolve               |
-| 5 октября - конец отборов | повтор A0/A1 и точечные B                            | контестный режим вместо последовательных новых глав    | 60-70% времени на туры и upsolve                   |
-| декабрь - февраль         | 25-35 по профилю прошедших отборов                   | финальный рабочий слой                                 | еженедельный финальный пробник и письменный разбор |
-| март - апрель             | слабые B и выбранные C                               | заключительные этапы                                   | симуляции реального формата, сон и стабильность    |
+| Период                    | Темы                                                 | Core | Главный результат                                      | Контроль                                           |
+| ------------------------- | ---------------------------------------------------- | ---: | ------------------------------------------------------ | -------------------------------------------------- |
+| 8-10 августа              | 5. Стек, очередь и дек                               |    7 | LIFO/FIFO, оба конца и lazy deletion                   | все Core, включая checkpoint                       |
+| 11-13 августа             | 6. Priority queue и heap                             |    5 | comparator, scheduling и stale entries                 | все Core                                           |
+| 14-16 августа             | 7. Prefix, difference и 2D-префиксы                  |    6 | начать A1 без дополнительной недели на базу            | все Core                                           |
+| 17-23 августа             | 8-10. Два указателя, sliding window, monotonic stack |   16 | три основных линейных паттерна                         | все Core и один смешанный блок                      |
+| 24-30 августа             | 11-13. Sweep line, binary search, greedy             |   14 | события, монотонный предикат и доказательство жадности | все Core                                           |
+| 31 августа - 6 сентября   | 14-16. Биты, теория чисел, модуль и комбинаторика    |   17 | основная олимпиадная математика                        | все Core и смешанный математический блок            |
+| 7-13 сентября             | 17-19. Строки, обходы графа и кратчайшие пути        |   17 | prefix/Z, DFS/BFS, Dijkstra и 0-1 BFS                  | все Core, смешанный контест и полный upsolve        |
+| 14-20 сентября            | 20-21. Деревья/LCA и базовое DP                      |   13 | две большие темы без третьей новой темы                | все Core, включая checkpoints                      |
+| 21-27 сентября            | 22-23. Fenwick и segment tree/lazy                   |    9 | динамические запросы и композиция обновлений           | все Core, Fenwick и segment tree с нуля             |
+| 28 сентября - 4 октября   | 24. Static RMQ и повтор A1                           |    4 | завершить обязательный слой                            | все Core и два полных пробника отбора               |
+| 5 октября - конец отборов | повтор A0/A1 и точечные B                            |    - | контестный режим вместо последовательных новых глав    | 60-70% времени на туры и upsolve                   |
+| декабрь - февраль         | 25-35 по профилю прошедших отборов                   |    - | финальный рабочий слой                                 | еженедельный финальный пробник и письменный разбор |
+| март - апрель             | слабые B и выбранные C                               |    - | заключительные этапы                                   | симуляции реального формата, сон и стабильность    |
 
-Если фактическая скорость отличается, сначала сокращать объем задач внутри уже знакомой темы, а не удалять тему из
-программы. Нельзя компенсировать пробел в DFS изучением HLD или пробел в обычном DP изучением CHT.
+Если темп проседает, сначала убрать `BACKUP`, `Extra` и второстепенные параллельные материалы. Core не сокращать:
+знакомые задачи проходить быстрым чистым перерешиванием, а новые доводить до AC и разбора. Нельзя компенсировать
+пробел в DFS изучением HLD или пробел в обычном DP изучением CHT.
 
 <a id="adaptive-pace"></a>
 
 ### Как удерживать темп
 
-- Знакомая тема: `D`, затем сразу `F` и обязательный checkpoint. `L/R` не решать без обнаруженного пробела.
-- Частично знакомая тема: `D`, одна подходящая `L` или `R`, затем `F`.
-- Новая или слабая тема: основной материал `MUST-WATCH`, две-три разные `L/R`, затем `F`.
-- `H/X` до отборов брать только для подтвержденного слабого места или при опережении календаря.
-- Лимит самостоятельной попытки: `D` 25-35 минут, `L` до 60 минут, `R` 60-90 минут, `F` 90-120 минут.
-- Неудача на `F` не блокирует весь roadmap: завершить upsolve, поставить уровень `2` и вернуть тему в смешанную
-  проверку через 7-14 дней.
+- По каждой теме пройти `MUST-WATCH`, затем решить все Core по порядку. Для уже знакомой темы достаточно быстро
+  восстановить идею и написать чистое решение без старого кода.
+- На знакомую базовую задачу дать 20-35 минут, на новую обычную задачу 45-90 минут. После этого перейти к разбору,
+  сделать upsolve и зафиксировать только переносимый вывод.
+- Extra до отборов брать при конкретном пробеле или опережении календаря; после отборов использовать как расширение
+  и повторение.
+- Одна неудачная Core не блокирует весь roadmap: завершить upsolve, отметить текущий уровень и проверить перенос в
+  смешанном контесте или новой задаче через 7-14 дней.
+- В конце каждой недели провести хотя бы один смешанный блок без чтения колонки `Паттерн`.
 
 Исключение: финал «Изумруда» 2026/27 назначен на 31 января — 2 февраля, поэтому его доказательное ядро закрывается к
 декабрю по отдельной [дорожке подготовки](contests/07-izumrud/PREPARATION.md), а не откладывается до марта.
@@ -85,8 +88,8 @@ Roadmap рассчитан на старт в конце июля 2026 года,
 
 1. Ученик формулирует инвариант и сложность без подсказки.
 2. Реализует базовый шаблон на Java с нуля за 15–25 минут.
-3. Решает `F` из банка в лимит времени и объясняет, по каким признакам распознал тему.
-4. Через 7–14 дней повторно решает одну задачу без чтения старого кода.
+3. Решает все Core темы, включая локальные checkpoints, и объясняет, по каким признакам выбирается метод.
+4. Через 7-14 дней решает новую или смешанную задачу без чтения старого кода и колонки `Паттерн`.
 
 ## Этап 0. Инженерная база
 
@@ -144,7 +147,7 @@ Roadmap рассчитан на старт в конце июля 2026 года,
       [«Тестирование и C++»](https://www.youtube.com/watch?v=Tx0PhkJN4xg) — брать методику разбора и отладки,
       но не C++ API и низкоуровневые оптимизации.
 - **Java-шаблон:** [FastScanner](templates/java/README.md#template-fast-scanner).
-- **Практика:** [10 задач и LeetCode-база](PRACTICE.md#practice-complexity-java).
+- **Практика:** [Core: 7; Extra: 6](PRACTICE.md#practice-complexity-java).
 
 <a id="topic-bruteforce"></a>
 
@@ -175,7 +178,7 @@ Roadmap рассчитан на старт в конце июля 2026 года,
     - [статья] [Яндекс Хэндбук: «Разделяй и властвуй»](https://education.yandex.ru/handbook/algorithms/article/razdelyaj-i-vlastvuj) —
       рекурсивное разбиение на независимые подзадачи и оценка стоимости объединения; читать после базового
       backtracking как соседнюю, но отдельную рекурсивную модель.
-- **Практика:** [10 задач](PRACTICE.md#practice-bruteforce).
+- **Практика:** [Core: 6; Extra: 6](PRACTICE.md#practice-bruteforce).
 
 <a id="topic-sorting-compression"></a>
 
@@ -227,7 +230,7 @@ unique`, переход к рангам и сохранение отношени
       [сортировка слиянием](https://neerc.ifmo.ru/wiki/index.php?title=Сортировка_слиянием) и
       [поиск k-й порядковой статистики за линейное время](https://neerc.ifmo.ru/wiki/index.php?title=Поиск_k-ой_порядковой_статистики_за_линейное_время) —
       доказательства ожидаемой и гарантированной сложности.
-- **Практика:** [10 задач](PRACTICE.md#practice-sorting-compression).
+- **Практика:** [Core: 7; Extra: 5](PRACTICE.md#practice-sorting-compression).
 
 <a id="topic-maps-sets"></a>
 
@@ -262,7 +265,7 @@ unique`, переход к рангам и сохранение отношени
       продвинутые схемы статического и динамического хеширования.
     - [статья, C++] [Algorithmica: «Деревья в STL»](https://ru.algorithmica.org/cs/tree-structures/stl-trees/) —
       упорядоченные множества и поиск соседей; в Java сопоставлять с `TreeSet`/`TreeMap`.
-- **Практика:** [9 задач](PRACTICE.md#practice-maps-sets).
+- **Практика:** [Core: 6; Extra: 5](PRACTICE.md#practice-maps-sets).
 
 <a id="topic-stack-queue-deque"></a>
 
@@ -305,7 +308,7 @@ unique`, переход к рангам и сохранение отношени
     - [конспекты] Викиконспекты ИТМО: [стек](https://neerc.ifmo.ru/wiki/index.php?title=Стек),
       [очередь](https://neerc.ifmo.ru/wiki/index.php?title=Очередь),
       [дек](https://neerc.ifmo.ru/wiki/index.php?title=Дек).
-- **Практика:** [6 задач](PRACTICE.md#practice-stack-queue-deque).
+- **Практика:** [Core: 7; Extra: 1](PRACTICE.md#practice-stack-queue-deque).
 
 <a id="topic-priority-queue"></a>
 
@@ -341,7 +344,7 @@ unique`, переход к рангам и сохранение отношени
   - **BACKUP:**
     - [конспект] [ИТМО: `Двоичная куча`](https://neerc.ifmo.ru/wiki/index.php?title=Двоичная_куча) - формальная спецификация;
     - [видео] [Яндекс Тренировки 3.0: очереди, деки и priority queue](https://education.yandex.ru/knowledge/trenirovki-po-algoritmam-3-0-lektsiia-2-ocheredi-deki-i-prioritetnie-ocheredi) - обзорное повторение.
-- **Практика:** [5 задач](PRACTICE.md#practice-priority-queue).
+- **Практика:** [Core: 5; Extra: 1](PRACTICE.md#practice-priority-queue).
 
 ## Этап I. Массивы, поиск, математика и строки
 
@@ -381,7 +384,7 @@ unique`, переход к рангам и сохранение отношени
   - **BACKUP:**
     - [видео] [Егор Горбачев: `Префиксные суммы, разностные массивы и сила полуинтервалов`](https://www.youtube.com/watch?v=5iW84xlL0j0);
     - [видео] [Яндекс: префиксные суммы и два указателя](https://education.yandex.ru/knowledge/trenirovki-po-algoritmam-ot-yandeksa-lektsiia-5-prefiksnie-summi-i-dva-ukazatelia) - повторение 1D на задачах.
-- **Практика:** [7 задач](PRACTICE.md#practice-prefix-difference-2d).
+- **Практика:** [Core: 6; Extra: 3](PRACTICE.md#practice-prefix-difference-2d).
 
 <a id="topic-two-pointers"></a>
 
@@ -417,7 +420,7 @@ unique`, переход к рангам и сохранение отношени
   - **BACKUP:**
     - [конспект] [ИТМО, упражнения 2.22-2.24](https://neerc.ifmo.ru/teaching/algo/year2023/algo.s1.34-37.pdf) - две группы,
       заданная сумма и блоки равных значений.
-- **Практика:** [5 задач](PRACTICE.md#practice-two-pointers).
+- **Практика:** [Core: 4; Extra: 2](PRACTICE.md#practice-two-pointers).
 
 <a id="topic-sliding-window"></a>
 
@@ -456,7 +459,7 @@ unique`, переход к рангам и сохранение отношени
     - [конспект] [ИТМО, упражнения 2.25-2.27](https://neerc.ifmo.ru/teaching/algo/year2023/algo.s1.34-37.pdf#page=4) - сумма
       неотрицательного подотрезка и роль знака элементов;
     - [курс] [Tinkoff Generation: минимум на отрезке](https://algorithmica.org/tg/stl) - сравнение нескольких структур.
-- **Практика:** [7 задач](PRACTICE.md#practice-sliding-window).
+- **Практика:** [Core: 7; Extra: 2](PRACTICE.md#practice-sliding-window).
 
 <a id="topic-monotonic-stack"></a>
 
@@ -490,7 +493,7 @@ unique`, переход к рангам и сохранение отношени
     - [конспект] [СПб ВШЭ: практика по стеку](https://acm.math.spbu.ru/~sk1/courses/2425f_au/practice/w03.pdf), страницы
       6-8 - nearest boundaries и переходы по найденным ссылкам;
     - [статья] [Habr: монотонный стек](https://habr.com/ru/articles/996802/) - дополнительная визуализация и histogram.
-- **Практика:** [5 задач](PRACTICE.md#practice-monotonic-stack).
+- **Практика:** [Core: 5; Extra: 2](PRACTICE.md#practice-monotonic-stack).
 
 <a id="topic-sweep-line"></a>
 
@@ -525,7 +528,7 @@ unique`, переход к рангам и сохранение отношени
   - **BACKUP:**
     - [конспект] [Пособие по линейным алгоритмам](https://drive.google.com/file/d/1-hwUs-uqRRgoqLkRnG2X06mrUebERiqE/view?usp=sharing), глава 8 - более плавное знакомство;
     - [конспект] [ИТМО, упражнения по sweep line](https://neerc.ifmo.ru/teaching/algo/year2021/algo.s2.31-33.pdf), страницы 3-4.
-- **Практика:** [5 задач](PRACTICE.md#practice-sweep-line).
+- **Практика:** [Core: 4; Extra: 1](PRACTICE.md#practice-sweep-line).
 
 <a id="topic-binary-search"></a>
 
@@ -579,7 +582,7 @@ unique`, переход к рангам и сохранение отношени
       и область применимости унимодальности.
     - [статья] [Algorithmica: «Метод Ньютона»](https://ru.algorithmica.org/cs/numerical/newton/) — быстрый
       численный поиск корня, только когда доказана сходимость и бинарного поиска недостаточно.
-- **Практика:** [10 задач](PRACTICE.md#practice-binary-search).
+- **Практика:** [Core: 5; Extra: 7](PRACTICE.md#practice-binary-search).
 
 <a id="topic-greedy"></a>
 
@@ -618,7 +621,7 @@ unique`, переход к рангам и сохранение отношени
       общий критерий корректности жадного набора; финальный теоретический уровень.
     - [статья] [Algorithmica: «Метод отжига»](https://ru.algorithmica.org/cs/combinatorial-optimization/annealing/) —
       эвристическая оптимизация без гарантии; не подменять ею доказуемый greedy.
-- **Практика:** [11 задач](PRACTICE.md#practice-greedy).
+- **Практика:** [Core: 5; Extra: 8](PRACTICE.md#practice-greedy).
 
 <a id="topic-bitmasks"></a>
 
@@ -648,7 +651,7 @@ unique`, переход к рангам и сохранение отношени
     - [конспект] [ИТМО: «Определение булевой функции»](https://neerc.ifmo.ru/wiki/index.php?title=Определение_булевой_функции) —
       таблицы истинности и алгебраические свойства операций; нужен для доказательных побитовых задач, а не для
       заучивания полной теории функций.
-- **Практика:** [10 задач](PRACTICE.md#practice-bitmasks).
+- **Практика:** [Core: 5; Extra: 7](PRACTICE.md#practice-bitmasks).
 
 <a id="topic-number-theory"></a>
 
@@ -685,7 +688,7 @@ unique`, переход к рангам и сохранение отношени
     - [статья] [Algorithmica: «Ро-алгоритм Полларда»](https://ru.algorithmica.org/cs/factorization/pollard/) —
       факторизация больших 64-битных чисел; только после modular multiplication и вероятностной проверки простоты.
 - **Java-шаблон:** [ModMath](templates/java/README.md#template-mod-math).
-- **Практика:** [13 задач](PRACTICE.md#practice-number-theory).
+- **Практика:** [Core: 6; Extra: 9](PRACTICE.md#practice-number-theory).
 
 <a id="topic-modular-combinatorics"></a>
 
@@ -728,7 +731,7 @@ unique`, переход к рангам и сохранение отношени
       и [«Числа Каталана»](https://neerc.ifmo.ru/wiki/index.php?title=Числа_Каталана) — выбирать только конспект,
       нужный текущей задаче; производящие функции в обязательную программу не входят.
 - **Java-шаблон:** [ModMath](templates/java/README.md#template-mod-math).
-- **Практика:** [11 задач](PRACTICE.md#practice-modular-combinatorics).
+- **Практика:** [Core: 6; Extra: 7](PRACTICE.md#practice-modular-combinatorics).
 
 <a id="topic-basic-strings"></a>
 
@@ -776,7 +779,7 @@ unique`, переход к рангам и сохранение отношени
     - [конспект] [ИТМО: «Алгоритм Кнута—Морриса—Пратта»](https://neerc.ifmo.ru/wiki/index.php?title=Алгоритм_Кнута-Морриса-Пратта) —
       строгий вывод автомата откатов и линейной сложности.
 - **Java-шаблон:** [StringAlgorithms](templates/java/README.md#template-string-algorithms).
-- **Практика:** [9 задач](PRACTICE.md#practice-basic-strings).
+- **Практика:** [Core: 6; Extra: 6](PRACTICE.md#practice-basic-strings).
 
 ## Этап II. Графы, деревья, DP и запросы
 
@@ -828,7 +831,7 @@ unique`, переход к рангам и сохранение отношени
     - [конспект] [ИТМО: «Обход в глубину, цвета вершин»](https://neerc.ifmo.ru/wiki/index.php?title=Обход_в_глубину,_цвета_вершин) —
       формальный смысл белого, серого и чёрного состояний DFS.
 - **Java-шаблон:** [GraphAlgorithms](templates/java/README.md#template-graph-algorithms).
-- **Практика:** [8 задач](PRACTICE.md#practice-graph-traversals).
+- **Практика:** [Core: 5; Extra: 5](PRACTICE.md#practice-graph-traversals).
 
 <a id="topic-shortest-paths"></a>
 
@@ -870,7 +873,7 @@ unique`, переход к рангам и сохранение отношени
       [Флойд](https://neerc.ifmo.ru/wiki/index.php?title=Алгоритм_Флойда) — строгие инварианты релаксации и
       доказательства корректности.
 - **Java-шаблон:** [GraphAlgorithms](templates/java/README.md#template-graph-algorithms).
-- **Практика:** [10 задач](PRACTICE.md#practice-shortest-paths).
+- **Практика:** [Core: 6; Extra: 6](PRACTICE.md#practice-shortest-paths).
 
 <a id="topic-trees-lca"></a>
 
@@ -908,7 +911,7 @@ unique`, переход к рангам и сохранение отношени
       [алгоритм Фарака—Колтона—Бендера](https://neerc.ifmo.ru/wiki/index.php?title=Алгоритм_Фарака-Колтона_и_Бендера) —
       от рабочего `O(log n)` решения к теоретическому `O(1)` RMQ.
 - **Java-шаблон:** [TreeAlgorithms](templates/java/README.md#template-tree-algorithms).
-- **Практика:** [12 задач](PRACTICE.md#practice-trees-lca).
+- **Практика:** [Core: 6; Extra: 9](PRACTICE.md#practice-trees-lca).
 
 <a id="topic-basic-dp"></a>
 
@@ -960,7 +963,7 @@ unique`, переход к рангам и сохранение отношени
       [LIS](https://neerc.ifmo.ru/wiki/index.php?title=Задача_о_наибольшей_возрастающей_подпоследовательности) и
       [рюкзак](https://neerc.ifmo.ru/wiki/index.php?title=Задача_о_рюкзаке) — формальные состояния, сложности и
       способы восстановления.
-- **Практика:** [13 задач](PRACTICE.md#practice-basic-dp).
+- **Практика:** [Core: 7; Extra: 9](PRACTICE.md#practice-basic-dp).
 
 <a id="topic-fenwick"></a>
 
@@ -995,7 +998,7 @@ unique`, переход к рангам и сохранение отношени
     - [видео] [Algocode: `Структуры данных #1`](https://www.youtube.com/watch?v=jZsUJ7TEFPo) - обзор выбора range-query
       структуры после отдельной статьи.
 - **Java-шаблон:** [Fenwick](templates/java/README.md#template-fenwick).
-- **Практика:** [5 задач](PRACTICE.md#practice-fenwick).
+- **Практика:** [Core: 4; Extra: 2](PRACTICE.md#practice-fenwick).
 
 <a id="topic-segment-tree"></a>
 
@@ -1040,7 +1043,7 @@ unique`, переход к рангам и сохранение отношени
       lazy и как граница амортизированного pruning.
 - **Java-шаблоны:** [SegmentTree](templates/java/README.md#template-segment-tree),
   [LazyMinTree](templates/java/README.md#template-lazy-min-tree).
-- **Практика:** [6 задач и обязательный checkpoint](PRACTICE.md#practice-segment-tree).
+- **Практика:** [Core: 5; Extra: 3](PRACTICE.md#practice-segment-tree).
 
 <a id="topic-static-rmq"></a>
 
@@ -1077,7 +1080,7 @@ unique`, переход к рангам и сохранение отношени
     - [видео] [Algocode: `Структуры данных 2`](https://www.youtube.com/watch?v=ASUrBGlIUc8) - RMQ, sparse table и граница
       продвинутых вариантов.
 - **Java-шаблон:** [SparseTableMin](templates/java/README.md#template-sparse-table-min).
-- **Практика:** [5 задач](PRACTICE.md#practice-static-rmq).
+- **Практика:** [Core: 4; Extra: 2](PRACTICE.md#practice-static-rmq).
 
 ## Этап III. Финальный рабочий слой
 
@@ -1127,7 +1130,7 @@ unique`, переход к рангам и сохранение отношени
       доказательства и
       вырожденные случаи.
 - **Java-шаблон:** [Geometry](templates/java/README.md#template-geometry).
-- **Практика:** [7 задач](PRACTICE.md#practice-geometry).
+- **Практика:** [Core: 6; Extra: 3](PRACTICE.md#practice-geometry).
 
 <a id="topic-advanced-graphs"></a>
 
@@ -1167,7 +1170,7 @@ unique`, переход к рангам и сохранение отношени
       и [мосты](https://neerc.ifmo.ru/wiki/index.php?title=Использование_обхода_в_глубину_для_поиска_мостов) —
       строгий вывод условий на время входа и low-link.
 - **Java-шаблон:** [GraphAlgorithms](templates/java/README.md#template-graph-algorithms).
-- **Практика:** [9 задач](PRACTICE.md#practice-advanced-graphs).
+- **Практика:** [Core: 6; Extra: 5](PRACTICE.md#practice-advanced-graphs).
 
 <a id="topic-dsu-mst"></a>
 
@@ -1217,7 +1220,7 @@ unique`, переход к рангам и сохранение отношени
       спецификации.
 - **Java-шаблоны:** [DSU](templates/java/README.md#template-dsu),
   [GraphAlgorithms](templates/java/README.md#template-graph-algorithms).
-- **Практика:** [7 задач](PRACTICE.md#practice-dsu-mst).
+- **Практика:** [Core: 6; Extra: 3](PRACTICE.md#practice-dsu-mst).
 
 <a id="topic-advanced-dp"></a>
 
@@ -1251,7 +1254,7 @@ unique`, переход к рангам и сохранение отношени
   - **BACKUP:**
     - [конспект] [ИТМО: «Порядок перемножения матриц»](https://neerc.ifmo.ru/wiki/index.php?title=Задача_о_порядке_перемножения_матриц) —
       каноническое interval DP с доказуемой стоимостью разреза.
-- **Практика:** [8 задач](PRACTICE.md#practice-advanced-dp).
+- **Практика:** [Core: 6; Extra: 4](PRACTICE.md#practice-advanced-dp).
 
 <a id="topic-subset-dp"></a>
 
@@ -1295,7 +1298,7 @@ unique`, переход к рангам и сохранение отношени
     - [курс] [Т-Поколение C 2025/26: «ДП по подмаскам и подотрезкам»](https://algocourses.ru/courses/c2025) —
       русская запись занятия и задачи на выбор масочного состояния; смотреть как дополнительную практическую
       ступень, а точное отличие обычного перебора подмасок от SOS DP закрепить на задачах банка.
-- **Практика:** [7 задач](PRACTICE.md#practice-subset-dp).
+- **Практика:** [Core: 6; Extra: 3](PRACTICE.md#practice-subset-dp).
 
 <a id="topic-treap"></a>
 
@@ -1340,7 +1343,7 @@ unique`, переход к рангам и сохранение отношени
       формальная рекуррентность и требования к universe.
 - **Java-шаблоны:** [TreapMultiset](templates/java/README.md#template-treap-multiset),
   [ImplicitTreap](templates/java/README.md#template-implicit-treap).
-- **Практика:** [6 задач](PRACTICE.md#practice-treap).
+- **Практика:** [Core: 5; Extra: 5](PRACTICE.md#practice-treap).
 
 <a id="topic-flows-matching"></a>
 
@@ -1388,7 +1391,7 @@ unique`, переход к рангам и сохранение отношени
       [потенциалы Джонсона](https://neerc.ifmo.ru/wiki/index.php?title=Использование_потенциалов_Джонсона_при_поиске_потока_минимальной_стоимости) —
       отрицательные остаточные рёбра и Dijkstra с приведёнными стоимостями.
 - **Java-шаблон:** [FlowAlgorithms](templates/java/README.md#template-flow-algorithms).
-- **Практика:** [7 задач](PRACTICE.md#practice-flows-matching).
+- **Практика:** [Core: 4; Extra: 5](PRACTICE.md#practice-flows-matching).
 
 <a id="topic-advanced-strings"></a>
 
@@ -1446,7 +1449,7 @@ unique`, переход к рангам и сохранение отношени
     - [видео] [Павел Маврин: «Суффиксное дерево. Алгоритм Укконена»](https://www.youtube.com/watch?v=LNBs3xZMGLc) —
       продвинутая альтернатива suffix array/automaton; не нужна как первый суффиксный шаблон.
 - **Java-шаблон:** [StringAlgorithms](templates/java/README.md#template-string-algorithms).
-- **Практика:** [8 задач](PRACTICE.md#practice-advanced-strings).
+- **Практика:** [Core: 6; Extra: 4](PRACTICE.md#practice-advanced-strings).
 
 <a id="topic-advanced-trees"></a>
 
@@ -1488,7 +1491,7 @@ unique`, переход к рангам и сохранение отношени
       элемента как минимум удваивается, поэтому один элемент перемещается `O(log n)` раз. Не подменять эту технику
       HLD: первая объединяет данные поддеревьев, вторая раскладывает пути.
 - **Java-шаблон:** [TreeAlgorithms](templates/java/README.md#template-tree-algorithms).
-- **Практика:** [7 задач](PRACTICE.md#practice-advanced-trees).
+- **Практика:** [Core: 5; Extra: 4](PRACTICE.md#practice-advanced-trees).
 
 <a id="topic-games"></a>
 
@@ -1518,7 +1521,7 @@ unique`, переход к рангам и сохранение отношени
     - После Нима самостоятельно вывести Sprague–Grundy для маленького DAG: `grundy[v] = mex(grundy[to])`, проверить
       xor независимых компонент и только затем переходить к задачам со скрытой суммой игр. Этот вывод важнее
       запоминания готовой формулы без условий применимости.
-- **Практика:** [7 задач](PRACTICE.md#practice-games).
+- **Практика:** [Core: 6; Extra: 3](PRACTICE.md#practice-games).
 
 <a id="topic-meet-in-the-middle"></a>
 
@@ -1548,7 +1551,7 @@ unique`, переход к рангам и сохранение отношени
     - [конспект] [Алгокод: «ДП по цифрам»](https://wiki.algocode.ru/index.php?title=ДП_по_цифрам) — раздел
       «MITM в задачах на числа» показывает, как та же идея возникает не только в subset sum; основной digit DP из
       этой страницы относится к теме 23.
-- **Практика:** [7 задач](PRACTICE.md#practice-meet-in-the-middle).
+- **Практика:** [Core: 4; Extra: 4](PRACTICE.md#practice-meet-in-the-middle).
 
 ## Этап IV. Выборочный финальный слой
 
@@ -1590,7 +1593,7 @@ unique`, переход к рангам и сохранение отношени
   - **BACKUP:**
     - Для Mo с изменениями добавить ось времени только после статической версии: выписать три пары симметричных
       операций — `add/remove` слева, справа и `apply/rollback` изменения — и проверить инвариант ответа после каждой.
-- **Практика:** [5 задач](PRACTICE.md#practice-sqrt-mo).
+- **Практика:** [Core: 3; Extra: 4](PRACTICE.md#practice-sqrt-mo).
 
 <a id="topic-rollback-persistence"></a>
 
@@ -1639,7 +1642,7 @@ unique`, переход к рангам и сохранение отношени
       [«Динамическая связность оффлайн»](https://neerc.ifmo.ru/wiki/index.php?title=Задача_о_динамической_связности_оффлайн) —
       формальная модель версий и независимое описание временных интервалов рёбер.
 - **Java-шаблон:** [RollbackDSU](templates/java/README.md#template-rollback-dsu).
-- **Практика:** [5 задач](PRACTICE.md#practice-rollback-persistence).
+- **Практика:** [Core: 4; Extra: 2](PRACTICE.md#practice-rollback-persistence).
 
 <a id="topic-dp-optimizations"></a>
 
@@ -1680,7 +1683,7 @@ unique`, переход к рангам и сохранение отношени
       параметрическая оптимизация для ограничения на число выбранных объектов; брать после уверенного CHT.
     - Для Li Chao использовать инвариант из блока «Освоить» и задачу CF 660F: в отобранных русских источниках нет
       отдельного объяснения, которое качественно дополняло бы уже выбранную практику.
-- **Практика:** [5 задач](PRACTICE.md#practice-dp-optimizations).
+- **Практика:** [Core: 5; Extra: 1](PRACTICE.md#practice-dp-optimizations).
 
 <a id="topic-linear-algebra-fft"></a>
 
@@ -1725,7 +1728,7 @@ unique`, переход к рангам и сохранение отношени
       через восстановление полинома к первой быстрой свёртке.
     - В Java для FFT заранее проверить накопление ошибки `double`; для NTT — переполнение произведений и приведение
       через `long`. Низкоуровневые C++-оптимизации из источника не копировать без измерений.
-- **Практика:** [5 задач](PRACTICE.md#practice-linear-algebra-fft).
+- **Практика:** [Core: 6; Extra: 1](PRACTICE.md#practice-linear-algebra-fft).
 
 <a id="topic-probability-interactive"></a>
 
@@ -1775,7 +1778,7 @@ unique`, переход к рангам и сохранение отношени
       [2025/26](contests/03-spbu/2025-2026/final/statements.pdf) — практикум по распознаванию interactive,
       double-run и open/output-only формата; перед решением читать критерии того же сезона и проверять доступный
       checker, а не переносить правила между задачами.
-- **Практика:** [5 задач](PRACTICE.md#practice-probability-interactive).
+- **Практика:** [Core: 6; Extra: 1](PRACTICE.md#practice-probability-interactive).
 
 ## Параллельная дорожка: доказательства и теоретическая информатика
 
@@ -1795,9 +1798,9 @@ unique`, переход к рангам и сохранение отношени
 
 ## Еженедельный ритм
 
-- 2 занятия по новой теме, по 90–120 минут;
-- 2 занятия по задачам `L/R`, по 90 минут;
-- 1 смешанный контест 2–4 часа;
+- 3-4 тематических занятия по Core, по 90-120 минут; нужный MUST-WATCH проходить в начале того же блока;
+- в знакомой теме решать Core быстрее, но все равно писать чистую реализацию без старого кода;
+- 1 смешанный контест на 2-4 часа без чтения колонки `Паттерн`;
 - 1 upsolve-сессия не короче самого контеста;
 - 1 короткое повторение шаблонов Java и собственных заметок из [`NOTES.md`](NOTES.md);
 - минимум один свободный вечер без олимпиады.
