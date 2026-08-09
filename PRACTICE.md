@@ -5,13 +5,13 @@
 
 ## Объём и маршрут
 
-- этап A0: **38 Core** и **24 Extra** - инженерная и алгоритмическая база;
-- этап A1: **96 Core** и **90 Extra** - основные переносимые олимпиадные паттерны;
-- этап B: **60 Core** и **43 Extra** - регулярный финальный слой;
-- этап C: **24 Core** и **9 Extra** - выборочная продвинутая практика;
-- полный каталог: **218 Core** и **166 Extra**, всего **384** строки;
-- онлайн-задачи: **373**, включая **66** задач LeetCode;
-- локальные checkpoints: **11**, они входят в Core, но не являются задачами онлайн-судьи.
+- этап A0: **38 Core** и **25 Extra** - инженерная и алгоритмическая база;
+- этап A1: **118 Core** и **109 Extra** - основные переносимые олимпиадные паттерны;
+- этап B: **100 Core** и **44 Extra** - регулярный финальный слой;
+- этап C: **53 Core** и **22 Extra** - выборочная продвинутая практика;
+- полный каталог: **309 Core** и **200 Extra**, всего **509** строк;
+- задачи внешних онлайн-судей: **457**, включая **59** задач LeetCode;
+- локальные checkpoints: **46**; еще **6** строк используют официальные архивы олимпиад из `contests/`.
 
 `Core` - основной маршрут: эти задачи нужно решить все и по порядку. Если задача уже знакома, ее все равно полезно
 быстро перерешать и восстановить реализацию без старого кода. `Extra` - расширение темы после Core: его брать по
@@ -138,7 +138,7 @@
 
 ## 6. Priority queue и heap
 
-Этап **A0**. Core: **5**. Extra: **1**. Теория и признаки распознавания: [ROADMAP: priority queue](ROADMAP.md#topic-priority-queue).
+Этап **A0**. Core: **5**. Extra: **2**. Теория и признаки распознавания: [ROADMAP: priority queue](ROADMAP.md#topic-priority-queue).
 
 | № | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
@@ -148,24 +148,40 @@
 | 4 | `Core` | [CF 1353D - Constructing the Array](https://codeforces.com/problemset/problem/1353/D) | CF 1600 | Составной comparator: длина по убыванию, левая граница по возрастанию |
 | 5 | `Core` | [CF 1468C - Berpizza](https://codeforces.com/problemset/problem/1468/C) | CF 1700 | Max-heap плюс FIFO/pointer, `served[]` и пропуск stale entries |
 | 6 | `Extra` | [CF 1526C2 - Potions](https://codeforces.com/problemset/problem/1526/C2) | CF 1600 | Tentative selection и удаление худшего выбранного элемента |
+| 7 | `Extra` | [LC 973 - K Closest Points to Origin](https://leetcode.com/problems/k-closest-points-to-origin/) | LC Medium | Heap размера `k`; это selection, а не вычислительная геометрия |
 
 <a id="practice-prefix-difference-2d"></a>
 
-## 7. Префиксные суммы, массив разностей и 2D-префиксы
+## Модуль 7. Префиксные преобразования
 
-Этап **A1**. Core: **6**. Extra: **3**. Теория и признаки распознавания: [ROADMAP: префиксы и разности](ROADMAP.md#topic-prefix-difference-2d).
+<a id="practice-prefix-sums"></a>
+
+### 7.1. Префиксные суммы и 2D-префиксы
+
+Этап **A1**. Core: **5**. Extra: **1**. Теория и признаки распознавания: [ROADMAP: префиксные суммы](ROADMAP.md#topic-prefix-sums).
 
 | № | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
 | 1 | `Core` | [LC 303 - Range Sum Query Immutable](https://leetcode.com/problems/range-sum-query-immutable/) | LC Easy | 1D-prefix |
 | 2 | `Core` | [LC 304 - Range Sum Query 2D Immutable](https://leetcode.com/problems/range-sum-query-2d-immutable/) | LC Medium | 2D-prefix |
-| 3 | `Core` | [CF 816B - Karen and Coffee](https://codeforces.com/problemset/problem/816/B) | CF 1400 | Difference array для покрытия плюс второй prefix по предикату |
-| 4 | `Core` | [CF 1722E - Counting Rectangles](https://codeforces.com/problemset/problem/1722/E) | CF 1600 | Взвешенный 2D-prefix и строгие границы прямоугольного запроса |
-| 5 | `Core` | [CF 295A - Greg and Array](https://codeforces.com/problemset/problem/295/A) | CF 1400 | Два уровня offline difference arrays |
-| 6 | `Core` | [CF 466C - Number of Ways](https://codeforces.com/problemset/problem/466/C) | CF 1700 | Подсчет упорядоченных пар точек разбиения по значениям префикса |
-| 7 | `Extra` | [CF 1807D - Odd Queries](https://codeforces.com/problemset/problem/1807/D) | CF 900 | Префиксная сумма и виртуальная замена одного диапазона |
-| 8 | `Extra` | [CF 1795C - Tea Tasting](https://codeforces.com/problemset/problem/1795/C) | CF 1500 | Binary search конца вклада, полные вклады через differences и один частичный край |
-| 9 | `Extra` | [CF 276C - Little Girl and Maximum Sum](https://codeforces.com/problemset/problem/276/C) | CF 1500 | Частоты покрытия через differences плюс перестановочный greedy |
+| 3 | `Core` | [CF 1722E - Counting Rectangles](https://codeforces.com/problemset/problem/1722/E) | CF 1600 | Взвешенный 2D-prefix и строгие границы прямоугольного запроса |
+| 4 | `Core` | [CF 466C - Number of Ways](https://codeforces.com/problemset/problem/466/C) | CF 1700 | Подсчет упорядоченных пар точек разбиения по значениям префикса |
+| 5 | `Core` | Локальный checkpoint: prefix API | Checkpoint | 1D sum/xor/count и 2D rectangle sum на полуинтервалах; stress против прямого подсчета |
+| 6 | `Extra` | [CF 1807D - Odd Queries](https://codeforces.com/problemset/problem/1807/D) | CF 900 | Префиксная сумма и виртуальная замена одного диапазона |
+
+<a id="practice-difference-array"></a>
+
+### 7.2. Массив разностей и офлайн-обновления диапазонов
+
+Этап **A1**. Core: **3**. Extra: **2**. Теория и признаки распознавания: [ROADMAP: массив разностей](ROADMAP.md#topic-difference-array).
+
+| № | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | [CF 816B - Karen and Coffee](https://codeforces.com/problemset/problem/816/B) | CF 1400 | Difference array покрытия плюс prefix по готовому предикату |
+| 2 | `Core` | [CF 295A - Greg and Array](https://codeforces.com/problemset/problem/295/A) | CF 1400 | Два вложенных уровня offline difference arrays |
+| 3 | `Core` | Локальный checkpoint: range add offline | Checkpoint | `diff[l] += x`, `diff[r] -= x`, sentinel и восстановление на случайных полуинтервалах |
+| 4 | `Extra` | [CF 276C - Little Girl and Maximum Sum](https://codeforces.com/problemset/problem/276/C) | CF 1500 | Частоты покрытия через differences плюс перестановочный greedy |
+| 5 | `Extra` | [CF 1795C - Tea Tasting](https://codeforces.com/problemset/problem/1795/C) | CF 1500 | Difference array полных вкладов плюс один частичный край |
 
 <a id="practice-two-pointers"></a>
 
@@ -232,28 +248,47 @@
 
 <a id="practice-binary-search"></a>
 
-## 12. Бинарный/тернарный поиск и поиск по ответу
+## 12. Бинарный поиск, поиск по ответу и унимодальный поиск
 
-Этап **A1**. Core: **5**. Extra: **7**. Теория и признаки распознавания: [ROADMAP: binary search](ROADMAP.md#topic-binary-search).
+Этап **A1**. Core: **12**. Extra: **19**. Теория и признаки распознавания: [ROADMAP: binary search](ROADMAP.md#topic-binary-search).
 
 | № | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
 | 1 | `Core` | [LC 704 - Binary Search](https://leetcode.com/problems/binary-search/) | LC Easy | Классический binary search |
-| 2 | `Core` | [LC 875 - Koko Eating Bananas](https://leetcode.com/problems/koko-eating-bananas/) | LC Medium | Binary search on answer |
-| 3 | `Core` | [ACMP 267 - Ксерокопии](https://acmp.ru/index.asp?main=task&id_task=267) | - | First true: минимальное время производства |
-| 4 | `Core` | [CF 706B - Interesting drink](https://codeforces.com/problemset/problem/706/B) | CF 1100 | Upper bound: число элементов не больше x |
-| 5 | `Core` | [CF 1742E - Scuza](https://codeforces.com/problemset/problem/1742/E) | CF 1200 | Upper bound по максимумам префикса + сумма префикса |
-| 6 | `Extra` | [CF 474B - Worms](https://codeforces.com/problemset/problem/474/B) | CF 1200 | Lower bound по монотонным префиксным границам |
-| 7 | `Extra` | [CF 1352C - K-th Not Divisible by n](https://codeforces.com/problemset/problem/1352/C) | CF 1200 | Поиск k-го допустимого числа по монотонному счётчику |
-| 8 | `Extra` | [CF 670D1 - Magic Powder - 1](https://codeforces.com/problemset/problem/670/D1) | CF 1400 | Binary search on answer + линейная can(x) |
-| 9 | `Extra` | [CF 1873E - Building an Aquarium](https://codeforces.com/problemset/problem/1873/E) | CF 1100 | Поиск максимальной высоты при ограниченной стоимости |
-| 10 | `Extra` | [ACMP 523 - Роман в томах](https://acmp.ru/index.asp?main=task&id_task=523) | - | Минимизация максимального блока через greedy can(x) |
-| 11 | `Extra` | [CF 371C - Hamburgers](https://codeforces.com/problemset/problem/371/C) | CF 1600 | Поиск ответа с аккуратной верхней границей и long |
-| 12 | `Extra` | [CF 1355E - Restorer Distance](https://codeforces.com/problemset/problem/1355/E) | CF 2100 | Дискретная унимодальность и тернарный поиск стоимости |
+| 2 | `Core` | [LC 278 - First Bad Version](https://leetcode.com/problems/first-bad-version/) | LC Easy | Чистый `first true` на монотонном предикате |
+| 3 | `Core` | [LC 34 - Find First and Last Position](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/) | LC Medium | Два граничных поиска: first `>= x` и first `> x` |
+| 4 | `Core` | [CF EDU 6.1A - Binary Search](https://codeforces.com/edu/course/2/lesson/6/1/practice/contest/283911/problem/A) | EDU | Наличие элемента в отсортированном массиве |
+| 5 | `Core` | [CF EDU 6.1B - Closest to the Left](https://codeforces.com/edu/course/2/lesson/6/1/practice/contest/283911/problem/B) | EDU | Последний элемент `<= x`, или sentinel |
+| 6 | `Core` | [CF EDU 6.1C - Closest to the Right](https://codeforces.com/edu/course/2/lesson/6/1/practice/contest/283911/problem/C) | EDU | Первый элемент `>= x`, или позиция за концом |
+| 7 | `Core` | [CF EDU 6.1D - Fast Search](https://codeforces.com/edu/course/2/lesson/6/1/practice/contest/283911/problem/D) | EDU | Две границы для числа элементов в `[l, r]` |
+| 8 | `Core` | [LC 875 - Koko Eating Bananas](https://leetcode.com/problems/koko-eating-bananas/) | LC Medium | Binary search on answer и ceiling division |
+| 9 | `Core` | [CF EDU 6.2A - Packing Rectangles](https://codeforces.com/edu/course/2/lesson/6/2/practice/contest/283932/problem/A) | EDU | Минимальный размер квадрата через `first true` |
+| 10 | `Core` | [CF EDU 6.2C - Very Easy Task](https://codeforces.com/edu/course/2/lesson/6/2/practice/contest/283932/problem/C) | EDU | Минимальное время производства двумя машинами |
+| 11 | `Core` | [CF EDU 6.2F - String Game](https://codeforces.com/edu/course/2/lesson/6/2/practice/contest/283932/problem/F) | EDU | Максимальное число удалений и subsequence-check |
+| 12 | `Core` | [CF EDU 6.3B - Splitting an Array](https://codeforces.com/edu/course/2/lesson/6/3/practice/contest/285083/problem/B) | EDU | Минимизация максимальной суммы блока через greedy `can(x)` |
+| 13 | `Extra` | [CF EDU 6.2B - Ropes](https://codeforces.com/edu/course/2/lesson/6/2/practice/contest/283932/problem/B) | EDU | Вещественный binary search по длине |
+| 14 | `Extra` | [CF EDU 6.2D - Children Holiday](https://codeforces.com/edu/course/2/lesson/6/2/practice/contest/283932/problem/D) | EDU | Производительность с циклами отдыха и восстановление распределения |
+| 15 | `Extra` | [CF EDU 6.2E - Equation](https://codeforces.com/edu/course/2/lesson/6/2/practice/contest/283932/problem/E) | EDU | Вещественный `first true` для монотонной функции |
+| 16 | `Extra` | [CF EDU 6.3A - Get together](https://codeforces.com/edu/course/2/lesson/6/3/practice/contest/285083/problem/A) | EDU | Пересечение достижимых интервалов к моменту времени |
+| 17 | `Extra` | [CF EDU 6.3C - Cows in Stalls](https://codeforces.com/edu/course/2/lesson/6/3/practice/contest/285083/problem/C) | EDU | Максимизация минимального расстояния через greedy placement |
+| 18 | `Extra` | [CF EDU 6.3D - Minimum maximum on the Path](https://codeforces.com/edu/course/2/lesson/6/3/practice/contest/285083/problem/D) | EDU | Предикат существования пути с ограничением на ребро |
+| 19 | `Extra` | [CF EDU 6.4A - Maximum Average Segment](https://codeforces.com/edu/course/2/lesson/6/4/practice/contest/285084/problem/A) | EDU | Вычитание ответа и prefix minimum для среднего |
+| 20 | `Extra` | [CF EDU 6.4B - Student Councils](https://codeforces.com/edu/course/2/lesson/6/4/practice/contest/285084/problem/B) | EDU | Максимальное число групп через ограниченный вклад каждого ресурса |
+| 21 | `Extra` | [CF EDU 6.4C - Pair Selection](https://codeforces.com/edu/course/2/lesson/6/4/practice/contest/285084/problem/C) | EDU | Максимальное отношение через преобразование суммы |
+| 22 | `Extra` | [CF EDU 6.5A - K-th Number in the Union of Segments](https://codeforces.com/edu/course/2/lesson/6/5/practice/contest/285085/problem/A) | EDU | K-й объект через функцию количества `<= x` |
+| 23 | `Extra` | [CF EDU 6.5B - Multiplication Table](https://codeforces.com/edu/course/2/lesson/6/5/practice/contest/285085/problem/B) | EDU | K-е произведение через суммарный count по строкам |
+| 24 | `Extra` | [CF EDU 6.5C - K-th Sum](https://codeforces.com/edu/course/2/lesson/6/5/practice/contest/285085/problem/C) | EDU | K-я парная сумма через count и два указателя |
+| 25 | `Extra` | [CF 706B - Interesting drink](https://codeforces.com/problemset/problem/706/B) | CF 1100 | Upper bound: число элементов не больше `x` |
+| 26 | `Extra` | [CF 1742E - Scuza](https://codeforces.com/problemset/problem/1742/E) | CF 1200 | Upper bound по максимумам префикса плюс сумма префикса |
+| 27 | `Extra` | [CF 670D1 - Magic Powder - 1](https://codeforces.com/problemset/problem/670/D1) | CF 1400 | Binary search on answer плюс линейная `can(x)` |
+| 28 | `Extra` | [ACMP 523 - Роман в томах](https://acmp.ru/index.asp?main=task&id_task=523) | - | Минимизация максимального блока через greedy `can(x)` |
+| 29 | `Extra` | [CF 371C - Hamburgers](https://codeforces.com/problemset/problem/371/C) | CF 1600 | Поиск ответа с аккуратной верхней границей и `long` |
+| 30 | `Extra` | [CF 1355E - Restorer Distance](https://codeforces.com/problemset/problem/1355/E) | CF 2100 | Дискретная унимодальность и тернарный поиск стоимости |
+| 31 | `Extra` | [LC 410 - Split Array Largest Sum](https://leetcode.com/problems/split-array-largest-sum/) | LC Hard | Binary search по максимальной сумме + greedy count частей |
 
 <a id="practice-greedy"></a>
 
-## 13. Жадные алгоритмы, инварианты и обменный аргумент
+## 13. Жадные алгоритмы и доказательство корректности
 
 Этап **A1**. Core: **5**. Extra: **8**. Теория и признаки распознавания: [ROADMAP: greedy](ROADMAP.md#topic-greedy).
 
@@ -277,7 +312,7 @@
 
 ## 14. Биты, маски, подмаски и булева алгебра
 
-Этап **A1**. Core: **5**. Extra: **7**. Теория и признаки распознавания: [ROADMAP: биты и маски](ROADMAP.md#topic-bitmasks).
+Этап **A1**. Core: **5**. Extra: **6**. Теория и признаки распознавания: [ROADMAP: биты и маски](ROADMAP.md#topic-bitmasks).
 
 | № | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
@@ -292,7 +327,6 @@
 | 9 | `Extra` | [CF 1362C - Johnny and Another Rating Drop](https://codeforces.com/problemset/problem/1362/C) | CF 1400 | Вклады младших битов при последовательном изменении числа |
 | 10 | `Extra` | [CF 1095C - Powers Of Two](https://codeforces.com/problemset/problem/1095/C) | CF 1400 | Разбиение числа на степени двойки через heap/lowbit |
 | 11 | `Extra` | [CF 1552D - Array Differentiation](https://codeforces.com/problemset/problem/1552/D) | CF 1800 | Явный перебор подмасок циклом sub=(sub-1)&mask |
-| 12 | `Extra` | [CF 449D - Jzzhu and Numbers](https://codeforces.com/problemset/problem/449/D) | CF 2400 | SOS DP по маскам + inclusion-exclusion |
 
 <a id="practice-number-theory"></a>
 
@@ -342,9 +376,11 @@
 
 <a id="practice-basic-strings"></a>
 
-## 17. Строки: префикс-функция, Z-функция и хеширование
+## Модуль 17. Базовые строковые алгоритмы
 
-Этап **A1**. Core: **6**. Extra: **6**. Теория и признаки распознавания: [ROADMAP: базовые строки](ROADMAP.md#topic-basic-strings).
+### 17.1. Префикс-функция, Z-функция и хеширование
+
+Этап **A1**. Core: **6**. Extra: **5**. Теория и признаки распознавания: [ROADMAP: базовые строки](ROADMAP.md#topic-prefix-z-hash).
 
 | № | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
@@ -359,11 +395,26 @@
 | 9 | `Extra` | [CF 1200E - Compress Words](https://codeforces.com/problemset/problem/1200/E) | CF 2000 | Максимальное prefix/suffix перекрытие при последовательном слиянии |
 | 10 | `Extra` | [CF 535D - Tavas and Malekas](https://codeforces.com/problemset/problem/535/D) | CF 1900 | Z-function для проверки совместимости перекрывающихся шаблонов |
 | 11 | `Extra` | [CF 7D - Palindrome Degree](https://codeforces.com/problemset/problem/7/D) | CF 2200 | Rolling hash + DP по палиндромным префиксам |
-| 12 | `Extra` | [CF 271D - Good Substrings](https://codeforces.com/problemset/problem/271/D) | CF 1800 | Trie или rolling hash для различных подстрок с ограничением |
+
+<a id="practice-trie"></a>
+
+### 17.2. Trie и словарные префиксные запросы
+
+Этап **A1**. Core: **3**. Extra: **2**. Теория и признаки распознавания: [ROADMAP: trie](ROADMAP.md#topic-trie).
+
+| № | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | [LC 208 - Implement Trie](https://leetcode.com/problems/implement-trie-prefix-tree/) | LC Medium | `insert/search/startsWith` и terminal flag |
+| 2 | `Core` | Локальный checkpoint: trie на primitive arrays | Checkpoint | `next`, `terminal`, `prefixCount`, удаление через счетчики и оценка памяти |
+| 3 | `Core` | [CSES - Word Combinations](https://cses.fi/problemset/task/1731) | - | Trie словаря плюс DP по позициям строки |
+| 4 | `Extra` | [CF 514C - Watto and Mechanism](https://codeforces.com/problemset/problem/514/C) | CF 1700 | Trie/хеширование и ровно одно несовпадение |
+| 5 | `Extra` | [CF 271D - Good Substrings](https://codeforces.com/problemset/problem/271/D) | CF 1800 | Trie различных подстрок с ограничением на плохие символы |
 
 <a id="practice-graph-traversals"></a>
 
-## 18. Обходы графа, компоненты, циклы и двудольность
+## Модуль 18. Связность графов
+
+### 18.1. Обходы графа, компоненты, циклы и двудольность
 
 Этап **A1**. Core: **5**. Extra: **5**. Теория и признаки распознавания: [ROADMAP: обходы графа](ROADMAP.md#topic-graph-traversals).
 
@@ -379,6 +430,22 @@
 | 8 | `Extra` | [CF 687A - NP-Hard Problem](https://codeforces.com/problemset/problem/687/A) | CF 1500 | Двудольная раскраска общего графа |
 | 9 | `Extra` | [CF 1702E - Split Into Two Sets](https://codeforces.com/problemset/problem/1702/E) | CF 1600 | Степени + двудольность графа из пар |
 | 10 | `Extra` | [CF 377A - Maze](https://codeforces.com/problemset/problem/377/A) | CF 1600 | DFS по сетке с сохранением связной части |
+
+<a id="practice-dsu"></a>
+
+### 18.2. DSU: компоненты, метаданные и DSU-next
+
+Этап **A1**. Core: **5**. Extra: **2**. Теория и признаки распознавания: [ROADMAP: DSU](ROADMAP.md#topic-dsu).
+
+| № | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | [LC 721 - Accounts Merge](https://leetcode.com/problems/accounts-merge/) | LC Medium | Объединение объектов по общим идентификаторам |
+| 2 | `Core` | Локальный checkpoint: DSU API | Checkpoint | `find/union/same/componentSize/components` и stress против явных компонент |
+| 3 | `Core` | [CF 1167C - News Distribution](https://codeforces.com/problemset/problem/1167/C) | CF 1400 | Групповые объединения и размер компоненты каждого элемента |
+| 4 | `Core` | [CF 25D - Roads not only in Berland](https://codeforces.com/problemset/problem/25/D) | CF 1700 | Лишние ребра и восстановление связного дерева |
+| 5 | `Core` | [CF 566D - Restructuring Company](https://codeforces.com/problemset/problem/566/D) | CF 2100 | DSU-next для пакетного объединения диапазона |
+| 6 | `Extra` | [CSES - Road Construction](https://cses.fi/problemset/task/1676) | - | Online-объединения, число компонент и размер максимальной компоненты |
+| 7 | `Extra` | [CF 1012B - Chemical table](https://codeforces.com/problemset/problem/1012/B) | CF 1800 | Двудольная модель компонент строк и столбцов |
 
 <a id="practice-shortest-paths"></a>
 
@@ -427,9 +494,11 @@
 
 <a id="practice-basic-dp"></a>
 
-## 21. Базовое DP: пути, рюкзак, LIS и восстановление ответа
+## Модуль 21. Базовое DP и ациклические графы состояний
 
-Этап **A1**. Core: **7**. Extra: **9**. Теория и признаки распознавания: [ROADMAP: базовое DP](ROADMAP.md#topic-basic-dp).
+### 21.1. Базовое DP: пути, рюкзак, LIS и восстановление ответа
+
+Этап **A1**. Core: **7**. Extra: **11**. Теория и признаки распознавания: [ROADMAP: базовое DP](ROADMAP.md#topic-basic-dp-core).
 
 | № | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
@@ -449,12 +518,30 @@
 | 14 | `Extra` | [CF 977F - Consecutive Subsequence](https://codeforces.com/problemset/problem/977/F) | CF 1700 | DP по значению с восстановлением индексов подпоследовательности |
 | 15 | `Extra` | [CF 577B - Modulo Sum](https://codeforces.com/problemset/problem/577/B) | CF 1900 | 0/1 subset-sum DP по остаткам + pigeonhole |
 | 16 | `Extra` | [CF 864E - Fire](https://codeforces.com/problemset/problem/864/E) | CF 2000 | 0/1 knapsack с дедлайнами и восстановлением набора |
+| 17 | `Extra` | [LC 509 - Fibonacci Number](https://leetcode.com/problems/fibonacci-number/) | LC Easy | Базовая линейная рекуррентность; решить итеративно, не матрицами |
+| 18 | `Extra` | [CF 225C - Barcode](https://codeforces.com/problemset/problem/225/C) | CF 1700 | DP по префиксу и длине одноцветного блока |
+
+<a id="practice-dag"></a>
+
+### 21.2. DAG: топологическая сортировка, поиск цикла и DP
+
+Этап **A1**. Core: **5**. Extra: **2**. Теория и признаки распознавания: [ROADMAP: DAG](ROADMAP.md#topic-dag).
+
+| № | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | [CSES - Course Schedule](https://cses.fi/problemset/task/1679) | - | Kahn, indegree и обнаружение ориентированного цикла |
+| 2 | `Core` | [CF 510C - Fox And Names](https://codeforces.com/problemset/problem/510/C) | CF 1700 | Построение ограничений порядка символов и topological sort |
+| 3 | `Core` | [CSES - Longest Flight Route](https://cses.fi/problemset/task/1680) | - | Максимальный путь в DAG и восстановление parent |
+| 4 | `Core` | [CF 919D - Substring](https://codeforces.com/problemset/problem/919/D) | CF 1800 | DP по topological order с состоянием по символу |
+| 5 | `Core` | [CSES - Game Routes](https://cses.fi/problemset/task/1681) | - | Число путей в DAG по модулю |
+| 6 | `Extra` | [CF 721C - Journey](https://codeforces.com/problemset/problem/721/C) | CF 2200 | DAG DP по времени и числу вершин с восстановлением |
+| 7 | `Extra` | [CF 1385E - Directing Edges](https://codeforces.com/problemset/problem/1385/E) | CF 1900 | Топологический порядок фиксированных ребер и ориентация остальных |
 
 <a id="practice-fenwick"></a>
 
 ## 22. Fenwick tree
 
-Этап **A1**. Core: **4**. Extra: **2**. Теория и признаки распознавания: [ROADMAP: Fenwick](ROADMAP.md#topic-fenwick).
+Этап **A1**. Core: **4**. Extra: **3**. Теория и признаки распознавания: [ROADMAP: Fenwick](ROADMAP.md#topic-fenwick).
 
 | № | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
@@ -464,27 +551,11 @@
 | 4 | `Core` | [CF 1208D - Restore Permutation](https://codeforces.com/problemset/problem/1208/D) | CF 1900 | Поиск позиции по взвешенной префиксной сумме спуском по Fenwick |
 | 5 | `Extra` | [CF 459D - Pashmak and Parmida's problem](https://codeforces.com/problemset/problem/459/D) | CF 1800 | Преобразование элементов в частотные ранги и подсчет пар Fenwick-ом |
 | 6 | `Extra` | [CF 61E - Enemy is weak](https://codeforces.com/problemset/problem/61/E) | CF 1900 | Вклад среднего элемента в убывающие тройки через два направления |
-
-<a id="practice-segment-tree"></a>
-
-## 23. Segment tree и lazy propagation
-
-Этап **A1**. Core: **5**. Extra: **3**. Теория и признаки распознавания: [ROADMAP: segment tree](ROADMAP.md#topic-segment-tree).
-
-| № | Приоритет | Задача | Сложность | Паттерн |
-| --: | :---: | --- | --- | --- |
-| 1 | `Core` | [ACMP 1185 - RMQ с изменением элемента](https://acmp.ru/index.asp?main=task&id_task=1185) | - | Point assignment и range maximum |
-| 2 | `Core` | [CF 339D - Xenia and Bit Operations](https://codeforces.com/problemset/problem/339/D) | CF 1700 | Point update и merge, зависящий от уровня дерева |
-| 3 | `Core` | [CF 380C - Sereja and Brackets](https://codeforces.com/problemset/problem/380/C) | CF 2000 | Собственный ассоциативный узел для скобочной последовательности |
-| 4 | `Core` | Локальный checkpoint: segment tree и lazy | Checkpoint | Range add + range min; stress-test против массива; композиция add и assign |
-| 5 | `Core` | [CF 52C - Circular RMQ](https://codeforces.com/problemset/problem/52/C) | CF 2200 | `range add + range min`, lazy tags и разбиение циклического диапазона |
-| 6 | `Extra` | [LC 715 - Range Module](https://leetcode.com/problems/range-module/) | LC Hard | динамическое покрытие диапазонов и lazy propagation |
-| 7 | `Extra` | [CF 242E - XOR on Segment](https://codeforces.com/problemset/problem/242/E) | CF 2000 | Побитовый составной узел и lazy range xor |
-| 8 | `Extra` | [CF 438D - The Child and Sequence](https://codeforces.com/problemset/problem/438/D) | CF 2300 | Амортизированное pruning по максимуму для modulo; это не стандартный lazy |
+| 7 | `Extra` | [CF 220B - Little Elephant and Array](https://codeforces.com/problemset/problem/220/B) | CF 2200 | Offline-запросы по правой границе + Fenwick событий частоты |
 
 <a id="practice-static-rmq"></a>
 
-## 24. Static RMQ и sparse table
+## 23. Static RMQ и sparse table
 
 Этап **A1**. Core: **4**. Extra: **2**. Теория и признаки распознавания: [ROADMAP: static RMQ](ROADMAP.md#topic-static-rmq).
 
@@ -497,282 +568,811 @@
 | 5 | `Extra` | [CF 474F - Ant Colony](https://codeforces.com/problemset/problem/474/F) | CF 2100 | GCD/min диапазона плюс частота точного значения через списки позиций |
 | 6 | `Extra` | [CF 689D - Friends and Subsequences](https://codeforces.com/problemset/problem/689/D) | CF 2100 | Сравнить два решения: sparse table плюс binary searches и linear monotonic deques |
 
-<a id="practice-geometry"></a>
+<a id="practice-segment-tree"></a>
 
-## 25. Вычислительная геометрия
+## 24. Segment tree и lazy propagation
 
-Этап **B**. Core: **6**. Extra: **3**. Теория и признаки распознавания: [ROADMAP: геометрия](ROADMAP.md#topic-geometry).
+Этап **A1**. Core: **5**. Extra: **3**. Теория и признаки распознавания: [ROADMAP: segment tree](ROADMAP.md#topic-segment-tree).
 
 | № | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
-| 1 | `Core` | [LC 149 - Max Points on a Line](https://leetcode.com/problems/max-points-on-a-line/) | LC Hard | Коллинеарность и нормализация направления |
-| 2 | `Core` | [ACMP 348 - Пересечение отрезков](https://acmp.ru/index.asp?main=task&id_task=348) | - | Orientation + point-on-segment + пересечение отрезков |
-| 3 | `Core` | [ACMP 370 - Площадь многоугольника](https://acmp.ru/index.asp?main=task&id_task=370) | - | Площадь многоугольника через shoelace/cross product |
-| 4 | `Core` | [CF 772B - Volatile Kite](https://codeforces.com/problemset/problem/772/B) | CF 1800 | Расстояние от точки до прямой через cross product |
-| 5 | `Core` | [ACMP 374 - Выпуклая оболочка - 2](https://acmp.ru/index.asp?main=task&id_task=374) | - | Выпуклая оболочка и обработка коллинеарных точек |
-| 6 | `Core` | [CF Gym 101554D - Robert Hood](https://codeforces.com/gym/101554/problem/D) ; [регистрация/отправка](https://codeforces.com/gym/101554) | - | Convex hull + rotating calipers для диаметра множества |
-| 7 | `Extra` | [LC 973 - K Closest Points to Origin](https://leetcode.com/problems/k-closest-points-to-origin/) | LC Medium | Расстояния и выбор k объектов |
-| 8 | `Extra` | [CF 993A - Two Squares](https://codeforces.com/problemset/problem/993/A) | CF 1600 | Пересечения сторон + containment выпуклых фигур |
-| 9 | `Extra` | [CF 166B - Polygons](https://codeforces.com/problemset/problem/166/B) | CF 2100 | Строгое попадание выпуклого многоугольника без касаний |
+| 1 | `Core` | [ACMP 1185 - RMQ с изменением элемента](https://acmp.ru/index.asp?main=task&id_task=1185) | - | Point assignment и range maximum |
+| 2 | `Core` | [CF 339D - Xenia and Bit Operations](https://codeforces.com/problemset/problem/339/D) | CF 1700 | Point update и merge, зависящий от уровня дерева |
+| 3 | `Core` | [CF 380C - Sereja and Brackets](https://codeforces.com/problemset/problem/380/C) | CF 2000 | Собственный ассоциативный узел для скобочной последовательности |
+| 4 | `Core` | Локальный checkpoint: segment tree и lazy | Checkpoint | Range add + range min; stress-test против массива; композиция add и assign |
+| 5 | `Core` | [CF 52C - Circular RMQ](https://codeforces.com/problemset/problem/52/C) | CF 2200 | `range add + range min`, lazy tags и разбиение циклического диапазона |
+| 6 | `Extra` | [LC 715 - Range Module](https://leetcode.com/problems/range-module/) | LC Hard | Динамическое покрытие диапазонов и lazy propagation |
+| 7 | `Extra` | [CF 242E - XOR on Segment](https://codeforces.com/problemset/problem/242/E) | CF 2000 | Побитовый составной узел и lazy range xor |
+| 8 | `Extra` | [CF 438D - The Child and Sequence](https://codeforces.com/problemset/problem/438/D) | CF 2300 | Амортизированное pruning по максимуму для modulo; это не стандартный lazy |
+
+<a id="practice-geometry"></a>
+
+## Модуль 25. Вычислительная геометрия
+
+<a id="practice-geometry-predicates"></a>
+
+### 25.1. Точные геометрические предикаты и пересечения
+
+Этап **B**. Core: **4**. Extra: **2**. Теория: [ROADMAP](ROADMAP.md#topic-geometry-predicates).
+
+| № | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | [CSES - Point Location Test](https://cses.fi/problemset/task/2189) | - | Знак cross product и left/right/touch |
+| 2 | `Core` | [ACMP 348 - Пересечение отрезков](https://acmp.ru/index.asp?main=task&id_task=348) | - | Orientation, point-on-segment и вырожденные пересечения |
+| 3 | `Core` | [CF 772B - Volatile Kite](https://codeforces.com/problemset/problem/772/B) | CF 1800 | Расстояние от точки до прямой через cross product |
+| 4 | `Core` | Локальный checkpoint: Geometry primitives | Checkpoint | Dot/cross, projection, distance to segment и stress пересечений на целых координатах |
+| 5 | `Extra` | [LC 149 - Max Points on a Line](https://leetcode.com/problems/max-points-on-a-line/) | LC Hard | Нормализация направления через gcd и группы коллинеарных точек |
+| 6 | `Extra` | [CF 13B - Letter A](https://codeforces.com/problemset/problem/13/B) | CF 1900 | Пересечения и геометрические ограничения составной фигуры |
+
+<a id="practice-polygons"></a>
+
+### 25.2. Простые многоугольники: площадь и point-in-polygon
+
+Этап **B**. Core: **3**. Extra: **1**. Теория: [ROADMAP](ROADMAP.md#topic-polygons).
+
+| № | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | [ACMP 370 - Площадь многоугольника](https://acmp.ru/index.asp?main=task&id_task=370) | - | Shoelace и удвоенная ориентированная площадь |
+| 2 | `Core` | [CSES - Point in Polygon](https://cses.fi/problemset/task/2192) | - | Boundary check плюс ray casting с корректными вершинами |
+| 3 | `Core` | Локальный checkpoint: polygon API | Checkpoint | Area, boundary, inside/outside на выпуклых и невыпуклых многоугольниках |
+| 4 | `Extra` | [CF 993A - Two Squares](https://codeforces.com/problemset/problem/993/A) | CF 1600 | Пересечения сторон и containment выпуклых фигур |
+
+<a id="practice-convex-hull"></a>
+
+### 25.3. Выпуклая оболочка и запросы на ней
+
+Этап **B**. Core: **3**. Extra: **2**. Теория: [ROADMAP](ROADMAP.md#topic-convex-hull).
+
+| № | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | [ACMP 374 - Выпуклая оболочка - 2](https://acmp.ru/index.asp?main=task&id_task=374) | - | Monotone chain и политика коллинеарных точек |
+| 2 | `Core` | [CSES - Convex Hull](https://cses.fi/problemset/task/2195) | - | Полная `O(n log n)` оболочка с граничными точками |
+| 3 | `Core` | [CF 166B - Polygons](https://codeforces.com/problemset/problem/166/B) | CF 2100 | Строгий point-in-convex за `O(log n)` без касаний |
+| 4 | `Extra` | [CF 70D - Professor's task](https://codeforces.com/problemset/problem/70/D) | CF 2600 | Динамическая выпуклая оболочка и point location |
+| 5 | `Extra` | [CSES - Line Segment Intersection](https://cses.fi/problemset/task/2190) | - | Повтор точных предикатов перед продвинутой оболочкой |
+
+<a id="practice-rotating-calipers"></a>
+
+### 25.4. Вращающиеся калиперы
+
+Этап **C**. Core: **2**. Extra: **1**. Теория: [ROADMAP](ROADMAP.md#topic-rotating-calipers).
+
+| № | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | Локальный checkpoint: diameter of convex polygon | Checkpoint | Оболочка уже дана; два циклических указателя и сравнение squared distance |
+| 2 | `Core` | [CF Gym 101554D - Robert Hood](https://codeforces.com/gym/101554/problem/D) | - | Convex hull плюс rotating calipers для диаметра множества |
+| 3 | `Extra` | [Kattis - roberthood](https://open.kattis.com/problems/roberthood) | - | Независимая повторная проверка diameter pipeline |
+
+<a id="practice-geometry-sweep"></a>
+
+### 25.5. Геометрический sweep
+
+Этап **C**. Core: **2**. Extra: **1**. Теория: [ROADMAP](ROADMAP.md#topic-geometry-sweep).
+
+| № | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | [CSES - Intersection Points](https://cses.fi/problemset/task/1740) | - | Sweep горизонтальных/вертикальных отрезков плюс Fenwick |
+| 2 | `Core` | Локальный checkpoint: segment events | Checkpoint | Start/query/end tie-break и active ordered structure на малых тестах |
+| 3 | `Extra` | [CF 19D - Points](https://codeforces.com/problemset/problem/19/D) | CF 2500 | Динамические точки, coordinate compression и ordered range search |
+
+<a id="practice-closest-pair"></a>
+
+### 25.6. Пара ближайших точек
+
+Этап **C**. Core: **2**. Extra: **1**. Теория: [ROADMAP](ROADMAP.md#topic-closest-pair).
+
+| № | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | [CSES - Minimum Euclidean Distance](https://cses.fi/problemset/task/2194) | - | Closest pair divide-and-conquer за `O(n log n)` |
+| 2 | `Core` | Локальный checkpoint: closest pair | Checkpoint | Сохранение sort-by-y, strip и stress против `O(n^2)` |
+| 3 | `Extra` | [Kattis - closestpair1](https://open.kattis.com/problems/closestpair1) | - | Восстановление самой пары и floating-point output |
 
 <a id="practice-advanced-graphs"></a>
 
-## 26. DAG, топосортировка, SCC, мосты и точки сочленения
+## Модуль 26. Структура графов
 
-Этап **B**. Core: **6**. Extra: **5**. Теория и признаки распознавания: [ROADMAP: продвинутые графы](ROADMAP.md#topic-advanced-graphs).
+<a id="practice-scc"></a>
+
+### 26.1. SCC и граф конденсации
+
+Этап **B**. Core: **3**. Extra: **2**. Теория: [ROADMAP](ROADMAP.md#topic-scc).
 
 | № | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
-| 1 | `Core` | [LC 1192 - Critical Connections in a Network](https://leetcode.com/problems/critical-connections-in-a-network/) | LC Hard | Мосты через tin/low |
-| 2 | `Core` | [LC 802 - Find Eventual Safe States](https://leetcode.com/problems/find-eventual-safe-states/) | LC Medium | Состояния вершин ориентированного графа |
-| 3 | `Core` | [CF 510C - Fox And Names](https://codeforces.com/problemset/problem/510/C) | CF 1600 | Топологическая сортировка + невозможный префикс строк |
-| 4 | `Core` | [CF 427C - Checkposts](https://codeforces.com/problemset/problem/427/C) | CF 1700 | SCC + агрегирование минимума и числа вариантов |
-| 5 | `Core` | [CF Gym 100083D - Точки сочленения](https://codeforces.com/gym/100083/problem/D) ; [регистрация/отправка](https://codeforces.com/gym/100083) | - | Точки сочленения через tin/low |
-| 6 | `Core` | [CF 1000E - We Need More Bosses](https://codeforces.com/problemset/problem/1000/E) | CF 2100 | Мосты + сжатие 2-edge-connected components + диаметр |
-| 7 | `Extra` | [CF 919D - Substring](https://codeforces.com/problemset/problem/919/D) | CF 1700 | Topological order + DAG DP |
-| 8 | `Extra` | [CF 1217D - Coloring Edges](https://codeforces.com/problemset/problem/1217/D) | CF 2100 | Ориентированный цикл: DFS с цветами 0/1/2 и обратные рёбра |
-| 9 | `Extra` | [CF 915D - Almost Acyclic Graph](https://codeforces.com/problemset/problem/915/D) | CF 2200 | Ориентированный цикл и удаление одного ребра-кандидата |
-| 10 | `Extra` | [CF 118E - Bertown roads](https://codeforces.com/problemset/problem/118/E) | CF 2000 | Bridges + ориентация рёбер DFS-порядком |
-| 11 | `Extra` | [CF 652E - Pursuit For Artifacts](https://codeforces.com/problemset/problem/652/E) | CF 2300 | Bridge tree + агрегат наличия специального ребра на пути |
+| 1 | `Core` | [CSES - Planets and Kingdoms](https://cses.fi/problemset/task/1683) | - | Kosaraju/Tarjan и номер SCC каждой вершины |
+| 2 | `Core` | [CF 427C - Checkposts](https://codeforces.com/problemset/problem/427/C) | CF 1700 | SCC плюс минимум и число способов внутри компоненты |
+| 3 | `Core` | [CSES - Coin Collector](https://cses.fi/problemset/task/1686) | - | Condensation DAG и DP максимальной суммы |
+| 4 | `Extra` | [CF 999E - Reachability from the Capital](https://codeforces.com/problemset/problem/999/E) | CF 1800 | Истоки недостижимой части condensation |
+| 5 | `Extra` | [CF 1239D - Catowice City](https://codeforces.com/problemset/problem/1239/D) | CF 2200 | SCC-подобное разбиение ориентированных отношений |
+
+<a id="practice-two-sat"></a>
+
+### 26.2. 2-SAT
+
+Этап **B**. Core: **2**. Extra: **2**. Теория: [ROADMAP](ROADMAP.md#topic-two-sat).
+
+| № | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | [CSES - Giant Pizza](https://cses.fi/problemset/task/1684) | - | Clauses, implication graph и восстановление assignment |
+| 2 | `Core` | [CF 776D - The Door Problem](https://codeforces.com/problemset/problem/776/D) | CF 2200 | Равенство/неравенство двух булевых переменных как 2-SAT |
+| 3 | `Extra` | [CF 468B - Two Sets](https://codeforces.com/problemset/problem/468/B) | CF 2100 | Выбор группы и импликации по необходимым дополнениям |
+| 4 | `Extra` | [CF 27D - Ring Road 2](https://codeforces.com/problemset/problem/27/D) | CF 2400 | Геометрические конфликты хорд как булевы ограничения |
+
+<a id="practice-bridges-biconnected"></a>
+
+### 26.3. Мосты, точки сочленения и компоненты двусвязности
+
+Этап **B**. Core: **4**. Extra: **3**. Теория: [ROADMAP](ROADMAP.md#topic-bridges-biconnected).
+
+| № | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | [LC 1192 - Critical Connections](https://leetcode.com/problems/critical-connections-in-a-network/) | LC Hard | Мосты через `tin/low` |
+| 2 | `Core` | [CF Gym 100083D - Точки сочленения](https://codeforces.com/gym/100083/problem/D) | - | Root case и articulation points |
+| 3 | `Core` | [CSES - Necessary Roads](https://cses.fi/problemset/task/2076) | - | Multigraph-safe поиск всех мостов по edge id |
+| 4 | `Core` | [CF 1000E - We Need More Bosses](https://codeforces.com/problemset/problem/1000/E) | CF 2100 | 2-edge-connected components, bridge tree и диаметр |
+| 5 | `Extra` | [CF 118E - Bertown roads](https://codeforces.com/problemset/problem/118/E) | CF 2000 | Отсутствие мостов и сильная ориентация ребер |
+| 6 | `Extra` | [CF 652E - Pursuit For Artifacts](https://codeforces.com/problemset/problem/652/E) | CF 2300 | Bridge tree и агрегат на пути |
+| 7 | `Extra` | [CF 732F - Tourist Reform](https://codeforces.com/problemset/problem/732/F) | CF 2400 | Мосты, 2-edge-components и ориентация для максимальной SCC |
 
 <a id="practice-dsu-mst"></a>
 
-## 27. DSU, MST и офлайн-связность
+## Модуль 27. Остовы и монотонная связность
 
-Этап **B**. Core: **6**. Extra: **3**. Теория и признаки распознавания: [ROADMAP: DSU и MST](ROADMAP.md#topic-dsu-mst).
+<a id="practice-mst"></a>
 
-| № | Приоритет | Задача | Сложность | Паттерн |
+### 27.1. Минимальные остовы
+
+Этап **B**. Core: **4**. Extra: **2**. Теория: [ROADMAP](ROADMAP.md#topic-mst).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
-| 1 | `Core` | [LC 1584 - Min Cost to Connect All Points](https://leetcode.com/problems/min-cost-to-connect-all-points/) | LC Medium | Minimum spanning tree |
-| 2 | `Core` | [LC 721 - Accounts Merge](https://leetcode.com/problems/accounts-merge/) | LC Medium | DSU по общим ключам |
-| 3 | `Core` | [ACMP 142 - Минимальный каркас](https://acmp.ru/index.asp?main=task&id_task=142) | - | Минимальный остов: базовая реализация Kruskal |
-| 4 | `Core` | [CF 1167C - News Distribution](https://codeforces.com/problemset/problem/1167/C) | CF 1400 | DSU: массовые union и размер компоненты |
-| 5 | `Core` | [CF 1213G - Path Queries](https://codeforces.com/problemset/problem/1213/G) | CF 1800 | Offline activation по весу + DSU metadata |
-| 6 | `Core` | [CF 1245D - Shichikuji and Power Grid](https://codeforces.com/problemset/problem/1245/D) | CF 1900 | Prim на дополненном графе + восстановление объектов |
-| 7 | `Extra` | [CF 25D - Roads not only in Berland](https://codeforces.com/problemset/problem/25/D) | CF 1900 | DSU: лишние рёбра и соединение компонент |
-| 8 | `Extra` | [CF 566D - Restructuring Company](https://codeforces.com/problemset/problem/566/D) | CF 1900 | DSU-next для пропуска обработанных индексов диапазона |
-| 9 | `Extra` | [CF 160D - Edges in MST](https://codeforces.com/problemset/problem/160/D) | CF 2300 | Kruskal по группам веса + bridges во временном графе |
+| 1 | `Core` | [LC 1584 - Min Cost to Connect All Points](https://leetcode.com/problems/min-cost-to-connect-all-points/) | LC Medium | Dense Prim и полный граф расстояний |
+| 2 | `Core` | [ACMP 142 - Минимальный каркас](https://acmp.ru/index.asp?main=task&id_task=142) | - | Базовый Kruskal + DSU |
+| 3 | `Core` | Локальный checkpoint: sparse Prim | - | Heap, visited и disconnected graph |
+| 4 | `Core` | [CF 1245D - Shichikuji and Power Grid](https://codeforces.com/problemset/problem/1245/D) | CF 1900 | Virtual source, Prim и восстановление сети |
+| 5 | `Extra` | [CF 160D - Edges in MST](https://codeforces.com/problemset/problem/160/D) | CF 2300 | Группы равных весов и классификация ребер MST |
+| 6 | `Extra` | [CF 609E - Minimum spanning tree for each edge](https://codeforces.com/problemset/problem/609/E) | CF 2100 | MST + maximum edge on path |
+
+<a id="practice-dsu-offline-activation"></a>
+
+### 27.2. Офлайн-активация через DSU
+
+Этап **B**. Core: **3**. Extra: **2**. Теория: [ROADMAP](ROADMAP.md#topic-dsu-offline-activation).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | Локальный checkpoint: component size under threshold | - | Сортировка ребер и запросов с одинаковым порогом |
+| 2 | `Core` | [CF 1213G - Path Queries](https://codeforces.com/problemset/problem/1213/G) | CF 1800 | Активация ребер по весу + metadata компонент |
+| 3 | `Core` | [CF 722C - Destroying Array](https://codeforces.com/problemset/problem/722/C) | CF 1900 | Обратное время: удаления превращаются в добавления |
+| 4 | `Extra` | [CF 1513D - GCD and MST](https://codeforces.com/problemset/problem/1513/D) | CF 1800 | Монотонная активация дешевых связей |
+| 5 | `Extra` | [CF 1706E - Qpwoeirut And Vertices](https://codeforces.com/problemset/problem/1706/E) | CF 2100 | Kruskal reconstruction tree после монотонных union |
 
 <a id="practice-advanced-dp"></a>
 
-## 28. DP по отрезкам, решёткам, графам и деревьям
+## Модуль 28. Продвинутое динамическое программирование
 
-Этап **B**. Core: **6**. Extra: **4**. Теория и признаки распознавания: [ROADMAP: продвинутое DP](ROADMAP.md#topic-advanced-dp).
+<a id="practice-interval-dp"></a>
 
-| № | Приоритет | Задача | Сложность | Паттерн |
+### 28.1. DP по отрезкам
+
+Этап **B**. Core: **3**. Теория: [ROADMAP](ROADMAP.md#topic-interval-dp).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
-| 1 | `Core` | [LC 312 - Burst Balloons](https://leetcode.com/problems/burst-balloons/) | LC Hard | Interval DP |
-| 2 | `Core` | [LC 337 - House Robber III](https://leetcode.com/problems/house-robber-iii/) | LC Medium | Tree DP |
-| 3 | `Core` | [CF 1528A - Parsa's Humongous Tree](https://codeforces.com/problemset/problem/1528/A) | CF 1600 | Tree DP с двумя состояниями вершины |
-| 4 | `Core` | [CF 1695C - Zero Path](https://codeforces.com/problemset/problem/1695/C) | CF 1700 | Grid DP по минимуму и максимуму достижимой суммы |
-| 5 | `Core` | [CF 607B - Zuma](https://codeforces.com/problemset/problem/607/B) | CF 1900 | Interval DP с удалением совпадающих концов |
-| 6 | `Core` | [CF 721C - Journey](https://codeforces.com/problemset/problem/721/C) | CF 1800 | DAG DP + parent + восстановление пути |
-| 7 | `Extra` | [CF 225C - Barcode](https://codeforces.com/problemset/problem/225/C) | CF 1700 | DP по префиксу колонок и длине одноцветного блока |
-| 8 | `Extra` | [CF 1517D - Explorer Space](https://codeforces.com/problemset/problem/1517/D) | CF 1800 | Многослойный grid DP на точное число шагов |
-| 9 | `Extra` | [CF 161D - Distance in Tree](https://codeforces.com/problemset/problem/161/D) | CF 1800 | Tree DP по расстояниям и объединение детей |
-| 10 | `Extra` | [CF 1092F - Tree with Maximum Cost](https://codeforces.com/problemset/problem/1092/F) | CF 1900 | Rerooting: перенос взвешенной суммы по ребру |
+| 1 | `Core` | [LC 312 - Burst Balloons](https://leetcode.com/problems/burst-balloons/) | LC Hard | Выбрать последний элемент внутри отрезка |
+| 2 | `Core` | [CF 607B - Zuma](https://codeforces.com/problemset/problem/607/B) | CF 1900 | Связать равные концы и объединить вложенные интервалы |
+| 3 | `Core` | [AtCoder DP N - Slimes](https://atcoder.jp/contests/dp/tasks/dp_n) | - | Перебор последнего разбиения и prefix cost |
+
+<a id="practice-layered-grid-dp"></a>
+
+### 28.2. Слоистое DP по решетке и состояниям
+
+Этап **B**. Core: **2**. Extra: **1**. Теория: [ROADMAP](ROADMAP.md#topic-layered-grid-dp).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | [CF 1695C - Zero Path](https://codeforces.com/problemset/problem/1695/C) | CF 1700 | Min/max достижимой суммы, длина и четность пути |
+| 2 | `Core` | [CF 1517D - Explorer Space](https://codeforces.com/problemset/problem/1517/D) | CF 1800 | DP на точное число шагов и rolling layers |
+| 3 | `Extra` | [CF 118D - Caesar's Legions](https://codeforces.com/problemset/problem/118/D) | CF 1800 | Состояние по позиции, последнему типу и длине серии |
+
+<a id="practice-subtree-dp"></a>
+
+### 28.3. DP по поддеревьям
+
+Этап **B**. Core: **3**. Теория: [ROADMAP](ROADMAP.md#topic-subtree-dp).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | [CF 1528A - Parsa's Humongous Tree](https://codeforces.com/problemset/problem/1528/A) | CF 1600 | Два состояния вершины и независимый выбор детей |
+| 2 | `Core` | [AtCoder DP P - Independent Set](https://atcoder.jp/contests/dp/tasks/dp_p) | - | take/skip на дереве |
+| 3 | `Core` | [CF 161D - Distance in Tree](https://codeforces.com/problemset/problem/161/D) | CF 1800 | Merge распределений расстояний детей |
+
+<a id="practice-rerooting"></a>
+
+### 28.4. Rerooting DP
+
+Этап **B**. Core: **4**. Extra: **1**. Теория: [ROADMAP](ROADMAP.md#topic-rerooting).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | [LC 834 - Sum of Distances in Tree](https://leetcode.com/problems/sum-of-distances-in-tree/) | LC Hard | Размеры поддеревьев и перенос суммы через ребро |
+| 2 | `Core` | [CF 1092F - Tree with Maximum Cost](https://codeforces.com/problemset/problem/1092/F) | CF 1900 | Взвешенный перенос ответа parent -> child |
+| 3 | `Core` | [CF 1324F - Maximum White Subtree](https://codeforces.com/problemset/problem/1324/F) | CF 1800 | Down/up contributions с отсечением отрицательного |
+| 4 | `Core` | [AtCoder DP V - Subtree](https://atcoder.jp/contests/dp/tasks/dp_v) | - | Общий rerooting через prefix/suffix merge |
+| 5 | `Extra` | [CF 1187E - Tree Painting](https://codeforces.com/problemset/problem/1187/E) | CF 2100 | Вывод формулы rerooting для score |
 
 <a id="practice-subset-dp"></a>
 
-## 29. DP по подмножествам, цифрам и профилю
+## Модуль 29. DP по компактным пространствам состояний
 
-Этап **B**. Core: **6**. Extra: **3**. Теория и признаки распознавания: [ROADMAP: subset/digit/profile DP](ROADMAP.md#topic-subset-dp).
+<a id="practice-subset-dp-core"></a>
 
-| № | Приоритет | Задача | Сложность | Паттерн |
+### 29.1. DP по подмножествам
+
+Этап **B**. Core: **4**. Extra: **2**. Теория: [ROADMAP](ROADMAP.md#topic-subset-dp-core).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
-| 1 | `Core` | [LC 464 - Can I Win](https://leetcode.com/problems/can-i-win/) | LC Medium | Game DP по подмножествам |
-| 2 | `Core` | [LC 902 - Numbers At Most N Given Digit Set](https://leetcode.com/problems/numbers-at-most-n-given-digit-set/) | LC Hard | Digit DP |
-| 3 | `Core` | [CF 1036C - Classy Numbers](https://codeforces.com/problemset/problem/1036/C) | CF 1900 | Digit DP: position/tight/started и ограничение числа цифр |
-| 4 | `Core` | [CF 580D - Kefa and Dishes](https://codeforces.com/problemset/problem/580/D) | CF 1800 | Subset DP: dp[mask][last] |
-| 5 | `Core` | [CF 165E - Compatible Numbers](https://codeforces.com/problemset/problem/165/E) | CF 2200 | SOS DP по подмаскам для совместимой маски |
-| 6 | `Core` | [CF 1391D - 505](https://codeforces.com/problemset/problem/1391/D) | CF 2000 | Profile DP по маскам соседних столбцов |
-| 7 | `Extra` | [CF 8C - Looking for Order](https://codeforces.com/problemset/problem/8/C) | CF 2000 | Subset DP по парам + восстановление ответа |
-| 8 | `Extra` | [CF 628D - Magic Numbers](https://codeforces.com/problemset/problem/628/D) | CF 2200 | Digit DP с tight, modulo и позиционным ограничением |
-| 9 | `Extra` | [CF 55D - Beautiful numbers](https://codeforces.com/problemset/problem/55/D) | CF 2500 | Digit DP с состоянием LCM ненулевых цифр |
+| 1 | `Core` | [LC 1066 - Campus Bikes II](https://leetcode.com/problems/campus-bikes-ii/) | LC Medium | `dp[mask]` для назначения первых работников |
+| 2 | `Core` | [CF 580D - Kefa and Dishes](https://codeforces.com/problemset/problem/580/D) | CF 1800 | `dp[mask][last]` с бонусом порядка |
+| 3 | `Core` | [CSES - Elevator Rides](https://cses.fi/problemset/task/1653) | - | Лексикографическое состояние: число групп и остаток |
+| 4 | `Core` | [CSES - Hamiltonian Flights](https://cses.fi/problemset/task/1690) | - | Пути по маске посещенных вершин и последней вершине |
+| 5 | `Extra` | [CF 8C - Looking for Order](https://codeforces.com/problemset/problem/8/C) | CF 2000 | Переход по паре и восстановление |
+| 6 | `Extra` | [AtCoder DP O - Matching](https://atcoder.jp/contests/dp/tasks/dp_o) | - | Назначение по числу битов mask |
+
+<a id="practice-digit-dp"></a>
+
+### 29.2. Digit DP
+
+Этап **B**. Core: **4**. Extra: **1**. Теория: [ROADMAP](ROADMAP.md#topic-digit-dp).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | [LC 902 - Numbers At Most N Given Digit Set](https://leetcode.com/problems/numbers-at-most-n-given-digit-set/) | LC Hard | Вводный tight/started по разрешенным цифрам |
+| 2 | `Core` | [CF 1036C - Classy Numbers](https://codeforces.com/problemset/problem/1036/C) | CF 1900 | `count(0..x)` и ограничение числа ненулевых цифр |
+| 3 | `Core` | [CSES - Counting Numbers](https://cses.fi/problemset/task/2220) | - | Предыдущая цифра, leading zeros и диапазон |
+| 4 | `Core` | [CF 628D - Magic Numbers](https://codeforces.com/problemset/problem/628/D) | CF 2200 | Tight, позиционное правило и остаток по модулю |
+| 5 | `Extra` | [CF 55D - Beautiful numbers](https://codeforces.com/problemset/problem/55/D) | CF 2500 | LCM цифр и сжатое состояние остатка |
+
+<a id="practice-profile-dp"></a>
+
+### 29.3. Profile DP
+
+Этап **B**. Core: **3**. Теория: [ROADMAP](ROADMAP.md#topic-profile-dp).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | Локальный checkpoint: domino tilings | - | Заполнение первой свободной клетки профиля |
+| 2 | `Core` | [CSES - Counting Tilings](https://cses.fi/problemset/task/2181) | - | Генерация совместимых масок соседних столбцов |
+| 3 | `Core` | [CF 1391D - 505](https://codeforces.com/problemset/problem/1391/D) | CF 2000 | Совместимость масок и выбор малой размерности |
+
+<a id="practice-sos-dp"></a>
+
+### 29.4. SOS DP
+
+Этап **C**. Core: **3**. Extra: **1**. Теория: [ROADMAP](ROADMAP.md#topic-sos-dp).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | Локальный checkpoint: subset/superset zeta and Mobius | - | Оба направления преобразования и обратимость |
+| 2 | `Core` | [CSES - Bit Problem](https://cses.fi/problemset/task/1654) | - | Число подмасок, надмасок и масок с непустым AND |
+| 3 | `Core` | [CF 165E - Compatible Numbers](https://codeforces.com/problemset/problem/165/E) | CF 2200 | Распространение свидетеля по подмаскам complement |
+| 4 | `Extra` | [CF 449D - Jzzhu and Numbers](https://codeforces.com/problemset/problem/449/D) | CF 2400 | SOS + inclusion-exclusion для AND подмножеств |
 
 <a id="practice-treap"></a>
 
-## 30. Декартово дерево, treap и порядковые структуры
+## Модуль 30. Декартовы деревья и порядковые структуры
 
-Этап **B**. Core: **5**. Extra: **5**. Теория и признаки распознавания: [ROADMAP: treap](ROADMAP.md#topic-treap).
+<a id="practice-cartesian-tree"></a>
 
-| № | Приоритет | Задача | Сложность | Паттерн |
+### 30.1. Статическое декартово дерево
+
+Этап **B**. Core: **2**. Теория: [ROADMAP](ROADMAP.md#topic-cartesian-tree).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
-| 1 | `Core` | [Локальный checkpoint: explicit treap](templates/java/README.md#template-treap-multiset) | Checkpoint | Split/merge по ключу, insert/erase, размер поддерева и k-я порядковая статистика |
-| 2 | `Core` | [Локальный checkpoint: implicit treap](templates/java/README.md#template-implicit-treap) | Checkpoint | Split по позиции, merge, разворот диапазона и агрегат динамической последовательности |
-| 3 | `Core` | [CF Gym 102787A - Shandom Ruffle](https://codeforces.com/gym/102787/problem/A) | - | Implicit treap: split/merge и перестановка блоков |
-| 4 | `Core` | [CF Gym 102787E - Sneetches and Speeches 2](https://codeforces.com/gym/102787/problem/E) | - | Implicit treap: lazy flip/reverse и агрегаты непрерывного блока |
-| 5 | `Core` | [CF 706D - Vasiliy's Multiset](https://codeforces.com/problemset/problem/706/D) | CF 1800 | Bitwise trie: insert/erase/max XOR |
-| 6 | `Extra` | [LC 315 - Count of Smaller Numbers After Self](https://leetcode.com/problems/count-of-smaller-numbers-after-self/) | LC Hard | Order statistics/Fenwick |
-| 7 | `Extra` | [LC 327 - Count of Range Sum](https://leetcode.com/problems/count-of-range-sum/) | LC Hard | Prefix sums + merge-sort counting |
-| 8 | `Extra` | [CF Gym 102787B - Pear TreaP](https://codeforces.com/gym/102787/problem/B) | - | Implicit treap + динамическая строка + двусторонние хеши |
-| 9 | `Extra` | [CF 702F - T-Shirts](https://codeforces.com/problemset/problem/702/F) | CF 2800 | Treap/BST с агрегатами и lazy-изменениями |
-| 10 | `Extra` | [CF 1748E - Yet Another Array Counting Problem](https://codeforces.com/problemset/problem/1748/E) | CF 2300 | Cartesian tree + DP по поддеревьям |
+| 1 | `Core` | Локальный checkpoint: Cartesian tree in O(n) | - | Монотонный стек, parent/left/right и inorder |
+| 2 | `Core` | [CF 1748E - Yet Another Array Counting Problem](https://codeforces.com/problemset/problem/1748/E) | CF 2400 | Дерево максимумов и DP по его форме |
+
+<a id="practice-explicit-treap"></a>
+
+### 30.2. Explicit-key treap
+
+Этап **B**. Core: **3**. Extra: **1**. Теория: [ROADMAP](ROADMAP.md#topic-explicit-treap).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | Локальный checkpoint: ordered multiset | - | insert/erase/kth/rank через split/merge и size |
+| 2 | `Core` | [CSES - Salary Queries](https://cses.fi/problemset/task/1144) | - | Treap по ключу с multiplicity и count on range |
+| 3 | `Core` | Локальный checkpoint: range sum by explicit key | - | Два split по ключам и агрегат subtree sum |
+| 4 | `Extra` | [CF 702F - T-Shirts](https://codeforces.com/problemset/problem/702/F) | CF 2400 | Treap, lazy и нетривиальное разбиение по ключу |
+
+<a id="practice-implicit-treap"></a>
+
+### 30.3. Implicit treap
+
+Этап **B**. Core: **3**. Extra: **2**. Теория: [ROADMAP](ROADMAP.md#topic-implicit-treap).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | Локальный checkpoint: sequence editor | - | split by size, insert, erase и reverse |
+| 2 | `Core` | [CSES - Reversals and Sums](https://cses.fi/problemset/task/2074) | - | Lazy reverse и subtree sum |
+| 3 | `Core` | [CF Gym 102787A - Cut and Paste](https://codeforces.com/gym/102787/problem/A) | - | Вырезание и склейка сегментов split/merge |
+| 4 | `Extra` | [CF Gym 102787B - To Front or Not to Front](https://codeforces.com/gym/102787/problem/B) | - | Перестановки блоков последовательности |
+| 5 | `Extra` | [CF Gym 102787E - Yet Another Array Queries Problem](https://codeforces.com/gym/102787/problem/E) | - | Составные lazy-операции на отрезке |
+
+<a id="practice-bitwise-trie"></a>
+
+### 30.4. Bitwise trie
+
+Этап **B**. Core: **3**. Extra: **1**. Теория: [ROADMAP](ROADMAP.md#topic-bitwise-trie).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | Локальный checkpoint: dynamic max XOR multiset | - | insert/delete/query и count в узлах |
+| 2 | `Core` | [CF 706D - Vasiliy's Multiset](https://codeforces.com/problemset/problem/706/D) | CF 1800 | Online multiset и greedy по битам |
+| 3 | `Core` | [CSES - Maximum Xor Subarray](https://cses.fi/problemset/task/1655) | - | Trie префиксных XOR |
+| 4 | `Extra` | [CF 923C - Perfect Security](https://codeforces.com/problemset/problem/923/C) | CF 2000 | Min XOR matching с удалением |
 
 <a id="practice-flows-matching"></a>
 
-## 31. Потоки и паросочетания
+## Модуль 31. Паросочетания и потоки
 
-Этап **B**. Core: **4**. Extra: **5**. Теория и признаки распознавания: [ROADMAP: потоки](ROADMAP.md#topic-flows-matching).
+<a id="practice-bipartite-matching"></a>
 
-| № | Приоритет | Задача | Сложность | Паттерн |
+### 31.1. Двудольное паросочетание
+
+Этап **B**. Core: **4**. Extra: **1**. Теория: [ROADMAP](ROADMAP.md#topic-bipartite-matching).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
-| 1 | `Core` | [LC 1820 - Maximum Number of Accepted Invitations](https://leetcode.com/problems/maximum-number-of-accepted-invitations/) | LC Medium | Kuhn bipartite matching |
-| 2 | `Core` | [CF 120H - Brevity is Soul of Wit](https://codeforces.com/problemset/problem/120/H) | CF 1800 | Двудольная модель и увеличивающие пути Куна |
-| 3 | `Core` | [CF 546E - Soldier and Traveling](https://codeforces.com/problemset/problem/546/E) | CF 2100 | Dinic и восстановление матрицы назначений |
-| 4 | `Core` | [CF 237E - Build String](https://codeforces.com/problemset/problem/237/E) | CF 2000 | Min-cost max-flow: ограниченные ресурсы и цена единицы потока |
-| 5 | `Extra` | [LC 1066 - Campus Bikes II](https://leetcode.com/problems/campus-bikes-ii/) | LC Medium | Assignment DP по маскам |
-| 6 | `Extra` | [CF 1423B - Valuable Paper](https://codeforces.com/problemset/problem/1423/B) | CF 1900 | Hopcroft-Karp + binary search по допустимому порогу |
-| 7 | `Extra` | [CF 1666L - Labyrinth](https://codeforces.com/problemset/problem/1666/L) | CF 1800 | Два внутренне вершинно непересекающихся ориентированных пути |
-| 8 | `Extra` | [CF 510E - Fox And Dinner](https://codeforces.com/problemset/problem/510/E) | CF 2300 | Flow/matching + восстановление циклов |
-| 9 | `Extra` | [CF 1082G - Petya and Graph](https://codeforces.com/problemset/problem/1082/G) | CF 2400 | Maximum closure как min-cut |
+| 1 | `Core` | [LC 1820 - Maximum Number of Accepted Invitations](https://leetcode.com/problems/maximum-number-of-accepted-invitations/) | LC Medium | Чистый augmenting path |
+| 2 | `Core` | Локальный checkpoint: Hopcroft-Karp | - | BFS layers + DFS blocking augmentations |
+| 3 | `Core` | [CF 120H - Red and Blue Balls](https://codeforces.com/problemset/problem/120/H) | CF 1900 | Построение двудольного графа допустимости |
+| 4 | `Core` | [CF 1423B - Valuable Paper](https://codeforces.com/problemset/problem/1423/B) | CF 2100 | Binary search threshold + perfect matching |
+| 5 | `Extra` | [CSES - School Dance](https://cses.fi/problemset/task/1696) | - | Реализация matching через flow и сравнение подходов |
+
+<a id="practice-max-flow"></a>
+
+### 31.2. Максимальный поток и минимальный разрез
+
+Этап **B**. Core: **4**. Extra: **2**. Теория: [ROADMAP](ROADMAP.md#topic-max-flow).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | [CSES - Download Speed](https://cses.fi/problemset/task/1694) | - | Чистый Dinic на capacities |
+| 2 | `Core` | [CF 546E - Soldier and Traveling](https://codeforces.com/problemset/problem/546/E) | CF 2100 | Матрица перемещений как flow construction |
+| 3 | `Core` | [CSES - Distinct Routes](https://cses.fi/problemset/task/1711) | - | Edge-disjoint paths и декомпозиция потока |
+| 4 | `Core` | [CSES - Police Chase](https://cses.fi/problemset/task/1695) | - | Min-cut edges по достижимости residual graph |
+| 5 | `Extra` | [CF 510E - Fox And Dinner](https://codeforces.com/problemset/problem/510/E) | CF 2300 | Degree constraints, flow и восстановление циклов |
+| 6 | `Extra` | [CF 1082G - Petya and Graph](https://codeforces.com/problemset/problem/1082/G) | CF 2400 | Maximum-weight closure через min-cut |
+
+<a id="practice-min-cost-flow"></a>
+
+### 31.3. Поток минимальной стоимости
+
+Этап **C**. Core: **2**. Extra: **1**. Теория: [ROADMAP](ROADMAP.md#topic-min-cost-flow).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | Локальный checkpoint: assignment with costs | - | Successive shortest augmenting paths + potentials |
+| 2 | `Core` | [AtCoder Library Practice E - MinCostFlow](https://atcoder.jp/contests/practice2/tasks/practice2_e) | - | Моделирование выбора клеток через min-cost flow |
+| 3 | `Extra` | [CF 237E - Build String](https://codeforces.com/problemset/problem/237/E) | CF 2300 | Ограниченные источники символов и стоимость использования |
 
 <a id="practice-advanced-strings"></a>
 
-## 32. Ахо-Корасик, Манакер, suffix array/automaton
+## Модуль 32. Продвинутые строковые структуры
 
-Этап **B**. Core: **6**. Extra: **4**. Теория и признаки распознавания: [ROADMAP: продвинутые строки](ROADMAP.md#topic-advanced-strings).
+<a id="practice-aho-corasick"></a>
 
-| № | Приоритет | Задача | Сложность | Паттерн |
+### 32.1. Ахо-Корасик
+
+Этап **B**. Core: **3**. Extra: **1**. Теория: [ROADMAP](ROADMAP.md#topic-aho-corasick).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
-| 1 | `Core` | [LC 1044 - Longest Duplicate Substring](https://leetcode.com/problems/longest-duplicate-substring/) | LC Hard | Двоичный поиск + rolling hash/suffix structure |
-| 2 | `Core` | [LC 336 - Palindrome Pairs](https://leetcode.com/problems/palindrome-pairs/) | LC Hard | Trie/hash для палиндромных пар |
-| 3 | `Core` | [CF 1202E - You Are Given Some Strings...](https://codeforces.com/problemset/problem/1202/E) | CF 2400 | Aho-Corasick и агрегация совпадений |
-| 4 | `Core` | [CF 1326D2 - Prefix-Suffix Palindrome (Hard version)](https://codeforces.com/problemset/problem/1326/D2) | CF 1800 | Manacher для палиндрома после общего prefix/suffix |
-| 5 | `Core` | [CF 514C - Watto and Mechanism](https://codeforces.com/problemset/problem/514/C) | CF 2000 | Trie с одним допустимым несовпадением |
-| 6 | `Core` | [CF 19C - Deletion of Repeats](https://codeforces.com/problemset/problem/19/C) | CF 2200 | Suffix array/LCP для поиска повторяющихся блоков |
-| 7 | `Extra` | [ACMP 70 - Степень строки](https://acmp.ru/index.asp?main=task&id_task=70) | - | Границы и период строки как база suffix-структур |
-| 8 | `Extra` | [CF 123D - String](https://codeforces.com/problemset/problem/123/D) | CF 2300 | Suffix array + LCP + монотонная агрегация |
-| 9 | `Extra` | [CF 710F - String Set Queries](https://codeforces.com/problemset/problem/710/F) | CF 2400 | Динамический набор Aho-Corasick через логарифмические объединения |
-| 10 | `Extra` | [CF 873F - Forbidden Indices](https://codeforces.com/problemset/problem/873/F) | CF 2400 | Suffix automaton + агрегация по suffix links |
+| 1 | `Core` | [CSES - Finding Patterns](https://cses.fi/problemset/task/2102) | - | Multi-pattern existence через автомат |
+| 2 | `Core` | [CSES - Counting Patterns](https://cses.fi/problemset/task/2103) | - | Накопление посещений по suffix links |
+| 3 | `Core` | [CF 1202E - You Are Given Some Strings](https://codeforces.com/problemset/problem/1202/E) | CF 2400 | Два автомата и склейка совпадений |
+| 4 | `Extra` | [CF 710F - String Set Queries](https://codeforces.com/problemset/problem/710/F) | CF 2500 | Динамический набор через logarithmic rebuilding автоматов |
+
+<a id="practice-manacher"></a>
+
+### 32.2. Алгоритм Манакера
+
+Этап **B**. Core: **2**. Extra: **1**. Теория: [ROADMAP](ROADMAP.md#topic-manacher).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | [CSES - Longest Palindrome](https://cses.fi/problemset/task/1111) | - | Odd/even radii и восстановление максимума |
+| 2 | `Core` | [CSES - All Palindromes](https://cses.fi/problemset/task/2420) | - | Вывод всех длин из массивов радиусов |
+| 3 | `Extra` | [CF 1326D2 - Prefix-Suffix Palindrome](https://codeforces.com/problemset/problem/1326/D2) | CF 1800 | Палиндром внутри остатка; решить именно Манакером |
+
+<a id="practice-suffix-array"></a>
+
+### 32.3. Suffix array и LCP
+
+Этап **B**. Core: **4**. Extra: **1**. Теория: [ROADMAP](ROADMAP.md#topic-suffix-array).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | Локальный checkpoint: suffix array + Kasai | - | Doubling, counting sort и LCP против brute force |
+| 2 | `Core` | [CSES - Repeating Substring](https://cses.fi/problemset/task/2106) | - | Максимальный соседний LCP |
+| 3 | `Core` | [CSES - Pattern Positions](https://cses.fi/problemset/task/2104) | - | Binary search диапазона суффиксов |
+| 4 | `Core` | [CF 19C - Deletion of Repeats](https://codeforces.com/problemset/problem/19/C) | CF 2400 | LCP/RMQ и обнаружение повторяющихся блоков |
+| 5 | `Extra` | [CF 123D - String](https://codeforces.com/problemset/problem/123/D) | CF 2900 | Contribution counting по LCP structure |
+
+<a id="practice-suffix-automaton"></a>
+
+### 32.4. Суффиксный автомат
+
+Этап **C**. Core: **3**. Extra: **1**. Теория: [ROADMAP](ROADMAP.md#topic-suffix-automaton).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | Локальный checkpoint: SAM extend/clone | - | Сравнение множества подстрок с brute force |
+| 2 | `Core` | [CSES - Distinct Substrings](https://cses.fi/problemset/task/2105) | - | Сумма `len[v] - len[link[v]]` |
+| 3 | `Core` | [CSES - Substring Order I](https://cses.fi/problemset/task/2108) | - | DP числа путей и k-я подстрока |
+| 4 | `Extra` | [CF 873F - Forbidden Indices](https://codeforces.com/problemset/problem/873/F) | CF 2400 | Occurrence propagation и лучший state contribution |
 
 <a id="practice-advanced-trees"></a>
 
-## 33. HLD, центроидная декомпозиция, small-to-large и rerooting
+## Модуль 33. Декомпозиции деревьев
 
-Этап **B**. Core: **5**. Extra: **4**. Теория и признаки распознавания: [ROADMAP: продвинутые деревья](ROADMAP.md#topic-advanced-trees).
+<a id="practice-hld"></a>
 
-| № | Приоритет | Задача | Сложность | Паттерн |
+### 33.1. Heavy-light decomposition
+
+Этап **B**. Core: **2**. Extra: **1**. Теория: [ROADMAP](ROADMAP.md#topic-hld).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
-| 1 | `Core` | [LC 834 - Sum of Distances in Tree](https://leetcode.com/problems/sum-of-distances-in-tree/) | LC Hard | Rerooting |
-| 2 | `Core` | [LC 1483 - Kth Ancestor of a Tree Node](https://leetcode.com/problems/kth-ancestor-of-a-tree-node/) | LC Hard | Binary lifting |
-| 3 | `Core` | [CF 321C - Ciel the Commander](https://codeforces.com/problemset/problem/321/C) | CF 2100 | Построение centroid decomposition |
-| 4 | `Core` | [CF 600E - Lomsat gelral](https://codeforces.com/problemset/problem/600/E) | CF 2300 | DSU-on-tree/small-to-large по частотам цветов |
-| 5 | `Core` | [CF 593D - Happy Tree Party](https://codeforces.com/problemset/problem/593/D) | CF 2400 | HLD + segment tree на путях |
-| 6 | `Extra` | [CF 1324F - Maximum White Subtree](https://codeforces.com/problemset/problem/1324/F) | CF 1800 | Базовый rerooting с переносом лучшей суммы |
-| 7 | `Extra` | [CF 1187E - Tree Painting](https://codeforces.com/problemset/problem/1187/E) | CF 2100 | Rerooting с переносом ответа по ребру |
-| 8 | `Extra` | [CF 342E - Xenia and Tree](https://codeforces.com/problemset/problem/342/E) | CF 2400 | Centroid decomposition для динамического множества |
-| 9 | `Extra` | [CF 375D - Tree and Queries](https://codeforces.com/problemset/problem/375/D) | CF 2400 | DSU-on-tree по частотам цветов в поддеревьях |
+| 1 | `Core` | Локальный checkpoint: path sum with point updates | - | `head/pos`, разложение пути и segment tree |
+| 2 | `Core` | [CSES - Path Queries II](https://cses.fi/problemset/task/2134) | - | Point update + maximum on path |
+| 3 | `Extra` | [CF 593D - Happy Tree Party](https://codeforces.com/problemset/problem/593/D) | CF 2200 | Направленный проход по цепочкам и ранний stop |
+
+<a id="practice-centroid-decomposition"></a>
+
+### 33.2. Центроидная декомпозиция
+
+Этап **B**. Core: **2**. Extra: **2**. Теория: [ROADMAP](ROADMAP.md#topic-centroid-decomposition).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | [CF 321C - Ciel the Commander](https://codeforces.com/problemset/problem/321/C) | CF 1900 | Чистое построение centroid tree |
+| 2 | `Core` | [CF 342E - Xenia and Tree](https://codeforces.com/problemset/problem/342/E) | CF 2400 | Dynamic nearest marked node по centroid ancestors |
+| 3 | `Extra` | [CSES - Fixed-Length Paths I](https://cses.fi/problemset/task/2080) | - | Подсчет путей через centroid |
+| 4 | `Extra` | [CF 161D - Distance in Tree](https://codeforces.com/problemset/problem/161/D) | CF 1800 | Решить повторно через centroid и сравнить с subtree DP |
+
+<a id="practice-small-to-large"></a>
+
+### 33.3. Small-to-large и DSU on tree
+
+Этап **B**. Core: **3**. Extra: **2**. Теория: [ROADMAP](ROADMAP.md#topic-small-to-large).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | [CSES - Distinct Colors](https://cses.fi/problemset/task/1139) | - | Merge smaller color set into larger |
+| 2 | `Core` | Локальный checkpoint: frequency maps in every subtree | - | Амортизация перемещений элементов |
+| 3 | `Core` | [CF 600E - Lomsat gelral](https://codeforces.com/problemset/problem/600/E) | CF 2300 | DSU on tree и агрегат цветов максимальной частоты |
+| 4 | `Extra` | [CF 375D - Tree and Queries](https://codeforces.com/problemset/problem/375/D) | CF 2300 | Частоты частот в поддеревьях |
+| 5 | `Extra` | [CF 570D - Tree Requests](https://codeforces.com/problemset/problem/570/D) | CF 2200 | Depth buckets и parity masks; сравнить с offline Euler |
 
 <a id="practice-games"></a>
 
-## 34. Теория игр: выигрыш/проигрыш, Nim и Sprague-Grundy
+## Модуль 34. Теория игр
 
-Этап **B**. Core: **6**. Extra: **3**. Теория и признаки распознавания: [ROADMAP: теория игр](ROADMAP.md#topic-games).
+<a id="practice-pn-games"></a>
 
-| № | Приоритет | Задача | Сложность | Паттерн |
+### 34.1. P/N-позиции
+
+Этап **B**. Core: **2**. Extra: **2**. Теория: [ROADMAP](ROADMAP.md#topic-pn-games).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
-| 1 | `Core` | [LC 292 - Nim Game](https://leetcode.com/problems/nim-game/) | LC Easy | Nim-инвариант |
-| 2 | `Core` | [LC 486 - Predict the Winner](https://leetcode.com/problems/predict-the-winner/) | LC Medium | Minimax/game DP |
-| 3 | `Core` | [CF 1527B1 - Palindrome Game (easy version)](https://codeforces.com/problemset/problem/1527/B1) | CF 1200 | Формальная классификация win/lose по инварианту состояния |
-| 4 | `Core` | [CF 1033C - Permutation Game](https://codeforces.com/problemset/problem/1033/C) | CF 1600 | Win/lose DP на DAG состояний |
-| 5 | `Core` | [CF 15C - Industrial Nim](https://codeforces.com/problemset/problem/15/C) | CF 2000 | Nim и xor-sum куч, заданных диапазонами |
-| 6 | `Core` | [CF 768E - Game of Stones](https://codeforces.com/problemset/problem/768/E) | CF 2100 | Sprague-Grundy, mex и XOR независимых компонент |
-| 7 | `Extra` | [CF 455B - A Lot of Games](https://codeforces.com/problemset/problem/455/B) | CF 1900 | Два win/lose-состояния на trie |
-| 8 | `Extra` | [CF 786A - Berzerk](https://codeforces.com/problemset/problem/786/A) | CF 2000 | Retrograde-анализ Win/Lose/Loop в циклическом графе |
-| 9 | `Extra` | [CF 850C - Arpa and a game with Mojtaba](https://codeforces.com/problemset/problem/850/C) | CF 2200 | Sprague-Grundy по маскам степеней простых |
+| 1 | `Core` | [LC 292 - Nim Game](https://leetcode.com/problems/nim-game/) | LC Easy | Subtraction game 1..3 и проигрышные кратные 4; не Nim-sum |
+| 2 | `Core` | [CF 1033C - Permutation Game](https://codeforces.com/problemset/problem/1033/C) | CF 1800 | Retrograde по ацикличному порядку значений |
+| 3 | `Extra` | [CF 1194D - 1-2-K Game](https://codeforces.com/problemset/problem/1194/D) | CF 1900 | Период P/N-позиций с отдельным случаем `k` |
+| 4 | `Extra` | [CF 455B - A Lot of Games](https://codeforces.com/problemset/problem/455/B) | CF 1900 | Два типа terminal condition на trie игры |
+
+<a id="practice-minimax"></a>
+
+### 34.2. Minimax
+
+Этап **B**. Core: **1**. Extra: **1**. Теория: [ROADMAP](ROADMAP.md#topic-minimax).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | [LC 486 - Predict the Winner](https://leetcode.com/problems/predict-the-winner/) | LC Medium | Interval minimax по разнице счета |
+| 2 | `Extra` | [LC 464 - Can I Win](https://leetcode.com/problems/can-i-win/) | LC Medium | Minimax + memoization по mask |
+
+<a id="practice-nim-sg"></a>
+
+### 34.3. Nim и Sprague-Grundy
+
+Этап **B**. Core: **3**. Extra: **2**. Теория: [ROADMAP](ROADMAP.md#topic-nim-sg).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | Локальный checkpoint: true Nim | - | XOR куч, выигрышный ход и доказательство |
+| 2 | `Core` | Локальный checkpoint: Grundy on DAG | - | `mex` исходящих состояний и XOR компонент |
+| 3 | `Core` | [CF 15C - Industrial Nim](https://codeforces.com/problemset/problem/15/C) | CF 2100 | Nim-sum диапазонов без перечисления куч |
+| 4 | `Extra` | [CF 768E - Game of Stones](https://codeforces.com/problemset/problem/768/E) | CF 2300 | Grundy ограниченного разбиения куч |
+| 5 | `Extra` | [CF 850C - Arpa and a game of Mojtaba](https://codeforces.com/problemset/problem/850/C) | CF 2400 | Независимые компоненты по простым и SG mask states |
+
+<a id="practice-cyclic-games"></a>
+
+### 34.4. Игры с циклами
+
+Этап **C**. Core: **2**. Теория: [ROADMAP](ROADMAP.md#topic-cyclic-games).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | Локальный checkpoint: win/lose/draw on directed graph | - | Reverse edges, outdegree counter и неразмеченные ничьи |
+| 2 | `Core` | [CF 786A - Berzerk](https://codeforces.com/problemset/problem/786/A) | CF 2100 | Retrograde двух игроков на циклических состояниях |
 
 <a id="practice-meet-in-the-middle"></a>
 
-## 35. Meet-in-the-middle и разбиение пространства поиска
+## 35. Meet-in-the-middle
 
-Этап **B**. Core: **4**. Extra: **4**. Теория и признаки распознавания: [ROADMAP: meet-in-the-middle](ROADMAP.md#topic-meet-in-the-middle).
+Этап **B**. Core: **4**. Extra: **2**. Теория: [ROADMAP](ROADMAP.md#topic-meet-in-the-middle).
 
-| № | Приоритет | Задача | Сложность | Паттерн |
+| N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
-| 1 | `Core` | [LC 1755 - Closest Subsequence Sum](https://leetcode.com/problems/closest-subsequence-sum/) | LC Hard | Meet-in-the-middle subset sums |
-| 2 | `Core` | [CF 888E - Maximum Subsequence](https://codeforces.com/problemset/problem/888/E) | CF 1800 | Две половины subset sums + поиск дополнения |
-| 3 | `Core` | [CF 1006F - Xor-Paths](https://codeforces.com/problemset/problem/1006/F) | CF 2100 | Meet-in-the-middle по средней диагонали пути |
-| 4 | `Core` | [CF 525E - Anya and Cubes](https://codeforces.com/problemset/problem/525/E) | CF 2100 | Троичный перебор половин + подсчёт дополнений |
-| 5 | `Extra` | [CF 1105E - Helping Hiasat](https://codeforces.com/problemset/problem/1105/E) | CF 2200 | MITM для maximum independent set при n≈40 |
-| 6 | `Extra` | [CF 912E - Prime Gift](https://codeforces.com/problemset/problem/912/E) | CF 2400 | MITM по группам простых + поиск k-го произведения |
-| 7 | `Extra` | [CF 585D - Lizard Era: Beginning](https://codeforces.com/problemset/problem/585/D) | CF 2300 | MITM с восстановлением выбранных решений |
-| 8 | `Extra` | [CF 1257F - Make Them Similar](https://codeforces.com/problemset/problem/1257/F) | CF 2400 | Разбиение пространства битов + hash векторов расстояний |
+| 1 | `Core` | [LC 1755 - Closest Subsequence Sum](https://leetcode.com/problems/closest-subsequence-sum/) | LC Hard | Две половины subset sums + binary search |
+| 2 | `Core` | [CSES - Meet in the Middle](https://cses.fi/problemset/task/1628) | - | Подсчет пар half-sums с заданной суммой |
+| 3 | `Core` | [CF 888E - Maximum Subsequence](https://codeforces.com/problemset/problem/888/E) | CF 1800 | Максимум суммы по модулю из двух половин |
+| 4 | `Core` | [CF 1006F - Xor-Paths](https://codeforces.com/problemset/problem/1006/F) | CF 2100 | Разбиение пути по средней диагонали |
+| 5 | `Extra` | [CF 525E - Anya and Cubes](https://codeforces.com/problemset/problem/525/E) | CF 2200 | Три выбора элемента и count maps половин |
+| 6 | `Extra` | [AtCoder ABC184F - Programming Contest](https://atcoder.jp/contests/abc184/tasks/abc184_f) | - | Максимальная subset sum не больше `T` из двух half-lists |
 
 <a id="practice-sqrt-mo"></a>
 
-## 36. Корневая декомпозиция, Mo и офлайн-запросы
+## Модуль 36. Корневая декомпозиция запросов
 
-Этап **C**. Core: **3**. Extra: **4**. Теория и признаки распознавания: [ROADMAP: sqrt и Mo](ROADMAP.md#topic-sqrt-mo).
+<a id="practice-sqrt-blocks"></a>
 
-| № | Приоритет | Задача | Сложность | Паттерн |
+### 36.1. Sqrt decomposition по блокам
+
+Этап **C**. Core: **3**. Extra: **3**. Теория: [ROADMAP](ROADMAP.md#topic-sqrt-blocks).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
-| 1 | `Core` | Локальный checkpoint: sqrt decomposition | Checkpoint | Point update и range sum по блокам; проверить границы и последний неполный блок |
-| 2 | `Core` | [CF 220B - Little Elephant and Array](https://codeforces.com/problemset/problem/220/B) | CF 1800 | Mo: add/remove и частотный инвариант freq[x]=x |
-| 3 | `Core` | [CF 86D - Powerful array](https://codeforces.com/problemset/problem/86/D) | CF 2200 | Mo с нелинейным вкладом значения |
-| 4 | `Extra` | [LC 493 - Reverse Pairs](https://leetcode.com/problems/reverse-pairs/) | LC Hard | Подсчёт пар через merge sort |
-| 5 | `Extra` | [CF 617E - XOR and Favorite Number](https://codeforces.com/problemset/problem/617/E) | CF 2200 | Mo по массиву prefix XOR |
-| 6 | `Extra` | [CF 13E - Holes](https://codeforces.com/problemset/problem/13/E) | CF 2700 | Sqrt decomposition с point updates и jump-агрегатами |
-| 7 | `Extra` | [CF 455D - Serega and Fun](https://codeforces.com/problemset/problem/455/D) | CF 2700 | Динамическая последовательность в блоках + частоты |
+| 1 | `Core` | Локальный checkpoint: point update + range sum | - | Полные и краевые блоки |
+| 2 | `Core` | Локальный checkpoint: range add + range sum | - | Lazy tag и агрегат блока |
+| 3 | `Core` | Локальный checkpoint: count values below x | - | Sorted blocks и пересборка после update |
+| 4 | `Extra` | [CF 13E - Holes](https://codeforces.com/problemset/problem/13/E) | CF 2200 | Jump pointers внутри блоков |
+| 5 | `Extra` | [CF 455D - Serega and Fun](https://codeforces.com/problemset/problem/455/D) | CF 2600 | Динамические блоки последовательности |
+| 6 | `Extra` | [CF 1207F - Remainder Problem](https://codeforces.com/problemset/problem/1207/F) | CF 2100 | Разделение запросов по малому/большому модулю |
+
+<a id="practice-mo"></a>
+
+### 36.2. Алгоритм Мо
+
+Этап **C**. Core: **3**. Extra: **2**. Теория: [ROADMAP](ROADMAP.md#topic-mo).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | [CSES - Distinct Values Queries](https://cses.fi/problemset/task/1734) | - | Реализовать именно Mo: add/remove и distinct count |
+| 2 | `Core` | Локальный checkpoint: Mo vs brute stress | - | Четыре движения границ и alternating order |
+| 3 | `Core` | [CF 86D - Powerful array](https://codeforces.com/problemset/problem/86/D) | CF 2200 | Нетривиальный вклад частоты при add/remove |
+| 4 | `Extra` | [CF 617E - XOR and Favorite Number](https://codeforces.com/problemset/problem/617/E) | CF 2200 | Mo по префиксным XOR |
+| 5 | `Extra` | [CF 940F - Machine Learning](https://codeforces.com/problemset/problem/940/F) | CF 2600 | Mo with modifications и mex частот |
 
 <a id="practice-rollback-persistence"></a>
 
-## 37. Rollback, персистентность и динамическая связность
+## Модуль 37. Версии структур и динамическая связность
 
-Этап **C**. Core: **4**. Extra: **2**. Теория и признаки распознавания: [ROADMAP: rollback и persistence](ROADMAP.md#topic-rollback-persistence).
+<a id="practice-version-rollback"></a>
 
-| № | Приоритет | Задача | Сложность | Паттерн |
+### 37.1. Rollback по дереву версий
+
+Этап **C**. Core: **2**. Теория: [ROADMAP](ROADMAP.md#topic-version-rollback).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
-| 1 | `Core` | [LC 1146 - Snapshot Array](https://leetcode.com/problems/snapshot-array/) | LC Medium | Версии состояния массива |
-| 2 | `Core` | [CF 707D - Persistent Bookcase](https://codeforces.com/problemset/problem/707/D) | CF 2200 | Дерево версий + DFS + ручной rollback изменений |
-| 3 | `Core` | [CF 813E - Army Creation](https://codeforces.com/problemset/problem/813/E) | CF 2200 | Persistent segment tree по предыдущим вхождениям |
-| 4 | `Core` | [CF 1140F - Extending Set of Points](https://codeforces.com/problemset/problem/1140/F) | CF 2600 | Segment tree over time + rollback DSU |
-| 5 | `Extra` | [CF 891C - Envy](https://codeforces.com/problemset/problem/891/C) | CF 2300 | Rollback DSU внутри групп одинакового веса |
-| 6 | `Extra` | [CF 484E - Sign on Fence](https://codeforces.com/problemset/problem/484/E) | CF 2500 | Версии persistent segment tree по порогу |
+| 1 | `Core` | Локальный checkpoint: version tree + undo log | - | Snapshot, apply, DFS и точный rollback |
+| 2 | `Core` | [CF 707D - Persistent Bookcase](https://codeforces.com/problemset/problem/707/D) | CF 2200 | Дерево версий запросов и отмена изменений |
+
+<a id="practice-persistence"></a>
+
+### 37.2. Персистентные структуры
+
+Этап **C**. Core: **3**. Extra: **1**. Теория: [ROADMAP](ROADMAP.md#topic-persistence).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | [LC 1146 - Snapshot Array](https://leetcode.com/problems/snapshot-array/) | LC Medium | Вводная версия значений по времени |
+| 2 | `Core` | [CSES - Range Queries and Copies](https://cses.fi/problemset/task/1737) | - | Path-copying segment tree и roots версий |
+| 3 | `Core` | [CF 813E - Army Creation](https://codeforces.com/problemset/problem/813/E) | CF 2200 | Persistent segment tree по префиксам |
+| 4 | `Extra` | [CF 484E - Sign on Fence](https://codeforces.com/problemset/problem/484/E) | CF 2600 | Версии по порогу + binary search answer |
+
+<a id="practice-dynamic-connectivity"></a>
+
+### 37.3. Rollback DSU и offline dynamic connectivity
+
+Этап **C**. Core: **3**. Extra: **1**. Теория: [ROADMAP](ROADMAP.md#topic-dynamic-connectivity).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | Локальный checkpoint: RollbackDSU | - | Union by size без path compression, snapshot и undo |
+| 2 | `Core` | [CSES - Dynamic Connectivity](https://cses.fi/problemset/task/2133) | - | Интервалы жизни ребер + segment tree over time |
+| 3 | `Core` | [CF 891C - Envy](https://codeforces.com/problemset/problem/891/C) | CF 2600 | Временные union групп запросов и rollback |
+| 4 | `Extra` | [CF 1140F - Extending Set of Points](https://codeforces.com/problemset/problem/1140/F) | CF 2700 | Dynamic bipartite components и rollback metadata |
 
 <a id="practice-dp-optimizations"></a>
 
-## 38. Оптимизации DP: CHT/Li Chao, divide-and-conquer, Knuth
+## Модуль 38. Оптимизации DP
 
-Этап **C**. Core: **5**. Extra: **1**. Теория и признаки распознавания: [ROADMAP: оптимизации DP](ROADMAP.md#topic-dp-optimizations).
+<a id="practice-monotone-cht"></a>
 
-| № | Приоритет | Задача | Сложность | Паттерн |
+### 38.1. Monotone CHT
+
+Этап **B**. Core: **1**. Extra: **1**. Теория: [ROADMAP](ROADMAP.md#topic-monotone-cht).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
-| 1 | `Core` | [LC 410 - Split Array Largest Sum](https://leetcode.com/problems/split-array-largest-sum/) | LC Hard | DP разбиений и поиск по ответу |
-| 2 | `Core` | [CF 319C - Kalila and Dimna in the Logging Industry](https://codeforces.com/problemset/problem/319/C) | CF 2100 | Monotone CHT для линейного перехода DP |
-| 3 | `Core` | [CF 660F - Bear and Bowling 4](https://codeforces.com/problemset/problem/660/F) | CF 2500 | Li Chao Tree для запросов в немонотонных координатах |
-| 4 | `Core` | [CF 868F - Yet Another Minimization Problem](https://codeforces.com/problemset/problem/868/F) | CF 2500 | Divide-and-conquer optimization с подвижной стоимостью |
-| 5 | `Core` | [CF Gym 100212C - Order-Preserving Codes](https://codeforces.com/gym/100212/attachments/download/1727/20042005-winter-petrozavodsk-camp-andrew-stankevich-contest-10-en.pdf#page=4) ; [регистрация/отправка](https://codeforces.com/gym/100212) | - | Knuth optimization и границы оптимального разбиения |
-| 6 | `Extra` | [CF 932F - Escape Through Leaf](https://codeforces.com/problemset/problem/932/F) | CF 2700 | Tree DP + Li Chao/small-to-large |
+| 1 | `Core` | [CF 319C - Kalila and Dimna in the Logging Industry](https://codeforces.com/problemset/problem/319/C) | CF 2100 | Монотонные slopes и query coordinates |
+| 2 | `Extra` | [CF 660F - Bear and Bowling 4](https://codeforces.com/problemset/problem/660/F) | CF 2400 | Монотонные slopes, произвольные `x`, hull + binary search; не Li Chao |
+
+<a id="practice-li-chao"></a>
+
+### 38.2. Li Chao Tree
+
+Этап **C**. Core: **1**. Extra: **1**. Теория: [ROADMAP](ROADMAP.md#topic-li-chao).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | [CSES - Monster Game II](https://cses.fi/problemset/task/2085) | - | Произвольные slopes и `x`, online add/query |
+| 2 | `Extra` | [CF 932F - Escape Through Leaf](https://codeforces.com/problemset/problem/932/F) | CF 2600 | Tree DP + small-to-large line containers |
+
+<a id="practice-divide-conquer-dp"></a>
+
+### 38.3. Divide-and-conquer optimization DP
+
+Этап **C**. Core: **1**. Extra: **1**. Теория: [ROADMAP](ROADMAP.md#topic-divide-conquer-dp).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | [CF 321E - Ciel and Gondolas](https://codeforces.com/problemset/problem/321/E) | CF 2600 | Monotone opt и `O(1)` cost через 2D prefix sums |
+| 2 | `Extra` | [CF 868F - Yet Another Minimization Problem](https://codeforces.com/problemset/problem/868/F) | CF 2500 | D&C optimization + подвижная стоимость окна |
+
+<a id="practice-knuth"></a>
+
+### 38.4. Оптимизация Кнута
+
+Этап **C**. Core: **1**. Extra: **1**. Теория: [ROADMAP](ROADMAP.md#topic-knuth).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | [CSES - Knuth Division](https://cses.fi/problemset/task/2088) | - | Каноническое interval DP и границы opt |
+| 2 | `Extra` | [CF Gym 100212C - Order-Preserving Codes](https://codeforces.com/gym/100212/problem/C) | - | Knuth + моделирование и восстановление кодов |
 
 <a id="practice-linear-algebra-fft"></a>
 
-## 39. Матрицы, линейная алгебра, FFT/NTT
+## Модуль 39. Алгебраические алгоритмы
 
-Этап **C**. Core: **6**. Extra: **1**. Теория и признаки распознавания: [ROADMAP: линейная алгебра и FFT](ROADMAP.md#topic-linear-algebra-fft).
+<a id="practice-matrix-exponentiation"></a>
 
-| № | Приоритет | Задача | Сложность | Паттерн |
+### 39.1. Матричное возведение
+
+Этап **C**. Core: **3**. Extra: **1**. Теория: [ROADMAP](ROADMAP.md#topic-matrix-exponentiation).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
-| 1 | `Core` | [LC 509 - Fibonacci Number](https://leetcode.com/problems/fibonacci-number/) | LC Easy | Линейная рекуррентность |
-| 2 | `Core` | [LC 43 - Multiply Strings](https://leetcode.com/problems/multiply-strings/) | LC Medium | Умножение больших чисел как база convolution |
-| 3 | `Core` | [CF 222E - Decoding Genome](https://codeforces.com/problemset/problem/222/E) | CF 1900 | Матричное возведение автомата переходов |
-| 4 | `Core` | [ACMP 198 - Система линейных уравнений](https://acmp.ru/index.asp?main=task&id_task=198) | - | Плотный метод Гаусса с выбором ведущего элемента |
-| 5 | `Core` | [CF 1101G - (Zero XOR Subset)-less](https://codeforces.com/problemset/problem/1101/G) | CF 2300 | XOR basis как Gauss над GF(2) |
-| 6 | `Core` | [CF 1096G - Lucky Tickets](https://codeforces.com/problemset/problem/1096/G) | CF 2400 | Polynomial exponentiation через FFT/NTT |
-| 7 | `Extra` | [CF 528D - Fuzzy Search](https://codeforces.com/problemset/problem/528/D) | CF 2500 | Несколько convolution для неточного сопоставления строк |
+| 1 | `Core` | Локальный checkpoint: matrix power vs repeated multiplication | - | Identity, `M^0`, `M^k` и модуль |
+| 2 | `Core` | [CSES - Throwing Dice](https://cses.fi/problemset/task/1096) | - | Линейная рекуррентность как матрица перехода |
+| 3 | `Core` | [CSES - Graph Paths I](https://cses.fi/problemset/task/1723) | - | Число путей ровно из `k` ребер |
+| 4 | `Extra` | [CF 222E - Decoding Genome](https://codeforces.com/problemset/problem/222/E) | CF 2100 | Автомат запрещенных пар + matrix exponentiation |
+
+<a id="practice-gaussian-elimination"></a>
+
+### 39.2. Метод Гаусса и GF(2)
+
+Этап **C**. Core: **3**. Теория: [ROADMAP](ROADMAP.md#topic-gaussian-elimination).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | [ACMP 198 - Система линейных уравнений](https://acmp.ru/index.asp?main=task&id_task=198) | - | Плотный Гаусс с единственным решением |
+| 2 | `Core` | [CSES - System of Linear Equations](https://cses.fi/problemset/task/3154) | - | Прямоугольная система modulo prime, none/free solutions |
+| 3 | `Core` | [Timus 1042 - Central Heating](https://acm.timus.ru/problem.aspx?space=1&num=1042&locale=ru) | - | Гаусс над GF(2) и восстановление XOR-решения |
+
+<a id="practice-xor-basis"></a>
+
+### 39.3. Линейный XOR-базис
+
+Этап **C**. Core: **2**. Extra: **1**. Теория: [ROADMAP](ROADMAP.md#topic-xor-basis).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | Локальный checkpoint: insert/rank/represent/max XOR | - | Stress против полного перебора подмножеств |
+| 2 | `Core` | [SPOJ XMAX - XOR Maximization](https://www.spoj.com/problems/XMAX/) | - | Максимальный subset XOR через basis |
+| 3 | `Extra` | [CF 1101G - (Zero XOR Subset)-less](https://codeforces.com/problemset/problem/1101/G) | CF 2300 | Базис prefix XOR и дополнительное моделирование |
+
+<a id="practice-convolution"></a>
+
+### 39.4. Свертка, FFT и NTT
+
+Этап **C**. Core: **3**. Extra: **2**. Теория: [ROADMAP](ROADMAP.md#topic-convolution).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | Локальный checkpoint: naive convolution + NTT stress | - | Padding, inverse и сравнение с `O(nm)` |
+| 2 | `Core` | [CSES - Apples and Bananas](https://cses.fi/problemset/task/2111) | - | Частоты парных сумм как convolution |
+| 3 | `Core` | [Library Checker - Convolution Mod](https://judge.yosupo.jp/problem/convolution_mod) | - | Самостоятельная NTT modulo `998244353` |
+| 4 | `Extra` | [CF 1096G - Lucky Tickets](https://codeforces.com/problemset/problem/1096/G) | CF 2300 | Generating function и быстрое возведение полинома |
+| 5 | `Extra` | [CF 528D - Fuzzy Search](https://codeforces.com/problemset/problem/528/D) | CF 2500 | Корреляция строк через несколько сверток |
 
 <a id="practice-probability-interactive"></a>
 
-## 40. Вероятность, рандомизация, interactive и output-only
+## Модуль 40. Вероятность, рандомизация и специальные форматы
 
-Этап **C**. Core: **6**. Extra: **1**. Теория и признаки распознавания: [ROADMAP: probability и interactive](ROADMAP.md#topic-probability-interactive).
+<a id="practice-probability"></a>
 
-| № | Приоритет | Задача | Сложность | Паттерн |
+### 40.1. Вероятность и математическое ожидание
+
+Этап **B**. Core: **5**. Теория: [ROADMAP](ROADMAP.md#topic-probability).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
-| 1 | `Core` | [LC 528 - Random Pick with Weight](https://leetcode.com/problems/random-pick-with-weight/) | LC Medium | Случайный выбор по префиксным весам |
-| 2 | `Core` | [CF 839C - Journey](https://codeforces.com/problemset/problem/839/C) | CF 1500 | Линейность ожидания и вероятностный DFS на дереве |
-| 3 | `Core` | [CF 869E - The Untended Antiquity](https://codeforces.com/problemset/problem/869/E) | CF 2400 | Randomized hashing множества активных прямоугольников |
-| 4 | `Core` | [CF 148D - Bag of mice](https://codeforces.com/problemset/problem/148/D) | CF 1800 | Probability DP по состояниям количества объектов |
-| 5 | `Core` | [CF 1114E - Arithmetic Progression](https://codeforces.com/problemset/problem/1114/E) | CF 2200 | Randomized sampling внутри interactive-протокола |
-| 6 | `Core` | [Локальный checkpoint: output-only с checker МОШ](contests/14-moscow/2025-2026/final/full-with-answers-checkers.zip) | Checkpoint | Выбрать A, C или E; получить валидное решение, проверить checker локально и только затем улучшать score |
-| 7 | `Extra` | [CF 453A - Little Pony and Expected Maximum](https://codeforces.com/problemset/problem/453/A) | CF 1600 | Ожидание максимума через CDF/tail probabilities |
+| 1 | `Core` | [CF 453A - Little Pony and Expected Maximum](https://codeforces.com/problemset/problem/453/A) | CF 1600 | CDF максимума и tail-sum expectation |
+| 2 | `Core` | [CF 839C - Journey](https://codeforces.com/problemset/problem/839/C) | CF 1600 | Условное ожидание по дереву |
+| 3 | `Core` | [CSES - Inversion Probability](https://cses.fi/problemset/task/1728) | - | Индикаторы и линейность ожидания |
+| 4 | `Core` | [CF 148D - Bag of mice](https://codeforces.com/problemset/problem/148/D) | CF 1800 | Probability DP по состоянию мешка и очередности |
+| 5 | `Core` | [AtCoder DP J - Sushi](https://atcoder.jp/contests/dp/tasks/dp_j) | - | Expectation DP с self-loop и переносом члена |
+
+<a id="practice-randomized"></a>
+
+### 40.2. Рандомизированные алгоритмы
+
+Этап **C**. Core: **2**. Extra: **1**. Теория: [ROADMAP](ROADMAP.md#topic-randomized).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | Локальный checkpoint: randomized fingerprint | - | Fixed seed stress, collision event и global failure budget |
+| 2 | `Core` | [CF 869E - The Untended Antiquity](https://codeforces.com/problemset/problem/869/E) | CF 2400 | 2D Fenwick + randomized set fingerprint |
+| 3 | `Extra` | Локальный checkpoint: Karger min-cut | - | Monte Carlo success bound и amplification |
+
+<a id="practice-interactive"></a>
+
+### 40.3. Интерактивные задачи
+
+Этап **C**. Core: **1**. Extra: **1**. Теория: [ROADMAP](ROADMAP.md#topic-interactive).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | Локальный checkpoint: hidden number interactor | - | Binary search, flush, transcript и `ceil(log2 N)` запросов |
+| 2 | `Extra` | [CF 1114E - Arithmetic Progression](https://codeforces.com/problemset/problem/1114/E) | CF 2400 | Interactive + binary search + randomized sampling |
+
+<a id="practice-communication"></a>
+
+### 40.4. Communication и double-run
+
+Этап **C**. Core: **3**. Теория: [ROADMAP](ROADMAP.md#topic-communication).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | [СПбГУ 2023/24, задача C](contests/03-spbu/2023-2024/final-statements.pdf) | - | Две изолированные фазы и ограниченное сообщение |
+| 2 | `Core` | [СПбГУ 2024/25, задача A](contests/03-spbu/2024-2025/final-statements.pdf) | - | Double-run: encode/decode и лимит информации |
+| 3 | `Core` | [СПбГУ 2025/26, задача C](contests/03-spbu/2025-2026/final/statements.pdf) | - | Communication wrapper и exhaustive stress |
+
+<a id="practice-scored-constructive"></a>
+
+### 40.5. Batch constructive со scoring
+
+Этап **C**. Core: **2**. Теория: [ROADMAP](ROADMAP.md#topic-scored-constructive).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | [МОШ 2025/26, задача B1](contests/14-moscow/2025-2026/final/full-with-answers-checkers.zip) | - | Сначала valid output программы, затем улучшение score |
+| 2 | `Core` | [МОШ 2025/26, задача B2](contests/14-moscow/2025-2026/final/full-with-answers-checkers.zip) | - | Локальный checker и итеративная constructive heuristic |
+
+<a id="practice-open-test-batch"></a>
+
+### 40.7. Open-test Batch
+
+Этап **C**. Core: **1**. Теория: [ROADMAP](ROADMAP.md#topic-open-test-batch).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | [СПбГУ 2024/25, задача B](contests/03-spbu/2024-2025/final-statements.pdf) | - | Открытые inputs, но submission остается программой |

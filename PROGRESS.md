@@ -25,48 +25,97 @@
 
 ## Карта тем
 
-|   № | Тема                                                                                 | Приоритет | Уровень `0-4` |
-| --: | ------------------------------------------------------------------------------------ | :-------: | :------------: |
-|   1 | [Сложность и Java](ROADMAP.md#topic-complexity-java)                                 |    A0     |       0        |
-|   2 | [Перебор и отсечения](ROADMAP.md#topic-bruteforce)                                   |    A0     |       0        |
-|   3 | [Сортировка и сжатие координат](ROADMAP.md#topic-sorting-compression)                 |    A0     |       0        |
-|   4 | [Map, Set и частоты](ROADMAP.md#topic-maps-sets)                                     |    A0     |       0        |
-|   5 | [Стек, очередь и дек](ROADMAP.md#topic-stack-queue-deque)                             |    A0     |       0        |
-|   6 | [Priority queue и heap](ROADMAP.md#topic-priority-queue)                              |    A0     |       0        |
-|   7 | [Prefix, difference и 2D-префиксы](ROADMAP.md#topic-prefix-difference-2d)             |    A1     |       0        |
-|   8 | [Два указателя](ROADMAP.md#topic-two-pointers)                                       |    A1     |       0        |
-|   9 | [Sliding window и монотонный дек](ROADMAP.md#topic-sliding-window)                    |    A1     |       0        |
-|  10 | [Монотонный стек](ROADMAP.md#topic-monotonic-stack)                                  |    A1     |       0        |
-|  11 | [Sweep line](ROADMAP.md#topic-sweep-line)                                            |    A1     |       0        |
-|  12 | [Binary и ternary search](ROADMAP.md#topic-binary-search)                            |    A1     |       0        |
-|  13 | [Greedy](ROADMAP.md#topic-greedy)                                                    |    A1     |       0        |
-|  14 | [Биты и маски](ROADMAP.md#topic-bitmasks)                                            |    A1     |       0        |
-|  15 | [Теория чисел](ROADMAP.md#topic-number-theory)                                       |    A1     |       0        |
-|  16 | [Модульная арифметика и комбинаторика](ROADMAP.md#topic-modular-combinatorics)       |    A1     |       0        |
-|  17 | [Базовые строки](ROADMAP.md#topic-basic-strings)                                     |    A1     |       0        |
-|  18 | [Обходы графа](ROADMAP.md#topic-graph-traversals)                                    |    A1     |       0        |
-|  19 | [Кратчайшие пути](ROADMAP.md#topic-shortest-paths)                                   |    A1     |       0        |
-|  20 | [Деревья и LCA](ROADMAP.md#topic-trees-lca)                                         |    A1     |       0        |
-|  21 | [Базовое DP](ROADMAP.md#topic-basic-dp)                                              |    A1     |       0        |
-|  22 | [Fenwick tree](ROADMAP.md#topic-fenwick)                                             |    A1     |       0        |
-|  23 | [Segment tree и lazy propagation](ROADMAP.md#topic-segment-tree)                     |    A1     |       0        |
-|  24 | [Static RMQ и sparse table](ROADMAP.md#topic-static-rmq)                             |    A1     |       0        |
-|  25 | [Геометрия](ROADMAP.md#topic-geometry)                                               |     B     |       0        |
-|  26 | [DAG, SCC, мосты и точки сочленения](ROADMAP.md#topic-advanced-graphs)                |     B     |       0        |
-|  27 | [DSU, MST и офлайн-связность](ROADMAP.md#topic-dsu-mst)                              |     B     |       0        |
-|  28 | [Interval, grid и tree DP](ROADMAP.md#topic-advanced-dp)                             |     B     |       0        |
-|  29 | [Subset, digit и profile DP](ROADMAP.md#topic-subset-dp)                             |     B     |       0        |
-|  30 | [Treap, Cartesian tree и order statistics](ROADMAP.md#topic-treap)                   |     B     |       0        |
-|  31 | [Потоки и matching](ROADMAP.md#topic-flows-matching)                                |     B     |       0        |
-|  32 | [Продвинутые строки](ROADMAP.md#topic-advanced-strings)                              |     B     |       0        |
-|  33 | [HLD, centroid и small-to-large](ROADMAP.md#topic-advanced-trees)                    |     B     |       0        |
-|  34 | [Теория игр](ROADMAP.md#topic-games)                                                |     B     |       0        |
-|  35 | [Meet-in-the-middle](ROADMAP.md#topic-meet-in-the-middle)                           |     B     |       0        |
-|  36 | [Sqrt, Mo и офлайн-запросы](ROADMAP.md#topic-sqrt-mo)                               |     C     |       0        |
-|  37 | [Rollback и persistence](ROADMAP.md#topic-rollback-persistence)                     |     C     |       0        |
-|  38 | [Оптимизации DP](ROADMAP.md#topic-dp-optimizations)                                 |     C     |       0        |
-|  39 | [Линейная алгебра, матрицы и FFT/NTT](ROADMAP.md#topic-linear-algebra-fft)           |     C     |       0        |
-|  40 | [Вероятность и нестандартные форматы](ROADMAP.md#topic-probability-interactive)      |     C     |       0        |
+| ID | Тема | Приоритет | Уровень `0-4` |
+| ---: | --- | :---: | :---: |
+| 1 | [Сложность и Java](ROADMAP.md#topic-complexity-java) | A0 | 0 |
+| 2 | [Перебор и отсечения](ROADMAP.md#topic-bruteforce) | A0 | 0 |
+| 3 | [Сортировка и сжатие координат](ROADMAP.md#topic-sorting-compression) | A0 | 0 |
+| 4 | [Map, Set и частоты](ROADMAP.md#topic-maps-sets) | A0 | 0 |
+| 5 | [Стек, очередь и дек](ROADMAP.md#topic-stack-queue-deque) | A0 | 0 |
+| 6 | [Priority queue и heap](ROADMAP.md#topic-priority-queue) | A0 | 0 |
+| 7.1 | [Префиксные суммы и 2D-префиксы](ROADMAP.md#topic-prefix-sums) | A1 | 0 |
+| 7.2 | [Массив разностей](ROADMAP.md#topic-difference-array) | A1 | 0 |
+| 8 | [Два указателя](ROADMAP.md#topic-two-pointers) | A1 | 0 |
+| 9 | [Sliding window и монотонный дек](ROADMAP.md#topic-sliding-window) | A1 | 0 |
+| 10 | [Монотонный стек](ROADMAP.md#topic-monotonic-stack) | A1 | 0 |
+| 11 | [Sweep line](ROADMAP.md#topic-sweep-line) | A1 | 0 |
+| 12 | [Binary search и поиск по ответу](ROADMAP.md#topic-binary-search) | A1 | 0 |
+| 13 | [Жадные алгоритмы и доказательство](ROADMAP.md#topic-greedy) | A1 | 0 |
+| 14 | [Биты и маски](ROADMAP.md#topic-bitmasks) | A1 | 0 |
+| 15 | [Теория чисел](ROADMAP.md#topic-number-theory) | A1 | 0 |
+| 16 | [Модульная арифметика и комбинаторика](ROADMAP.md#topic-modular-combinatorics) | A1 | 0 |
+| 17.1 | [Префикс-функция, Z-функция и хеширование](ROADMAP.md#topic-prefix-z-hash) | A1 | 0 |
+| 17.2 | [Trie](ROADMAP.md#topic-trie) | A1 | 0 |
+| 18.1 | [Обходы графа](ROADMAP.md#topic-graph-traversals) | A1 | 0 |
+| 18.2 | [DSU](ROADMAP.md#topic-dsu) | A1 | 0 |
+| 19 | [Кратчайшие пути](ROADMAP.md#topic-shortest-paths) | A1 | 0 |
+| 20 | [Деревья и LCA](ROADMAP.md#topic-trees-lca) | A1 | 0 |
+| 21.1 | [Базовое DP](ROADMAP.md#topic-basic-dp-core) | A1 | 0 |
+| 21.2 | [DAG и топологический порядок](ROADMAP.md#topic-dag) | A1 | 0 |
+| 22 | [Fenwick tree](ROADMAP.md#topic-fenwick) | A1 | 0 |
+| 23 | [Static RMQ и sparse table](ROADMAP.md#topic-static-rmq) | A1 | 0 |
+| 24 | [Segment tree и lazy propagation](ROADMAP.md#topic-segment-tree) | A1 | 0 |
+| 25.1 | [Геометрические предикаты и пересечения](ROADMAP.md#topic-geometry-predicates) | B | 0 |
+| 25.2 | [Многоугольники и point-in-polygon](ROADMAP.md#topic-polygons) | B | 0 |
+| 25.3 | [Выпуклая оболочка](ROADMAP.md#topic-convex-hull) | B | 0 |
+| 25.4 | [Вращающиеся калиперы](ROADMAP.md#topic-rotating-calipers) | C | 0 |
+| 25.5 | [Геометрический sweep](ROADMAP.md#topic-geometry-sweep) | C | 0 |
+| 25.6 | [Пара ближайших точек](ROADMAP.md#topic-closest-pair) | C | 0 |
+| 26.1 | [SCC и граф конденсации](ROADMAP.md#topic-scc) | B | 0 |
+| 26.2 | [2-SAT](ROADMAP.md#topic-two-sat) | B | 0 |
+| 26.3 | [Мосты и двусвязность](ROADMAP.md#topic-bridges-biconnected) | B | 0 |
+| 27.1 | [Минимальные остовы](ROADMAP.md#topic-mst) | B | 0 |
+| 27.2 | [Офлайн-активация через DSU](ROADMAP.md#topic-dsu-offline-activation) | B | 0 |
+| 28.1 | [DP по отрезкам](ROADMAP.md#topic-interval-dp) | B | 0 |
+| 28.2 | [Слоистое DP](ROADMAP.md#topic-layered-grid-dp) | B | 0 |
+| 28.3 | [DP по поддеревьям](ROADMAP.md#topic-subtree-dp) | B | 0 |
+| 28.4 | [Rerooting DP](ROADMAP.md#topic-rerooting) | B | 0 |
+| 29.1 | [DP по подмножествам](ROADMAP.md#topic-subset-dp-core) | B | 0 |
+| 29.2 | [Digit DP](ROADMAP.md#topic-digit-dp) | B | 0 |
+| 29.3 | [Profile DP](ROADMAP.md#topic-profile-dp) | B | 0 |
+| 29.4 | [SOS DP](ROADMAP.md#topic-sos-dp) | C | 0 |
+| 30.1 | [Статическое декартово дерево](ROADMAP.md#topic-cartesian-tree) | B | 0 |
+| 30.2 | [Explicit-key treap](ROADMAP.md#topic-explicit-treap) | B | 0 |
+| 30.3 | [Implicit treap](ROADMAP.md#topic-implicit-treap) | B | 0 |
+| 30.4 | [Bitwise trie](ROADMAP.md#topic-bitwise-trie) | B | 0 |
+| 31.1 | [Двудольное паросочетание](ROADMAP.md#topic-bipartite-matching) | B | 0 |
+| 31.2 | [Максимальный поток и минимальный разрез](ROADMAP.md#topic-max-flow) | B | 0 |
+| 31.3 | [Поток минимальной стоимости](ROADMAP.md#topic-min-cost-flow) | C | 0 |
+| 32.1 | [Ахо-Корасик](ROADMAP.md#topic-aho-corasick) | B | 0 |
+| 32.2 | [Алгоритм Манакера](ROADMAP.md#topic-manacher) | B | 0 |
+| 32.3 | [Suffix array и LCP](ROADMAP.md#topic-suffix-array) | B | 0 |
+| 32.4 | [Суффиксный автомат](ROADMAP.md#topic-suffix-automaton) | C | 0 |
+| 33.1 | [Heavy-light decomposition](ROADMAP.md#topic-hld) | B | 0 |
+| 33.2 | [Центроидная декомпозиция](ROADMAP.md#topic-centroid-decomposition) | B | 0 |
+| 33.3 | [Small-to-large и DSU on tree](ROADMAP.md#topic-small-to-large) | B | 0 |
+| 34.1 | [P/N-позиции](ROADMAP.md#topic-pn-games) | B | 0 |
+| 34.2 | [Minimax](ROADMAP.md#topic-minimax) | B | 0 |
+| 34.3 | [Nim и Sprague-Grundy](ROADMAP.md#topic-nim-sg) | B | 0 |
+| 34.4 | [Игры с циклами](ROADMAP.md#topic-cyclic-games) | C | 0 |
+| 35 | [Meet-in-the-middle](ROADMAP.md#topic-meet-in-the-middle) | B | 0 |
+| 36.1 | [Sqrt decomposition по блокам](ROADMAP.md#topic-sqrt-blocks) | C | 0 |
+| 36.2 | [Алгоритм Мо](ROADMAP.md#topic-mo) | C | 0 |
+| 37.1 | [Rollback по дереву версий](ROADMAP.md#topic-version-rollback) | C | 0 |
+| 37.2 | [Персистентные структуры](ROADMAP.md#topic-persistence) | C | 0 |
+| 37.3 | [Rollback DSU и dynamic connectivity](ROADMAP.md#topic-dynamic-connectivity) | C | 0 |
+| 38.1 | [Monotone CHT](ROADMAP.md#topic-monotone-cht) | B | 0 |
+| 38.2 | [Li Chao Tree](ROADMAP.md#topic-li-chao) | C | 0 |
+| 38.3 | [Divide-and-conquer optimization DP](ROADMAP.md#topic-divide-conquer-dp) | C | 0 |
+| 38.4 | [Оптимизация Кнута](ROADMAP.md#topic-knuth) | C | 0 |
+| 39.1 | [Матричное возведение](ROADMAP.md#topic-matrix-exponentiation) | C | 0 |
+| 39.2 | [Метод Гаусса и GF(2)](ROADMAP.md#topic-gaussian-elimination) | C | 0 |
+| 39.3 | [Линейный XOR-базис](ROADMAP.md#topic-xor-basis) | C | 0 |
+| 39.4 | [Свертка, FFT и NTT](ROADMAP.md#topic-convolution) | C | 0 |
+| 40.1 | [Вероятность и математическое ожидание](ROADMAP.md#topic-probability) | B | 0 |
+| 40.2 | [Рандомизированные алгоритмы](ROADMAP.md#topic-randomized) | C | 0 |
+| 40.3 | [Интерактивные задачи](ROADMAP.md#topic-interactive) | C | 0 |
+| 40.4 | [Communication и double-run](ROADMAP.md#topic-communication) | C | 0 |
+| 40.5 | [Batch constructive со scoring](ROADMAP.md#topic-scored-constructive) | C | 0 |
+| 40.7 | [Open-test Batch](ROADMAP.md#topic-open-test-batch) | C | 0 |
+
+Тема [40.6 OutputOnly](ROADMAP.md#topic-output-only) не включена в карту: в репозитории пока нет подтвержденного
+официального набора открытых input-файлов и правил отправки output-файлов. Она станет отслеживаемой только вместе с
+реальным checkpoint, а не по одной прочитанной теории.
 
 ## Целевые уровни
 

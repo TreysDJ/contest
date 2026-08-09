@@ -56,7 +56,8 @@ table. Если нужны другие операции — `max`, `gcd`, ма�
 
 Файл: [`DSU.java`](DSU.java).
 
-**Связанная тема:** [ROADMAP - DSU, MST и офлайн-связность](../../ROADMAP.md#topic-dsu-mst).
+**Связанные темы:** [DSU](../../ROADMAP.md#topic-dsu), [MST](../../ROADMAP.md#topic-mst) и
+[офлайн-активация](../../ROADMAP.md#topic-dsu-offline-activation).
 
 ### Для чего нужна
 
@@ -138,7 +139,7 @@ if (dsu.union(edge.from(), edge.to())) {
 
 Файл: [`RollbackDSU.java`](RollbackDSU.java).
 
-**Связанная тема:** [ROADMAP - rollback и persistence](../../ROADMAP.md#topic-rollback-persistence).
+**Связанная тема:** [ROADMAP - rollback DSU и dynamic connectivity](../../ROADMAP.md#topic-dynamic-connectivity).
 
 ### Для чего нужна
 
@@ -508,7 +509,7 @@ long minimum = table.min(left, right); // left < right
 
 Файл: [`TreapMultiset.java`](TreapMultiset.java).
 
-**Связанная тема:** [ROADMAP - treap и order statistics](../../ROADMAP.md#topic-treap).
+**Связанная тема:** [ROADMAP - explicit-key treap](../../ROADMAP.md#topic-explicit-treap).
 
 ### Для чего нужна
 
@@ -568,7 +569,7 @@ multiset.removeOne(10);
 
 - inf-open 2024/25, «Порядковая статистика» — декартово дерево указано в
   официальном разборе как один из способов поддерживать динамические изменения;
-- CF 702F из темы [treap и order statistics](../../ROADMAP.md#topic-treap) - explicit treap с агрегатами и ленивыми изменениями
+- CF 702F из темы [explicit-key treap](../../ROADMAP.md#topic-explicit-treap) - treap с агрегатами и ленивыми изменениями
   целых частей дерева.
 
 ### Ограничения
@@ -587,7 +588,7 @@ multiset.removeOne(10);
 
 Файл: [`ImplicitTreap.java`](ImplicitTreap.java).
 
-**Связанная тема:** [ROADMAP - treap и order statistics](../../ROADMAP.md#topic-treap).
+**Связанная тема:** [ROADMAP - implicit treap](../../ROADMAP.md#topic-implicit-treap).
 
 ### Для чего нужна
 
@@ -643,7 +644,7 @@ long removed = sequence.remove(3);
   treap на эйлеровом обходе и в полном решении делает `split` по вершине;
 - inf-open 2025/26, «Выход участников» — декартово дерево приведено как
   полный альтернативный вариант вместо splay внутри динамической структуры;
-- задачи CF Gym 102787A/B/E из темы [treap и order statistics](../../ROADMAP.md#topic-treap) закрепляют перестановку блоков,
+- задачи CF Gym 102787A/B/E из темы [implicit treap](../../ROADMAP.md#topic-implicit-treap) закрепляют перестановку блоков,
   развороты и агрегаты динамической строки.
 
 ### Ограничения
@@ -704,8 +705,8 @@ Fenwick и segment tree выбирать, когда множество пози
 Беллман—Форд, Флойд, SCC, Kruskal, мосты и точки сочленения. Связанные темы:
 [обходы графа](../../ROADMAP.md#topic-graph-traversals),
 [кратчайшие пути](../../ROADMAP.md#topic-shortest-paths),
-[продвинутые графы](../../ROADMAP.md#topic-advanced-graphs) и
-[DSU/MST](../../ROADMAP.md#topic-dsu-mst).
+[SCC](../../ROADMAP.md#topic-scc), [мосты](../../ROADMAP.md#topic-bridges-biconnected) и
+[MST](../../ROADMAP.md#topic-mst).
 
 <a id="template-tree-algorithms"></a>
 
@@ -713,29 +714,30 @@ Fenwick и segment tree выбирать, когда множество пози
 
 [`TreeAlgorithms.java`](TreeAlgorithms.java) — LCA и HLD без рекурсивного DFS.
 Связанные темы: [деревья и LCA](../../ROADMAP.md#topic-trees-lca) и
-[продвинутые деревья](../../ROADMAP.md#topic-advanced-trees).
+[heavy-light decomposition](../../ROADMAP.md#topic-hld).
 
 <a id="template-flow-algorithms"></a>
 
 ### FlowAlgorithms
 
 [`FlowAlgorithms.java`](FlowAlgorithms.java) — Dinic и Kuhn. Связанная тема:
-[ROADMAP - потоки и matching](../../ROADMAP.md#topic-flows-matching).
+[matching](../../ROADMAP.md#topic-bipartite-matching) и [максимальный поток](../../ROADMAP.md#topic-max-flow).
 
 <a id="template-string-algorithms"></a>
 
 ### StringAlgorithms
 
 [`StringAlgorithms.java`](StringAlgorithms.java) — prefix/Z, Манакер, rolling
-hash и Ахо-Корасик. Связанные темы: [базовые строки](../../ROADMAP.md#topic-basic-strings) и
-[продвинутые строки](../../ROADMAP.md#topic-advanced-strings).
+hash и Ахо-Корасик. Связанные темы: [prefix/Z/hash](../../ROADMAP.md#topic-prefix-z-hash),
+[Манакер](../../ROADMAP.md#topic-manacher) и [Ахо-Корасик](../../ROADMAP.md#topic-aho-corasick).
 
 <a id="template-geometry"></a>
 
 ### Geometry
 
 [`Geometry.java`](Geometry.java) — ориентация, пересечение отрезков, площадь и
-convex hull. Связанная тема: [ROADMAP - геометрия](../../ROADMAP.md#topic-geometry).
+convex hull. Связанные темы: [предикаты](../../ROADMAP.md#topic-geometry-predicates),
+[многоугольники](../../ROADMAP.md#topic-polygons) и [выпуклая оболочка](../../ROADMAP.md#topic-convex-hull).
 
 <a id="template-mod-math"></a>
 
