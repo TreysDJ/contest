@@ -5,8 +5,8 @@
 названию структуры.
 
 Подробная теория и порядок изучения находятся в
-[`ROADMAP.md`](../../ROADMAP.md), реальные наблюдения по олимпиадам — в
-[`research.md`](../../research.md), задачи для закрепления — в
+[`ROADMAP.md`](../../ROADMAP.md), реальные наблюдения по олимпиадам - в
+[`research.md`](../../research.md), задачи для закрепления - в
 [`PRACTICE.md`](../../PRACTICE.md).
 
 ## Как применять файлы
@@ -46,8 +46,8 @@
 | Динамическая последовательность | вставка/удаление/реверс | сумма/минимум отрезка    | [`ImplicitTreap`](ImplicitTreap.java)   | ожидаемое `O(log n)`                            |
 
 Если массив статичен и нужны только суммы, обычные prefix sums проще sparse
-table. Если нужны другие операции — `max`, `gcd`, матрица, скобочная
-информация, максимум с количеством — текущие segment/sparse-шаблоны нужно
+table. Если нужны другие операции - `max`, `gcd`, матрица, скобочная
+информация, максимум с количеством - текущие segment/sparse-шаблоны нужно
 адаптировать.
 
 <a id="template-dsu"></a>
@@ -78,8 +78,8 @@ DSU, или система непересекающихся множеств, х
 
 - рёбра или связи только **добавляются**, но не удаляются;
 - важна компонента, а внутреннее устройство пути не важно;
-- запрос формулируется как «уже соединены?» или «объединить группы»;
-- рёбра рассматриваются по весу — частый сигнал Краскала;
+- запрос формулируется как "уже соединены?" или "объединить группы";
+- рёбра рассматриваются по весу - частый сигнал Краскала;
 - нужно пропускать уже обработанные позиции через DSU-next.
 
 ### API и сложность
@@ -121,10 +121,10 @@ if (dsu.union(edge.from(), edge.to())) {
 
 ### Где применялась
 
-- ИОИП 2023/24, «Фрирен и интересные вопросы» — DSU;
-- Всесибирская олимпиада 2022/23, «Робот-строитель» — DSU вместе с `gcd` и
+- ИОИП 2023/24, "Фрирен и интересные вопросы" - DSU;
+- Всесибирская олимпиада 2022/23, "Робот-строитель" - DSU вместе с `gcd` и
   циклами перестановки;
-- Innopolis Open 2025/26, «Хомячья зрелищность» — DSU-next как один из
+- Innopolis Open 2025/26, "Хомячья зрелищность" - DSU-next как один из
   возможных инструментов обработки ещё не удалённых позиций.
 
 ### Ограничения
@@ -161,8 +161,8 @@ Rollback DSU поддерживает те же объединения комп�
 - ребро активно только на некотором интервале времени;
 - нужно отвечать о связности после добавлений **и удалений**, но все запросы
   известны заранее;
-- в решении естественно звучит «сделать изменения → обработать детей →
-  откатить».
+- в решении естественно звучит "сделать изменения -> обработать детей ->
+  откатить".
 
 ### API и сложность
 
@@ -177,7 +177,7 @@ Rollback DSU поддерживает те же объединения комп�
 
 ### Как применять
 
-Главный шаблон — сохранить версию перед входом в ветку и гарантированно
+Главный шаблон - сохранить версию перед входом в ветку и гарантированно
 откатиться после неё:
 
 ```java
@@ -202,7 +202,7 @@ void dfs(int v, RollbackDSU dsu) {
 
 ### Где применялась
 
-- Innopolis Open 2025/26, «Шустрик и коробки» — rollback DSU вместе с DFS по
+- Innopolis Open 2025/26, "Шустрик и коробки" - rollback DSU вместе с DFS по
   дереву состояний.
 
 Сам приём динамической связности относится к продвинутому слою связанной темы roadmap.
@@ -220,11 +220,13 @@ void dfs(int v, RollbackDSU dsu) {
 
 Файл: [`Fenwick.java`](Fenwick.java).
 
-**Связанная тема:** [ROADMAP - Fenwick tree](../../ROADMAP.md#topic-fenwick).
+**Связанные темы:** [базовый Fenwick](../../ROADMAP.md#topic-fenwick-basic),
+[offline counting](../../ROADMAP.md#topic-fenwick-offline) и
+[prefix lower bound](../../ROADMAP.md#topic-fenwick-order-statistics).
 
 ### Для чего нужна
 
-Дерево Фенвика — компактная структура для точечных прибавлений и сумм на
+Дерево Фенвика - компактная структура для точечных прибавлений и сумм на
 префиксе. Через разность двух префиксов оно даёт сумму любого отрезка.
 
 Кроме обычных сумм, Fenwick часто используется как массив частот:
@@ -251,10 +253,10 @@ void dfs(int v, RollbackDSU dsu) {
 | `add(index,delta)`     | прибавить в одной точке                        | `O(log n)` |
 | `prefixSum(right)`     | сумма `[0,right)`                              | `O(log n)` |
 | `rangeSum(left,right)` | сумма `[left,right)`                           | `O(log n)` |
-| `lowerBound(target)`   | первая позиция с накопленной суммой ≥ `target` | `O(log n)` |
+| `lowerBound(target)`   | первая позиция с накопленной суммой >= `target` | `O(log n)` |
 
-`lowerBound` корректен, только когда накопленные суммы монотонны — например,
-в Fenwick лежат неотрицательные частоты — и `target > 0`.
+`lowerBound` корректен, только когда накопленные суммы монотонны - например,
+в Fenwick лежат неотрицательные частоты - и `target > 0`.
 
 ### Как применять
 
@@ -278,10 +280,10 @@ int index = fenwick.lowerBound(k); // частоты должны быть не�
 
 ### Где применялась
 
-- Московская олимпиада 2025/26, «Трудоголики» — DP + Fenwick;
-- Всесибирская олимпиада 2024/25, «Эксперимент» — Fenwick как один из
+- Московская олимпиада 2025/26, "Трудоголики" - DP + Fenwick;
+- Всесибирская олимпиада 2024/25, "Эксперимент" - Fenwick как один из
   официальных подходов;
-- Всесибирская олимпиада 2025/26, «Совет Четырёх Башен» — Fenwick вместе с
+- Всесибирская олимпиада 2025/26, "Совет Четырёх Башен" - Fenwick вместе с
   two-pointer merge.
 
 ### Ограничения
@@ -296,7 +298,7 @@ int index = fenwick.lowerBound(k); // частоты должны быть не�
 
 Файл: [`SegmentTree.java`](SegmentTree.java).
 
-**Связанная тема:** [ROADMAP - segment tree и lazy propagation](../../ROADMAP.md#topic-segment-tree).
+**Связанная тема:** [segment tree как monoid](../../ROADMAP.md#topic-segment-tree-monoid).
 
 ### Для чего нужна
 
@@ -304,7 +306,7 @@ int index = fenwick.lowerBound(k); // частоты должны быть не�
 соседние сегменты функцией `merge`. Оно полезно, когда данные меняются, а
 запрос нельзя удобно выразить только через префикс.
 
-Текущая реализация — простой итеративный вариант:
+Текущая реализация - простой итеративный вариант:
 
 - присвоение нового значения одной позиции;
 - сумма на полуинтервале `[left,right)`.
@@ -329,7 +331,7 @@ int index = fenwick.lowerBound(k); // частоты должны быть не�
 | `set(index,value)`        | присвоить новое значение | `O(log n)` |
 | `query(left,right)`       | сумма `[left,right)`     | `O(log n)` |
 
-Память — `O(n)`.
+Память - `O(n)`.
 
 ### Как применять
 
@@ -353,12 +355,12 @@ tree[parent] = Math.min(tree[leftChild], tree[rightChild]);
 
 ### Где применялась
 
-- Высшая проба 2023/24 — в официальных решениях встречается
+- Высшая проба 2023/24 - в официальных решениях встречается
   compressed tree/segment tree;
-- Вузовско-академическая олимпиада 2025/26 — segment tree в задачах финала;
-- ИОИП 2025/26, «Погоня за патентом» — segment tree среди официальных
+- Вузовско-академическая олимпиада 2025/26 - segment tree в задачах финала;
+- ИОИП 2025/26, "Погоня за патентом" - segment tree среди официальных
   подходов вместе с SPF, Mo и блоками;
-- Innopolis Open 2023/24, «Innopolis Data Center» — существенно более
+- Innopolis Open 2023/24, "Innopolis Data Center" - существенно более
   продвинутый двумерный segment tree вместе с HLD и rerooting.
 
 ### Ограничения
@@ -374,7 +376,7 @@ tree[parent] = Math.min(tree[leftChild], tree[rightChild]);
 
 Файл: [`LazyMinTree.java`](LazyMinTree.java).
 
-**Связанная тема:** [ROADMAP - segment tree и lazy propagation](../../ROADMAP.md#topic-segment-tree).
+**Связанная тема:** [lazy propagation](../../ROADMAP.md#topic-lazy-segment-tree).
 
 ### Для чего нужна
 
@@ -404,7 +406,7 @@ Lazy propagation позволяет применить одно изменени
 | `add(left,right,delta)`   | прибавить на `[left,right)` | `O(log n)` |
 | `min(left,right)`         | минимум на `[left,right)`   | `O(log n)` |
 
-Память — `O(n)`. Для запросов нужен непустой исходный массив.
+Память - `O(n)`. Для запросов нужен непустой исходный массив.
 
 ### Как применять
 
@@ -420,7 +422,7 @@ long minimum = tree.min(queryLeft, queryRight);
 
 ### Где применялась
 
-- inf-open 2023/24, «Опять запросы» — lazy segment tree;
+- inf-open 2023/24, "Опять запросы" - lazy segment tree;
 - диапазонные структуры и lazy-подходы также входят в финальный уровень
   Высшей пробы и ИОИП исследованных сезонов.
 
@@ -475,7 +477,7 @@ Sparse table заранее вычисляет ответы для отрезк�
 | `new SparseTableMin(values)` | построить таблицу                | `O(n log n)` |
 | `min(left,right)`            | минимум непустого `[left,right)` |       `O(1)` |
 
-Память — `O(n log n)`. Массив и каждый запрашиваемый диапазон должны быть
+Память - `O(n log n)`. Массив и каждый запрашиваемый диапазон должны быть
 непустыми.
 
 ### Как применять
@@ -491,9 +493,9 @@ long minimum = table.min(left, right); // left < right
 
 ### Где применялась
 
-- Всесибирская олимпиада 2024/25, задача о бухгалтерии — связка
+- Всесибирская олимпиада 2024/25, задача о бухгалтерии - связка
   LCP DP/suffix array/sparse table/Z;
-- Вузовско-академическая олимпиада 2024/25 — максимум на диапазоне с
+- Вузовско-академическая олимпиада 2024/25 - максимум на диапазоне с
   segment/sparse-подходом.
 
 ### Ограничения
@@ -513,7 +515,7 @@ long minimum = table.min(left, right); // left < right
 
 ### Для чего нужна
 
-Explicit-key treap — рандомизированное дерево поиска, которое одновременно
+Explicit-key treap - рандомизированное дерево поиска, которое одновременно
 соблюдает порядок BST по ключу и порядок кучи по случайному приоритету.
 Текущий шаблон хранит мультимножество `long` и поддерживает:
 
@@ -567,7 +569,7 @@ multiset.removeOne(10);
 
 ### Где применялась
 
-- inf-open 2024/25, «Порядковая статистика» — декартово дерево указано в
+- inf-open 2024/25, "Порядковая статистика" - декартово дерево указано в
   официальном разборе как один из способов поддерживать динамические изменения;
 - CF 702F из темы [explicit-key treap](../../ROADMAP.md#topic-explicit-treap) - treap с агрегатами и ленивыми изменениями
   целых частей дерева.
@@ -633,16 +635,16 @@ long sum = sequence.rangeSum(1, 4);
 long removed = sequence.remove(3);
 ```
 
-Для нового агрегата нужно изменить поля узла и `pull`. Для нового lazy-тега —
+Для нового агрегата нужно изменить поля узла и `pull`. Для нового lazy-тега -
 описать его действие на узел, композицию тегов и `push`. Направленные
 агрегаты, например лучший префикс и суффикс, при развороте нужно менять
 местами.
 
 ### Где применялась
 
-- Innopolis Open 2023, `DequeQL` — официальный разбор использует implicit
+- Innopolis Open 2023, `DequeQL` - официальный разбор использует implicit
   treap на эйлеровом обходе и в полном решении делает `split` по вершине;
-- inf-open 2025/26, «Выход участников» — декартово дерево приведено как
+- inf-open 2025/26, "Выход участников" - декартово дерево приведено как
   полный альтернативный вариант вместо splay внутри динамической структуры;
 - задачи CF Gym 102787A/B/E из темы [implicit treap](../../ROADMAP.md#topic-implicit-treap) закрепляют перестановку блоков,
   развороты и агрегаты динамической строки.
@@ -678,8 +680,8 @@ long removed = sequence.remove(3);
 ### DSU или RollbackDSU
 
 Обычная DSU быстрее и проще, когда связи только добавляются. Rollback DSU
-нужна только при возврате к прошлым состояниям; использовать её «на всякий
-случай» не стоит.
+нужна только при возврате к прошлым состояниям; использовать её "на всякий
+случай" не стоит.
 
 ### Fenwick/SegmentTree или treap
 
@@ -694,48 +696,52 @@ Fenwick и segment tree выбирать, когда множество пози
 
 ### FastScanner
 
-[`FastScanner.java`](FastScanner.java) — быстрый ввод без `Scanner`.
+[`FastScanner.java`](FastScanner.java) - быстрый ввод без `Scanner`.
 Связанная тема: [ROADMAP - сложность и Java](../../ROADMAP.md#topic-complexity-java).
 
 <a id="template-graph-algorithms"></a>
 
 ### GraphAlgorithms
 
-[`GraphAlgorithms.java`](GraphAlgorithms.java) — BFS, 0–1 BFS, Дейкстра,
-Беллман—Форд, Флойд, SCC, Kruskal, мосты и точки сочленения. Связанные темы:
+[`GraphAlgorithms.java`](GraphAlgorithms.java) - BFS, 0-1 BFS, Дейкстра,
+Беллман-Форд, Флойд, SCC, Kruskal, мосты и точки сочленения. Связанные темы:
 [обходы графа](../../ROADMAP.md#topic-graph-traversals),
-[кратчайшие пути](../../ROADMAP.md#topic-shortest-paths),
-[SCC](../../ROADMAP.md#topic-scc), [мосты](../../ROADMAP.md#topic-bridges-biconnected) и
+[BFS](../../ROADMAP.md#topic-bfs-shortest), [0-1 BFS](../../ROADMAP.md#topic-zero-one-bfs),
+[Дейкстра](../../ROADMAP.md#topic-dijkstra), [Bellman-Ford](../../ROADMAP.md#topic-bellman-ford),
+[Floyd-Warshall](../../ROADMAP.md#topic-floyd-warshall), [SCC](../../ROADMAP.md#topic-scc),
+[мосты](../../ROADMAP.md#topic-bridges-edge-bcc),
+[точки сочленения](../../ROADMAP.md#topic-articulation-vertex-bcc) и
 [MST](../../ROADMAP.md#topic-mst).
 
 <a id="template-tree-algorithms"></a>
 
 ### TreeAlgorithms
 
-[`TreeAlgorithms.java`](TreeAlgorithms.java) — LCA и HLD без рекурсивного DFS.
-Связанные темы: [деревья и LCA](../../ROADMAP.md#topic-trees-lca) и
+[`TreeAlgorithms.java`](TreeAlgorithms.java) - LCA и HLD без рекурсивного DFS.
+Связанные темы: [LCA](../../ROADMAP.md#topic-lca) и
 [heavy-light decomposition](../../ROADMAP.md#topic-hld).
 
 <a id="template-flow-algorithms"></a>
 
 ### FlowAlgorithms
 
-[`FlowAlgorithms.java`](FlowAlgorithms.java) — Dinic и Kuhn. Связанная тема:
+[`FlowAlgorithms.java`](FlowAlgorithms.java) - Dinic и Kuhn. Связанная тема:
 [matching](../../ROADMAP.md#topic-bipartite-matching) и [максимальный поток](../../ROADMAP.md#topic-max-flow).
 
 <a id="template-string-algorithms"></a>
 
 ### StringAlgorithms
 
-[`StringAlgorithms.java`](StringAlgorithms.java) — prefix/Z, Манакер, rolling
-hash и Ахо-Корасик. Связанные темы: [prefix/Z/hash](../../ROADMAP.md#topic-prefix-z-hash),
+[`StringAlgorithms.java`](StringAlgorithms.java) - prefix/Z, Манакер, rolling
+hash и Ахо-Корасик. Связанные темы: [prefix/KMP](../../ROADMAP.md#topic-prefix-kmp),
+[Z-функция](../../ROADMAP.md#topic-z-function), [rolling hash](../../ROADMAP.md#topic-rolling-hash),
 [Манакер](../../ROADMAP.md#topic-manacher) и [Ахо-Корасик](../../ROADMAP.md#topic-aho-corasick).
 
 <a id="template-geometry"></a>
 
 ### Geometry
 
-[`Geometry.java`](Geometry.java) — ориентация, пересечение отрезков, площадь и
+[`Geometry.java`](Geometry.java) - ориентация, пересечение отрезков, площадь и
 convex hull. Связанные темы: [предикаты](../../ROADMAP.md#topic-geometry-predicates),
 [многоугольники](../../ROADMAP.md#topic-polygons) и [выпуклая оболочка](../../ROADMAP.md#topic-convex-hull).
 
@@ -743,9 +749,11 @@ convex hull. Связанные темы: [предикаты](../../ROADMAP.md#
 
 ### ModMath
 
-[`ModMath.java`](ModMath.java) — gcd/lcm, modular power, расширенный Евклид,
-решето и факторизация. Связанные темы: [теория чисел](../../ROADMAP.md#topic-number-theory) и
-[модульная арифметика и комбинаторика](../../ROADMAP.md#topic-modular-combinatorics).
+[`ModMath.java`](ModMath.java) - gcd/lcm, modular power, расширенный Евклид,
+решето и факторизация. Связанные темы: [gcd/lcm](../../ROADMAP.md#topic-gcd-lcm),
+[расширенный Евклид](../../ROADMAP.md#topic-extended-euclid),
+[решето и факторизация](../../ROADMAP.md#topic-sieve-factorization) и
+[модульная арифметика](../../ROADMAP.md#topic-modular-arithmetic).
 
 ## Java-правила для олимпиады
 
@@ -755,7 +763,7 @@ convex hull. Связанные темы: [предикаты](../../ROADMAP.md#
    `long`. До умножения приводить хотя бы один операнд к `long`.
 3. Не использовать `Scanner`, Stream API и создание объектов в самом горячем
    цикле.
-4. На графах до `2·10^5` вершин предпочитать итеративные обходы: стандартный
+4. На графах до `2*10^5` вершин предпочитать итеративные обходы: стандартный
    стек Java легко переполнить рекурсией.
 5. В `PriorityQueue` не пытаться уменьшать ключ существующего объекта:
    добавлять новое состояние и пропускать устаревшие при извлечении.
