@@ -251,14 +251,14 @@
 | --: | :---: | --- | --- | --- |
 | 1 | `Core` | [LC 303 - Range Sum Query Immutable](https://leetcode.com/problems/range-sum-query-immutable/) | LC Easy | Префиксная сумма и запрос на полуинтервале |
 | 2 | `Extra` | [LC 1310 - XOR Queries of a Subarray](https://leetcode.com/problems/xor-queries-of-a-subarray/) | LC Medium | Префиксный XOR в базовом интерфейсе запросов |
-| 3 | `Core` | [CF EDU 10.1A - Construction of Prefix Sums](https://codeforces.com/edu/course/2/lesson/10/1/practice/contest/324365/problem/A) | EDU | Восстановление исходного массива по префиксам |
-| 4 | `Core` | [CF EDU 10.2A - Sum on Segment](https://codeforces.com/edu/course/2/lesson/10/2/practice/contest/324367/problem/A) | EDU | Статическая сумма на произвольном отрезке |
-| 5 | `Core` | [CF EDU 10.2B - XOR on Segment](https://codeforces.com/edu/course/2/lesson/10/2/practice/contest/324367/problem/B) | EDU | Префиксный XOR как обратимый агрегат |
+| 3 | `Core` | [CF EDU 10.1A - Construction of Prefix Sums](https://codeforces.com/edu/course/3/lesson/10/1/practice/contest/324365/problem/A) | EDU | Восстановление исходного массива по префиксам |
+| 4 | `Core` | [CF EDU 10.2A - Sum on Segment](https://codeforces.com/edu/course/3/lesson/10/2/practice/contest/324367/problem/A) | EDU | Статическая сумма на произвольном отрезке |
+| 5 | `Core` | [CF EDU 10.2B - XOR on Segment](https://codeforces.com/edu/course/3/lesson/10/2/practice/contest/324367/problem/B) | EDU | Префиксный XOR как обратимый агрегат |
 | 6 | `Core` | [CF 466C - Number of Ways](https://codeforces.com/problemset/problem/466/C) | CF 1700 | Подсчет пар точек разбиения по значениям префикса |
 | 7 | `Extra` | [CF 1516B - AGAGA XOOORRR](https://codeforces.com/problemset/problem/1516/B) | CF 1500 | Разбиение на сегменты с одинаковым XOR |
 | 8 | `Extra` | [CF 1807D - Odd Queries](https://codeforces.com/problemset/problem/1807/D) | CF 900 | Виртуальная замена диапазона через его префиксную сумму |
-| 9 | `Extra` | [CF EDU 10.4G - Maximum Sum Segment](https://codeforces.com/edu/course/2/lesson/10/4/practice/contest/324369/problem/G) | EDU | Префиксный минимум и лучший последующий префикс |
-| 10 | `Extra` | [CF EDU 10.4K - Permutation Composition Queries](https://codeforces.com/edu/course/2/lesson/10/4/practice/contest/324369/problem/K) | EDU | Префиксное произведение в некоммутативной группе с обратной перестановкой |
+| 9 | `Extra` | [CF EDU 10.4G - Maximum Sum Segment](https://codeforces.com/edu/course/3/lesson/10/4/practice/contest/324369/problem/G) | EDU | Префиксный минимум и лучший последующий префикс |
+| 10 | `Extra` | [CF EDU 10.4K - Permutation Composition Queries](https://codeforces.com/edu/course/3/lesson/10/4/practice/contest/324369/problem/K) | EDU | Префиксное произведение в некоммутативной группе с обратной перестановкой |
 
 <a id="practice-prefix-multidimensional"></a>
 
@@ -269,9 +269,9 @@
 | N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
 | 1 | `Core` | [LC 304 - Range Sum Query 2D Immutable](https://leetcode.com/problems/range-sum-query-2d-immutable/) | LC Medium | 2D-prefix и inclusion-exclusion четырех углов |
-| 2 | `Core` | [CF EDU 10.3A - Sum on Rectangle](https://codeforces.com/edu/course/2/lesson/10/3/practice/contest/324368/problem/A) | EDU | Прямоугольный запрос с аккуратными границами |
+| 2 | `Core` | [CF EDU 10.3A - Sum on Rectangle](https://codeforces.com/edu/course/3/lesson/10/3/practice/contest/324368/problem/A) | EDU | Прямоугольный запрос с аккуратными границами |
 | 3 | `Core` | [CF 1722E - Counting Rectangles](https://codeforces.com/problemset/problem/1722/E) | CF 1600 | Взвешенный 2D-prefix и строгие границы координат |
-| 4 | `Extra` | [CF EDU 10.3B - Sum in 5D](https://codeforces.com/edu/course/2/lesson/10/3/practice/contest/324368/problem/B) | EDU | Обобщение inclusion-exclusion на пять измерений |
+| 4 | `Extra` | [CF EDU 10.3B - Sum in 5D](https://codeforces.com/edu/course/3/lesson/10/3/practice/contest/324368/problem/B) | EDU | Обобщение inclusion-exclusion на пять измерений |
 
 <a id="practice-difference-array"></a>
 
@@ -282,12 +282,12 @@
 | N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
 | 1 | `Core` | Локальный checkpoint: range add offline | Checkpoint | `diff[l] += x`, `diff[r] -= x`, sentinel и восстановление на случайных полуинтервалах |
-| 2 | `Core` | [CF EDU 10.4A - Add on Segment](https://codeforces.com/edu/course/2/lesson/10/4/practice/contest/324369/problem/A) | EDU | Постоянная прибавка на диапазоне и одна интеграция |
+| 2 | `Core` | [CF EDU 10.4A - Add on Segment](https://codeforces.com/edu/course/3/lesson/10/4/practice/contest/324369/problem/A) | EDU | Постоянная прибавка на диапазоне и одна интеграция |
 | 3 | `Core` | [CF 816B - Karen and Coffee](https://codeforces.com/problemset/problem/816/B) | CF 1400 | Разности покрытия плюс префикс по готовому предикату |
-| 4 | `Core` | [CF EDU 10.4E - Greg and Array](https://codeforces.com/edu/course/2/lesson/10/4/practice/contest/324369/problem/E) | EDU | Два вложенных уровня offline difference arrays |
-| 5 | `Extra` | [CF EDU 10.4I - Add, Sum](https://codeforces.com/edu/course/2/lesson/10/4/practice/contest/324369/problem/I) | EDU | Range add, восстановление значений и второй префикс для range sum |
-| 6 | `Extra` | [CF EDU 10.4F - Little Girl and Maximum Sum](https://codeforces.com/edu/course/2/lesson/10/4/practice/contest/324369/problem/F) | EDU | Частоты покрытия через разности плюс перестановочный greedy |
-| 7 | `Extra` | [CF EDU 10.4H - High Mountains](https://codeforces.com/edu/course/2/lesson/10/4/practice/contest/324369/problem/H) | EDU | Offline suffix add при сохранении отсортированного порядка |
+| 4 | `Core` | [CF EDU 10.4E - Greg and Array](https://codeforces.com/edu/course/3/lesson/10/4/practice/contest/324369/problem/E) | EDU | Два вложенных уровня offline difference arrays |
+| 5 | `Extra` | [CF EDU 10.4I - Add, Sum](https://codeforces.com/edu/course/3/lesson/10/4/practice/contest/324369/problem/I) | EDU | Range add, восстановление значений и второй префикс для range sum |
+| 6 | `Extra` | [CF EDU 10.4F - Little Girl and Maximum Sum](https://codeforces.com/edu/course/3/lesson/10/4/practice/contest/324369/problem/F) | EDU | Частоты покрытия через разности плюс перестановочный greedy |
+| 7 | `Extra` | [CF EDU 10.4H - High Mountains](https://codeforces.com/edu/course/3/lesson/10/4/practice/contest/324369/problem/H) | EDU | Offline suffix add при сохранении отсортированного порядка |
 | 8 | `Extra` | [CF 1795C - Tea Tasting](https://codeforces.com/problemset/problem/1795/C) | CF 1500 | Разности полных вкладов плюс один частичный край |
 
 <a id="practice-difference-arithmetic-progression"></a>
@@ -298,8 +298,8 @@
 
 | N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
-| 1 | `Core` | [CF EDU 10.4B - Add Arithmetic Progression on Segment](https://codeforces.com/edu/course/2/lesson/10/4/practice/contest/324369/problem/B) | EDU | Вторая разность и две интеграции линейной прибавки |
-| 2 | `Extra` | [CF EDU 10.4D - Pekora and Trampolines](https://codeforces.com/edu/course/2/lesson/10/4/practice/contest/324369/problem/D) | EDU | Распространение будущих линейных вкладов через разности |
+| 1 | `Core` | [CF EDU 10.4B - Add Arithmetic Progression on Segment](https://codeforces.com/edu/course/3/lesson/10/4/practice/contest/324369/problem/B) | EDU | Вторая разность и две интеграции линейной прибавки |
+| 2 | `Extra` | [CF EDU 10.4D - Pekora and Trampolines](https://codeforces.com/edu/course/3/lesson/10/4/practice/contest/324369/problem/D) | EDU | Распространение будущих линейных вкладов через разности |
 
 <a id="practice-difference-2d"></a>
 
@@ -309,7 +309,7 @@
 
 | N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
-| 1 | `Core` | [CF EDU 10.4C - Add on Rectangle](https://codeforces.com/edu/course/2/lesson/10/4/practice/contest/324369/problem/C) | EDU | Четыре угловых события и два восстановления |
+| 1 | `Core` | [CF EDU 10.4C - Add on Rectangle](https://codeforces.com/edu/course/3/lesson/10/4/practice/contest/324369/problem/C) | EDU | Четыре угловых события и два восстановления |
 | 2 | `Core` | Локальный checkpoint: 2D difference | Checkpoint | Случайные прибавки на прямоугольниках и stress против прямой матрицы |
 
 <a id="practice-two-pointers-opposite"></a>
@@ -362,7 +362,7 @@
 | N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
 | 1 | `Core` | [CF 1690D - Black and White Stripe](https://codeforces.com/problemset/problem/1690/D) | CF 1000 | Добавить справа, удалить вышедший слева и сравнить все окна длины `k` |
-| 2 | `Extra` | [CF EDU 10.4J - Designer Solution](https://codeforces.com/edu/course/2/lesson/10/4/practice/contest/324369/problem/J) | EDU | Окно длины `k` по шкале значений и число недостающих элементов |
+| 2 | `Extra` | [CF EDU 10.4J - Designer Solution](https://codeforces.com/edu/course/3/lesson/10/4/practice/contest/324369/problem/J) | EDU | Окно длины `k` по шкале значений и число недостающих элементов |
 
 <a id="practice-sliding-window"></a>
 
