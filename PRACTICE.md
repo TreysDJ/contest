@@ -6,12 +6,12 @@
 ## Объём и маршрут
 
 - этап A0: **42 Core** и **27 Extra** - инженерная и алгоритмическая база;
-- этап A1: **147 Core** и **142 Extra** - основные переносимые олимпиадные паттерны;
-- этап B: **115 Core** и **45 Extra** - регулярный финальный слой;
+- этап A1: **149 Core** и **151 Extra** - основные переносимые олимпиадные паттерны;
+- этап B: **117 Core** и **49 Extra** - регулярный финальный слой;
 - этап C: **60 Core** и **18 Extra** - выборочная продвинутая практика;
-- сквозные темы A1/B: **30 Core** и **27 Extra**;
-- полный каталог: **394 Core** и **259 Extra**, всего **653** строки;
-- задачи внешних онлайн-судей: **581**, включая **61** задачу LeetCode;
+- сквозные темы A1/B: **21 Core** и **22 Extra**;
+- полный каталог: **389 Core** и **267 Extra**, всего **656** строк;
+- задачи внешних онлайн-судей: **584**, включая **62** задачи LeetCode;
 - локальные checkpoints: **67**; еще **5** строк используют официальные архивы олимпиад из `contests/`.
 
 `Core` - основной маршрут: эти задачи нужно решить все и по порядку. Если задача уже знакома, ее все равно полезно
@@ -277,7 +277,7 @@
 
 ### 7.3. Массив разностей для постоянной прибавки
 
-Этап **A1**. Core: **5**. Extra: **3**. Теория и признаки распознавания: [ROADMAP: массив разностей](ROADMAP.md#topic-difference-array).
+Этап **A1**. Core: **4**. Extra: **4**. Теория и признаки распознавания: [ROADMAP: массив разностей](ROADMAP.md#topic-difference-array).
 
 | N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
@@ -285,7 +285,7 @@
 | 2 | `Core` | [CF EDU 10.4A - Add on Segment](https://codeforces.com/edu/course/2/lesson/10/4/practice/contest/324369/problem/A) | EDU | Постоянная прибавка на диапазоне и одна интеграция |
 | 3 | `Core` | [CF 816B - Karen and Coffee](https://codeforces.com/problemset/problem/816/B) | CF 1400 | Разности покрытия плюс префикс по готовому предикату |
 | 4 | `Core` | [CF EDU 10.4E - Greg and Array](https://codeforces.com/edu/course/2/lesson/10/4/practice/contest/324369/problem/E) | EDU | Два вложенных уровня offline difference arrays |
-| 5 | `Core` | [CF EDU 10.4I - Add, Sum](https://codeforces.com/edu/course/2/lesson/10/4/practice/contest/324369/problem/I) | EDU | Range add, восстановление значений и второй префикс для range sum |
+| 5 | `Extra` | [CF EDU 10.4I - Add, Sum](https://codeforces.com/edu/course/2/lesson/10/4/practice/contest/324369/problem/I) | EDU | Range add, восстановление значений и второй префикс для range sum |
 | 6 | `Extra` | [CF EDU 10.4F - Little Girl and Maximum Sum](https://codeforces.com/edu/course/2/lesson/10/4/practice/contest/324369/problem/F) | EDU | Частоты покрытия через разности плюс перестановочный greedy |
 | 7 | `Extra` | [CF EDU 10.4H - High Mountains](https://codeforces.com/edu/course/2/lesson/10/4/practice/contest/324369/problem/H) | EDU | Offline suffix add при сохранении отсортированного порядка |
 | 8 | `Extra` | [CF 1795C - Tea Tasting](https://codeforces.com/problemset/problem/1795/C) | CF 1500 | Разности полных вкладов плюс один частичный край |
@@ -330,12 +330,12 @@
 
 ### 8.2. Слияние отсортированных потоков
 
-Этап **A1**. Core: **4**. Extra: **1**. Теория и признаки распознавания: [ROADMAP: слияние потоков](ROADMAP.md#topic-two-pointers-merge).
+Этап **A1**. Core: **3**. Extra: **2**. Теория и признаки распознавания: [ROADMAP: слияние потоков](ROADMAP.md#topic-two-pointers-merge).
 
 | N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
 | 1 | `Core` | [CF EDU 9.1A - Merge Arrays](https://codeforces.com/edu/course/2/lesson/9/1/practice/contest/307092/problem/A) | EDU | Классическое линейное слияние двух массивов |
-| 2 | `Core` | [CF EDU 9.1B - Number of Smaller](https://codeforces.com/edu/course/2/lesson/9/1/practice/contest/307092/problem/B) | EDU | Монотонная граница количества элементов меньше запроса |
+| 2 | `Extra` | [CF EDU 9.1B - Number of Smaller](https://codeforces.com/edu/course/2/lesson/9/1/practice/contest/307092/problem/B) | EDU | Монотонная граница количества элементов меньше запроса |
 | 3 | `Core` | [CF EDU 9.1C - Number of Equal](https://codeforces.com/edu/course/2/lesson/9/1/practice/contest/307092/problem/C) | EDU | Блоки равных значений и произведение их частот |
 | 4 | `Core` | [CF 489B - BerSU Ball](https://codeforces.com/problemset/problem/489/B) | CF 1200 | Greedy matching двух отсортированных потоков |
 | 5 | `Extra` | [CF EDU 9.3D - Stylish Clothes](https://codeforces.com/edu/course/2/lesson/9/3/practice/contest/307094/problem/D) | EDU | Несколько отсортированных потоков и продвижение текущего минимума |
@@ -368,17 +368,17 @@
 
 ### 9.2. Variable sliding window и подсчет подмассивов
 
-Этап **A1**. Core: **8**. Extra: **9**. Теория и признаки распознавания: [ROADMAP: sliding window](ROADMAP.md#topic-sliding-window).
+Этап **A1**. Core: **6**. Extra: **11**. Теория и признаки распознавания: [ROADMAP: sliding window](ROADMAP.md#topic-sliding-window).
 
 | N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
 | 1 | `Core` | [LC 3 - Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | LC Medium | Частотное окно и удаление нарушителя слева |
 | 2 | `Core` | [CF EDU 9.2A - Segment with Small Sum](https://codeforces.com/edu/course/2/lesson/9/2/practice/contest/307093/problem/A) | EDU | Максимальное окно положительных чисел с суммой не больше `s` |
-| 3 | `Core` | [CF EDU 9.2B - Segment with Big Sum](https://codeforces.com/edu/course/2/lesson/9/2/practice/contest/307093/problem/B) | EDU | Минимальное окно с суммой не меньше `s` |
+| 3 | `Extra` | [CF EDU 9.2B - Segment with Big Sum](https://codeforces.com/edu/course/2/lesson/9/2/practice/contest/307093/problem/B) | EDU | Минимальное окно с суммой не меньше `s` |
 | 4 | `Core` | [CF EDU 9.2C - Number of Segments with Small Sum](https://codeforces.com/edu/course/2/lesson/9/2/practice/contest/307093/problem/C) | EDU | Подсчет всех допустимых окончаний через длину текущего окна |
 | 5 | `Core` | [CF EDU 9.2E - Segments with Small Set](https://codeforces.com/edu/course/2/lesson/9/2/practice/contest/307093/problem/E) | EDU | Окно с ограничением на число различных значений |
 | 6 | `Core` | [CF 701C - They Are Everywhere](https://codeforces.com/problemset/problem/701/C) | CF 1500 | Минимальное окно, покрывающее весь требуемый алфавит |
-| 7 | `Core` | [CF EDU 9.3F - Card Substrings](https://codeforces.com/edu/course/2/lesson/9/3/practice/contest/307094/problem/F) | EDU | Частотные верхние границы для каждого символа |
+| 7 | `Extra` | [CF EDU 9.3F - Card Substrings](https://codeforces.com/edu/course/2/lesson/9/3/practice/contest/307094/problem/F) | EDU | Частотные верхние границы для каждого символа |
 | 8 | `Core` | [CF EDU 9.3G - Not Very Rude Substring](https://codeforces.com/edu/course/2/lesson/9/3/practice/contest/307094/problem/G) | EDU | Инкрементальное обновление числа пар внутри окна |
 | 9 | `Extra` | [CF EDU 9.2D - Number of Segments with Big Sum](https://codeforces.com/edu/course/2/lesson/9/2/practice/contest/307093/problem/D) | EDU | Дополнение к подсчету окон с малой суммой |
 | 10 | `Extra` | [CF EDU 9.3A - Looped Playlist](https://codeforces.com/edu/course/2/lesson/9/3/practice/contest/307094/problem/A) | EDU | Циклическое окно после отделения полных оборотов |
@@ -500,16 +500,16 @@
 
 ### 12.1. Границы в отсортированном массиве и first true
 
-Этап **A1**. Core: **7**. Extra: **2**. Теория и признаки распознавания: [ROADMAP: бинарные границы](ROADMAP.md#topic-binary-boundaries).
+Этап **A1**. Core: **5**. Extra: **4**. Теория и признаки распознавания: [ROADMAP: бинарные границы](ROADMAP.md#topic-binary-boundaries).
 
 | N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
 | 1 | `Core` | [LC 704 - Binary Search](https://leetcode.com/problems/binary-search/) | LC Easy | Классический поиск точного значения |
 | 2 | `Core` | [LC 278 - First Bad Version](https://leetcode.com/problems/first-bad-version/) | LC Easy | Чистый `first true` на монотонном предикате |
 | 3 | `Core` | [LC 34 - Find First and Last Position](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/) | LC Medium | Два поиска: first `>= x` и first `> x` |
-| 4 | `Core` | [CF EDU 6.1A - Binary Search](https://codeforces.com/edu/course/2/lesson/6/1/practice/contest/283911/problem/A) | EDU | Наличие элемента и единый инвариант границ |
+| 4 | `Extra` | [CF EDU 6.1A - Binary Search](https://codeforces.com/edu/course/2/lesson/6/1/practice/contest/283911/problem/A) | EDU | Наличие элемента и единый инвариант границ |
 | 5 | `Core` | [CF EDU 6.1B - Closest to the Left](https://codeforces.com/edu/course/2/lesson/6/1/practice/contest/283911/problem/B) | EDU | Последний элемент `<= x` или sentinel |
-| 6 | `Core` | [CF EDU 6.1C - Closest to the Right](https://codeforces.com/edu/course/2/lesson/6/1/practice/contest/283911/problem/C) | EDU | Первый элемент `>= x` или позиция за концом |
+| 6 | `Extra` | [CF EDU 6.1C - Closest to the Right](https://codeforces.com/edu/course/2/lesson/6/1/practice/contest/283911/problem/C) | EDU | Первый элемент `>= x` или позиция за концом |
 | 7 | `Core` | [CF EDU 6.1D - Fast Search](https://codeforces.com/edu/course/2/lesson/6/1/practice/contest/283911/problem/D) | EDU | Две границы для числа элементов в `[l, r]` |
 | 8 | `Extra` | [CF 706B - Interesting drink](https://codeforces.com/problemset/problem/706/B) | CF 1100 | Upper bound как число элементов не больше `x` |
 | 9 | `Extra` | [CF 1742E - Scuza](https://codeforces.com/problemset/problem/1742/E) | CF 1200 | Upper bound по максимумам префикса плюс его сумма |
@@ -518,15 +518,15 @@
 
 ### 12.2. Целочисленный поиск по ответу
 
-Этап **A1**. Core: **6**. Extra: **2**. Теория и признаки распознавания: [ROADMAP: целочисленный поиск по ответу](ROADMAP.md#topic-binary-answer-integer).
+Этап **A1**. Core: **4**. Extra: **4**. Теория и признаки распознавания: [ROADMAP: целочисленный поиск по ответу](ROADMAP.md#topic-binary-answer-integer).
 
 | N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
 | 1 | `Core` | [LC 875 - Koko Eating Bananas](https://leetcode.com/problems/koko-eating-bananas/) | LC Medium | Минимальная скорость и ceiling division |
 | 2 | `Core` | [CF EDU 6.2A - Packing Rectangles](https://codeforces.com/edu/course/2/lesson/6/2/practice/contest/283932/problem/A) | EDU | Минимальный размер квадрата через `first true` |
-| 3 | `Core` | [CF EDU 6.2C - Very Easy Task](https://codeforces.com/edu/course/2/lesson/6/2/practice/contest/283932/problem/C) | EDU | Минимальное время производства двумя машинами |
+| 3 | `Extra` | [CF EDU 6.2C - Very Easy Task](https://codeforces.com/edu/course/2/lesson/6/2/practice/contest/283932/problem/C) | EDU | Минимальное время производства двумя машинами |
 | 4 | `Core` | [CF EDU 6.2F - String Game](https://codeforces.com/edu/course/2/lesson/6/2/practice/contest/283932/problem/F) | EDU | Максимум удалений с проверкой подпоследовательности |
-| 5 | `Core` | [CF EDU 6.2G - Student Councils](https://codeforces.com/edu/course/2/lesson/6/2/practice/contest/283932/problem/G) | EDU | Максимум групп через сумму ограниченных вкладов ресурсов |
+| 5 | `Extra` | [CF EDU 6.2G - Student Councils](https://codeforces.com/edu/course/2/lesson/6/2/practice/contest/283932/problem/G) | EDU | Максимум групп через сумму ограниченных вкладов ресурсов |
 | 6 | `Core` | [CF EDU 6.2H - Hamburgers](https://codeforces.com/edu/course/2/lesson/6/2/practice/contest/283932/problem/H) | EDU | Максимум изделий при покупке недостающих ресурсов |
 | 7 | `Extra` | [CF EDU 6.2D - Children Holiday](https://codeforces.com/edu/course/2/lesson/6/2/practice/contest/283932/problem/D) | EDU | Циклы работы и отдыха плюс восстановление распределения |
 | 8 | `Extra` | [CF 670D1 - Magic Powder - 1](https://codeforces.com/problemset/problem/670/D1) | CF 1400 | Линейная проверка объема производства |
@@ -535,12 +535,12 @@
 
 ### 12.3. Вещественный бинарный поиск
 
-Этап **A1**. Core: **3**. Extra: **0**. Теория и признаки распознавания: [ROADMAP: вещественный поиск](ROADMAP.md#topic-binary-answer-real).
+Этап **A1**. Core: **2**. Extra: **1**. Теория и признаки распознавания: [ROADMAP: вещественный поиск](ROADMAP.md#topic-binary-answer-real).
 
 | N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
 | 1 | `Core` | [CF EDU 6.2B - Ropes](https://codeforces.com/edu/course/2/lesson/6/2/practice/contest/283932/problem/B) | EDU | Максимальная вещественная длина при целочисленном числе кусков |
-| 2 | `Core` | [CF EDU 6.2E - Equation](https://codeforces.com/edu/course/2/lesson/6/2/practice/contest/283932/problem/E) | EDU | `first true` для непрерывной монотонной функции |
+| 2 | `Extra` | [CF EDU 6.2E - Equation](https://codeforces.com/edu/course/2/lesson/6/2/practice/contest/283932/problem/E) | EDU | `first true` для непрерывной монотонной функции |
 | 3 | `Core` | [CF EDU 6.3A - Get Together](https://codeforces.com/edu/course/2/lesson/6/3/practice/contest/285083/problem/A) | EDU | Пересечение достижимых интервалов к моменту времени |
 
 <a id="practice-binary-minimax"></a>
@@ -561,25 +561,25 @@
 
 ### 12.5. Параметрический поиск по среднему или отношению
 
-Этап **B**. Core: **3**. Extra: **0**. Теория и признаки распознавания: [ROADMAP: параметрический поиск](ROADMAP.md#topic-parametric-average).
+Этап **B**. Core: **2**. Extra: **1**. Теория и признаки распознавания: [ROADMAP: параметрический поиск](ROADMAP.md#topic-parametric-average).
 
 | N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
 | 1 | `Core` | [CF EDU 6.4A - Maximum Average Segment](https://codeforces.com/edu/course/2/lesson/6/4/practice/contest/285069/problem/A) | EDU | Вычитание ответа и prefix minimum |
 | 2 | `Core` | [CF EDU 6.4B - Minimum Average Path](https://codeforces.com/edu/course/2/lesson/6/4/practice/contest/285069/problem/B) | EDU | Вычитание ответа и DP-проверка пути |
-| 3 | `Core` | [CF EDU 6.4C - Pair Selection](https://codeforces.com/edu/course/2/lesson/6/4/practice/contest/285069/problem/C) | EDU | Максимальное отношение через преобразование суммы |
+| 3 | `Extra` | [CF EDU 6.4C - Pair Selection](https://codeforces.com/edu/course/2/lesson/6/4/practice/contest/285069/problem/C) | EDU | Максимальное отношение через преобразование суммы |
 
 <a id="practice-binary-kth"></a>
 
 ### 12.6. K-й объект через функцию количества
 
-Этап **B**. Core: **3**. Extra: **0**. Теория и признаки распознавания: [ROADMAP: k-й объект](ROADMAP.md#topic-binary-kth).
+Этап **B**. Core: **2**. Extra: **1**. Теория и признаки распознавания: [ROADMAP: k-й объект](ROADMAP.md#topic-binary-kth).
 
 | N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
 | 1 | `Core` | [CF EDU 6.5A - K-th Number in the Union of Segments](https://codeforces.com/edu/course/2/lesson/6/5/practice/contest/285084/problem/A) | EDU | Первый `x`, для которого объектов `<= x` достаточно |
 | 2 | `Core` | [CF EDU 6.5B - Multiplication Table](https://codeforces.com/edu/course/2/lesson/6/5/practice/contest/285084/problem/B) | EDU | Суммарный count по строкам таблицы произведений |
-| 3 | `Core` | [CF EDU 6.5C - K-th Sum](https://codeforces.com/edu/course/2/lesson/6/5/practice/contest/285084/problem/C) | EDU | Count парных сумм через два указателя |
+| 3 | `Extra` | [CF EDU 6.5C - K-th Sum](https://codeforces.com/edu/course/2/lesson/6/5/practice/contest/285084/problem/C) | EDU | Count парных сумм через два указателя |
 
 <a id="practice-unimodal-search"></a>
 
@@ -887,7 +887,7 @@
 
 <a id="practice-graph-representation"></a>
 
-## Модуль 18. Связность графов
+## Модуль 18. Представление, обходы и DSU
 
 ### 18.1. Модель графа и представление в памяти
 
@@ -935,11 +935,12 @@
 
 ### 18.3. Циклы в ориентированном и неориентированном графе
 
-Этап **A1**. Core: **1**. Extra: **0**. Теория и признаки распознавания: [ROADMAP: циклы](ROADMAP.md#topic-graph-cycles).
+Этап **A1**. Core: **2**. Extra: **0**. Теория и признаки распознавания: [ROADMAP: циклы](ROADMAP.md#topic-graph-cycles).
 
 | N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
 | 1 | `Core` | [CF 510B - Fox And Two Dots](https://codeforces.com/problemset/problem/510/B) | CF 1500 | Цикл в неориентированной сетке с parent |
+| 2 | `Core` | [CSES - Round Trip II](https://cses.fi/problemset/task/1678) | - | Поиск и восстановление цикла в ориентированном графе по цветам DFS |
 
 <a id="practice-bipartite"></a>
 
@@ -957,7 +958,7 @@
 
 ### 18.5. DSU: объединение компонент и метаданные корня
 
-Этап **A1/B**. Core: **6**. Extra: **8**. Теория и признаки распознавания: [ROADMAP: DSU](ROADMAP.md#topic-dsu).
+Этап **A1**. Core: **6**. Extra: **2**. Теория и признаки распознавания: [ROADMAP: DSU](ROADMAP.md#topic-dsu).
 
 | N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
@@ -969,24 +970,31 @@
 | 6 | `Core` | [CF 25D - Roads not only in Berland](https://codeforces.com/problemset/problem/25/D) | CF 1700 | Лишние ребра и восстановление связного дерева |
 | 7 | `Core` | [CSES - Road Construction](https://cses.fi/problemset/task/1676) | - | Online union, число компонент и максимум размера |
 | 8 | `Extra` | [CF 1012B - Chemical Table](https://codeforces.com/problemset/problem/1012/B) | CF 1800 | Двудольная модель компонент строк и столбцов |
-| 9 | `Extra` | [CF EDU 7.1C - Experience](https://codeforces.com/edu/course/2/lesson/7/1/practice/contest/289390/problem/C) | EDU | Weighted DSU с потенциалом к корню |
-| 10 | `Extra` | [CF EDU 7.1D - Cutting Graph](https://codeforces.com/edu/course/2/lesson/7/1/practice/contest/289390/problem/D) | EDU | Offline reverse deletions |
-| 11 | `Extra` | [CF EDU 7.1E - Monkeys](https://codeforces.com/edu/course/2/lesson/7/1/practice/contest/289390/problem/E) | EDU | Reverse activation и время присоединения |
-| 12 | `Extra` | [CF EDU 7.2D - Bosses](https://codeforces.com/edu/course/2/lesson/7/2/practice/contest/289391/problem/D) | EDU | Weighted successor relation |
-| 13 | `Extra` | [CF EDU 7.2I - Bipartite Graph](https://codeforces.com/edu/course/2/lesson/7/2/practice/contest/289391/problem/I) | EDU | Parity DSU |
-| 14 | `Extra` | [CF EDU 7.2J - First Non-bipartite Edge](https://codeforces.com/edu/course/2/lesson/7/2/practice/contest/289391/problem/J) | EDU | Parity conflict и первый нарушающий запрос |
 
 <a id="practice-dsu-next"></a>
 
 ### 18.6. Successor DSU и пропуск обработанных позиций
 
-Этап **A1**. Core: **3**. Extra: **0**. Теория и признаки распознавания: [ROADMAP: successor DSU](ROADMAP.md#topic-dsu-next).
+Этап **A1**. Core: **2**. Extra: **1**. Теория и признаки распознавания: [ROADMAP: successor DSU](ROADMAP.md#topic-dsu-next).
 
 | N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
 | 1 | `Core` | [CF EDU 7.2A - People Leave](https://codeforces.com/edu/course/2/lesson/7/2/practice/contest/289391/problem/A) | EDU | Следующий еще активный индекс |
-| 2 | `Core` | [CF EDU 7.2B - Parking](https://codeforces.com/edu/course/2/lesson/7/2/practice/contest/289391/problem/B) | EDU | Циклический successor с переходом через начало |
-| 3 | `Core` | [CF EDU 7.2C - Company Restructuring](https://codeforces.com/edu/course/2/lesson/7/2/practice/contest/289391/problem/C) | EDU | Пропуск уже объединенных границ диапазона |
+| 2 | `Core` | [CF EDU 7.2C - Company Restructuring](https://codeforces.com/edu/course/2/lesson/7/2/practice/contest/289391/problem/C) | EDU | Пропуск уже объединенных границ диапазона |
+| 3 | `Extra` | [CF EDU 7.2B - Parking](https://codeforces.com/edu/course/2/lesson/7/2/practice/contest/289391/problem/B) | EDU | Циклический successor с переходом через начало |
+
+<a id="practice-dsu-potentials"></a>
+
+### 18.7. DSU с потенциалами: смещения и parity
+
+Этап **B**. Core: **2**. Extra: **2**. Теория и признаки распознавания: [ROADMAP: DSU с потенциалами](ROADMAP.md#topic-dsu-potentials).
+
+| N | Приоритет | Задача | Сложность | Паттерн |
+| --: | :---: | --- | --- | --- |
+| 1 | `Core` | [CF EDU 7.1C - Experience](https://codeforces.com/edu/course/2/lesson/7/1/practice/contest/289390/problem/C) | EDU | Аддитивный потенциал вершины к корню |
+| 2 | `Core` | [CF EDU 7.2I - Bipartite Graph](https://codeforces.com/edu/course/2/lesson/7/2/practice/contest/289391/problem/I) | EDU | Parity DSU и проверка совместности отношений |
+| 3 | `Extra` | [CF EDU 7.2D - Bosses](https://codeforces.com/edu/course/2/lesson/7/2/practice/contest/289391/problem/D) | EDU | Смещение вдоль parent-отношений |
+| 4 | `Extra` | [CF EDU 7.2J - First Non-bipartite Edge](https://codeforces.com/edu/course/2/lesson/7/2/practice/contest/289391/problem/J) | EDU | Parity conflict и первый нарушающий запрос |
 
 <a id="practice-shortest-paths"></a>
 
@@ -996,12 +1004,13 @@
 
 ### 19.1. BFS shortest path и multi-source BFS
 
-Этап **A1**. Core: **1**. Extra: **1**. Теория и признаки распознавания: [ROADMAP: BFS shortest path](ROADMAP.md#topic-bfs-shortest).
+Этап **A1**. Core: **2**. Extra: **1**. Теория и признаки распознавания: [ROADMAP: BFS shortest path](ROADMAP.md#topic-bfs-shortest).
 
 | N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
 | 1 | `Core` | [CF 520B - Two Buttons](https://codeforces.com/problemset/problem/520/B) | CF 1400 | BFS по неявному невзвешенному графу состояний |
-| 2 | `Extra` | [ACMP 99 - Лабиринт](https://acmp.ru/index.asp?main=task&id_task=99) | - | BFS в трехмерной сетке |
+| 2 | `Core` | [CSES - Monsters](https://cses.fi/problemset/task/1194) | - | Multi-source BFS от опасностей и BFS героя с восстановлением пути |
+| 3 | `Extra` | [ACMP 99 - Лабиринт](https://acmp.ru/index.asp?main=task&id_task=99) | - | BFS в трехмерной сетке |
 
 <a id="practice-zero-one-bfs"></a>
 
@@ -1031,13 +1040,13 @@
 
 ### 19.4. Bellman-Ford, ограничение числа ребер и отрицательный цикл
 
-Этап **A1**. Core: **1**. Extra: **2**. Теория и признаки распознавания: [ROADMAP: Bellman-Ford](ROADMAP.md#topic-bellman-ford).
+Этап **A1**. Core: **3**. Extra: **0**. Теория и признаки распознавания: [ROADMAP: Bellman-Ford](ROADMAP.md#topic-bellman-ford).
 
 | N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
-| 1 | `Extra` | [LC 787 - Cheapest Flights Within K Stops](https://leetcode.com/problems/cheapest-flights-within-k-stops/) | LC Medium | Layered Bellman-Ford с лимитом числа ребер |
+| 1 | `Core` | [LC 787 - Cheapest Flights Within K Stops](https://leetcode.com/problems/cheapest-flights-within-k-stops/) | LC Medium | Layered Bellman-Ford с лимитом числа ребер |
 | 2 | `Core` | [ACMP 138 - Алгоритм Форда-Беллмана](https://acmp.ru/index.asp?main=task&id_task=138) | - | `n-1` раундов релаксации ребер |
-| 3 | `Extra` | [ACMP 140 - Цикл отрицательного веса](https://acmp.ru/index.asp?main=task&id_task=140) | - | Обнаружение и восстановление отрицательного цикла |
+| 3 | `Core` | [ACMP 140 - Цикл отрицательного веса](https://acmp.ru/index.asp?main=task&id_task=140) | - | Обнаружение и восстановление отрицательного цикла |
 
 <a id="practice-floyd-warshall"></a>
 
@@ -1052,7 +1061,7 @@
 
 <a id="practice-trees-lca"></a>
 
-## Модуль 20. Базовые алгоритмы на деревьях
+## Модуль 20. Корневые деревья, Euler order и LCA
 
 <a id="practice-rooted-trees"></a>
 
@@ -1149,11 +1158,12 @@
 
 ### 21.3. DP двух последовательностей: LCS и edit distance
 
-Этап **A1**. Core: **1**. Extra: **0**. Теория и признаки распознавания: [ROADMAP: sequence DP](ROADMAP.md#topic-sequence-dp).
+Этап **A1**. Core: **2**. Extra: **0**. Теория и признаки распознавания: [ROADMAP: sequence DP](ROADMAP.md#topic-sequence-dp).
 
 | N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
-| 1 | `Core` | [CSES - Edit Distance](https://cses.fi/problemset/task/1639) | - | Таблица по двум префиксам и три типа перехода |
+| 1 | `Core` | [LC 1143 - Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/) | LC Medium | LCS DP по двум префиксам: равные символы или пропуск в одной строке |
+| 2 | `Core` | [CSES - Edit Distance](https://cses.fi/problemset/task/1639) | - | Таблица по двум префиксам и три типа перехода |
 
 <a id="practice-lis"></a>
 
@@ -1200,13 +1210,13 @@
 
 ### 22.1. Изменяемые префиксные суммы
 
-Этап **A1**. Core: **1**. Extra: **2**. Теория и признаки распознавания: [ROADMAP: базовый Fenwick](ROADMAP.md#topic-fenwick-basic).
+Этап **A1**. Core: **2**. Extra: **1**. Теория и признаки распознавания: [ROADMAP: базовый Fenwick](ROADMAP.md#topic-fenwick-basic).
 
 | N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
 | 1 | `Extra` | [LC 307 - Range Sum Query Mutable](https://leetcode.com/problems/range-sum-query-mutable/) | LC Medium | Point assignment через delta и range sum |
 | 2 | `Core` | [ACMP 1084 - Дерево Фенвика](https://acmp.ru/index.asp?main=task&id_task=1084) | - | `add`, prefix sum и range sum |
-| 3 | `Extra` | [CF EDU 4.3E - Range Add](https://codeforces.com/edu/course/2/lesson/4/3/practice/contest/274545/problem/E) | EDU | Difference Fenwick для range add и point query |
+| 3 | `Core` | [CF EDU 4.3E - Range Add](https://codeforces.com/edu/course/2/lesson/4/3/practice/contest/274545/problem/E) | EDU | Difference Fenwick для range add и point query |
 
 <a id="practice-fenwick-offline"></a>
 
@@ -1266,10 +1276,10 @@
 | 2 | `Core` | [CF 380C - Sereja and Brackets](https://codeforces.com/problemset/problem/380/C) | CF 2000 | Ассоциативный custom node для скобок |
 | 3 | `Core` | [CF EDU 4.2A - Maximum Subarray Sum](https://codeforces.com/edu/course/2/lesson/4/2/practice/contest/273278/problem/A) | EDU | Узел `sum/pref/suf/best` |
 | 4 | `Core` | [CF EDU 4.4B - Cryptography](https://codeforces.com/edu/course/2/lesson/4/4/practice/contest/274684/problem/B) | EDU | Некоммутативное произведение матриц |
-| 5 | `Core` | [CF EDU 4.4C - Inversions on Segment](https://codeforces.com/edu/course/2/lesson/4/4/practice/contest/274684/problem/C) | EDU | Rich node с гистограммой значений |
+| 5 | `Extra` | [CF EDU 4.4C - Inversions on Segment](https://codeforces.com/edu/course/2/lesson/4/4/practice/contest/274684/problem/C) | EDU | Rich node с гистограммой значений |
 | 6 | `Extra` | [CF 339D - Xenia and Bit Operations](https://codeforces.com/problemset/problem/339/D) | CF 1700 | Merge, зависящий от уровня дерева |
 | 7 | `Extra` | [CF EDU 4.1B - Minimum](https://codeforces.com/edu/course/2/lesson/4/1/practice/contest/273169/problem/B) | EDU | Замена sum monoid на min |
-| 8 | `Extra` | [CF EDU 4.1C - Number of Minimums](https://codeforces.com/edu/course/2/lesson/4/1/practice/contest/273169/problem/C) | EDU | Узел `(minimum,count)` |
+| 8 | `Core` | [CF EDU 4.1C - Number of Minimums](https://codeforces.com/edu/course/2/lesson/4/1/practice/contest/273169/problem/C) | EDU | Узел `(minimum,count)` |
 | 9 | `Extra` | [CF EDU 4.4A - Alternating Sum](https://codeforces.com/edu/course/2/lesson/4/4/practice/contest/274684/problem/A) | EDU | Знаковое преобразование обычной суммы |
 | 10 | `Extra` | [CF EDU 4.4D - Distinct on Segment](https://codeforces.com/edu/course/2/lesson/4/4/practice/contest/274684/problem/D) | EDU | Bitmask OR как агрегат |
 
@@ -1290,13 +1300,13 @@
 
 ### 24.3. Range update и point query
 
-Этап **A1/B**. Core: **2**. Extra: **3**. Теория и признаки распознавания: [ROADMAP: range update/point query](ROADMAP.md#topic-range-update-point-query).
+Этап **A1/B**. Core: **3**. Extra: **2**. Теория и признаки распознавания: [ROADMAP: range update/point query](ROADMAP.md#topic-range-update-point-query).
 
 | N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
 | 1 | `Core` | [CF EDU 5.1C - Assignment to Segment](https://codeforces.com/edu/course/2/lesson/5/1/practice/contest/279634/problem/C) | EDU | Overwrite tag без агрегата детей |
 | 2 | `Core` | [CF EDU 5.4E - Wall](https://codeforces.com/edu/course/2/lesson/5/4/practice/contest/280801/problem/E) | EDU | Композиция clamp-функций и итоговый point output |
-| 3 | `Extra` | [CF EDU 5.1A - Addition to Segment](https://codeforces.com/edu/course/2/lesson/5/1/practice/contest/279634/problem/A) | EDU | Add tag и point query |
+| 3 | `Core` | [CF EDU 5.1A - Addition to Segment](https://codeforces.com/edu/course/2/lesson/5/1/practice/contest/279634/problem/A) | EDU | Add tag и point query |
 | 4 | `Extra` | [CF EDU 5.1B - Maximal Segment](https://codeforces.com/edu/course/2/lesson/5/1/practice/contest/279634/problem/B) | EDU | Range chmax и point query |
 | 5 | `Extra` | [CF EDU 5.4B - Addition of Arithmetic Progression](https://codeforces.com/edu/course/2/lesson/5/4/practice/contest/280801/problem/B) | EDU | Coordinate-dependent lazy tag |
 
@@ -1304,20 +1314,20 @@
 
 ### 24.4. Полный lazy propagation
 
-Этап **A1/B**. Core: **10**. Extra: **5**. Теория и признаки распознавания: [ROADMAP: lazy propagation](ROADMAP.md#topic-lazy-segment-tree).
+Этап **A1/B**. Core: **6**. Extra: **9**. Теория и признаки распознавания: [ROADMAP: lazy propagation](ROADMAP.md#topic-lazy-segment-tree).
 
 | N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
 | 1 | `Core` | [CF EDU 5.2A - Addition and Minimum](https://codeforces.com/edu/course/2/lesson/5/2/practice/contest/279653/problem/A) | EDU | Range add и range min |
-| 2 | `Core` | [CF EDU 5.2C - Bitwise OR and AND](https://codeforces.com/edu/course/2/lesson/5/2/practice/contest/279653/problem/C) | EDU | Нетривиальное действие OR-tag на AND-агрегат |
+| 2 | `Extra` | [CF EDU 5.2C - Bitwise OR and AND](https://codeforces.com/edu/course/2/lesson/5/2/practice/contest/279653/problem/C) | EDU | Нетривиальное действие OR-tag на AND-агрегат |
 | 3 | `Core` | [CF EDU 5.2E - Assignment and Minimum](https://codeforces.com/edu/course/2/lesson/5/2/practice/contest/279653/problem/E) | EDU | Overwrite tag и явный `hasAssign` |
-| 4 | `Core` | [CF EDU 5.3A - Assignment and Maximum Subarray](https://codeforces.com/edu/course/2/lesson/5/3/practice/contest/280799/problem/A) | EDU | Lazy assignment над custom node |
+| 4 | `Extra` | [CF EDU 5.3A - Assignment and Maximum Subarray](https://codeforces.com/edu/course/2/lesson/5/3/practice/contest/280799/problem/A) | EDU | Lazy assignment над custom node |
 | 5 | `Core` | [CF EDU 5.3B - Inverse and K-th One](https://codeforces.com/edu/course/2/lesson/5/3/practice/contest/280799/problem/B) | EDU | Flip tag плюс descent |
 | 6 | `Core` | [CF EDU 5.3C - Addition and First Element At Least X](https://codeforces.com/edu/course/2/lesson/5/3/practice/contest/280799/problem/C) | EDU | Add tag плюс поиск позиции |
 | 7 | `Core` | [CF EDU 5.4A - Assignment, Addition, and Sum](https://codeforces.com/edu/course/2/lesson/5/4/practice/contest/280801/problem/A) | EDU | Композиция assign и add |
 | 8 | `Core` | [CF EDU 5.4C - Painter](https://codeforces.com/edu/course/2/lesson/5/4/practice/contest/280801/problem/C) | EDU | Assign, граничные цвета и число компонент |
-| 9 | `Core` | [CF EDU 5.4D - Weighted Sum](https://codeforces.com/edu/course/2/lesson/5/4/practice/contest/280801/problem/D) | EDU | Взвешенный агрегат и действие тега |
-| 10 | `Core` | [CF EDU 5.4F - Hills](https://codeforces.com/edu/course/2/lesson/5/4/practice/contest/280801/problem/F) | EDU | Lazy assignment плюс prefix search |
+| 9 | `Extra` | [CF EDU 5.4D - Weighted Sum](https://codeforces.com/edu/course/2/lesson/5/4/practice/contest/280801/problem/D) | EDU | Взвешенный агрегат и действие тега |
+| 10 | `Extra` | [CF EDU 5.4F - Hills](https://codeforces.com/edu/course/2/lesson/5/4/practice/contest/280801/problem/F) | EDU | Lazy assignment плюс prefix search |
 | 11 | `Extra` | [CF EDU 5.2B - Multiplication and Sum](https://codeforces.com/edu/course/2/lesson/5/2/practice/contest/279653/problem/B) | EDU | Один multiplicative tag по модулю |
 | 12 | `Extra` | [CF EDU 5.2D - Addition and Sum](https://codeforces.com/edu/course/2/lesson/5/2/practice/contest/279653/problem/D) | EDU | Add tag и sum с учетом длины |
 | 13 | `Extra` | [CF EDU 5.2F - Assignment and Sum](https://codeforces.com/edu/course/2/lesson/5/2/practice/contest/279653/problem/F) | EDU | Assign tag и sum |
@@ -1418,7 +1428,7 @@
 
 <a id="practice-advanced-graphs"></a>
 
-## Модуль 26. Структура графов
+## Модуль 26. SCC, 2-SAT и двусвязность
 
 <a id="practice-scc"></a>
 
@@ -1475,7 +1485,7 @@
 
 <a id="practice-dsu-mst"></a>
 
-## Модуль 27. Остовы и монотонная связность
+## Модуль 27. Остовы и офлайн-монотонная связность
 
 <a id="practice-mst"></a>
 
@@ -1501,14 +1511,16 @@
 
 ### 27.2. Офлайн-активация через DSU
 
-Этап **B**. Core: **3**. Extra: **1**. Теория: [ROADMAP](ROADMAP.md#topic-dsu-offline-activation).
+Этап **B**. Core: **4**. Extra: **2**. Теория: [ROADMAP](ROADMAP.md#topic-dsu-offline-activation).
 
 | N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
 | 1 | `Core` | Локальный checkpoint: component size under threshold | - | Сортировка ребер и запросов с одинаковым порогом |
 | 2 | `Core` | [CF 1213G - Path Queries](https://codeforces.com/problemset/problem/1213/G) | CF 1800 | Активация ребер по весу + metadata компонент |
 | 3 | `Core` | [CF 722C - Destroying Array](https://codeforces.com/problemset/problem/722/C) | CF 1900 | Обратное время: удаления превращаются в добавления |
-| 4 | `Extra` | [CF 1706E - Qpwoeirut And Vertices](https://codeforces.com/problemset/problem/1706/E) | CF 2100 | Kruskal reconstruction tree после монотонных union |
+| 4 | `Core` | [CF EDU 7.1D - Cutting Graph](https://codeforces.com/edu/course/2/lesson/7/1/practice/contest/289390/problem/D) | EDU | Offline reverse deletions |
+| 5 | `Extra` | [CF EDU 7.1E - Monkeys](https://codeforces.com/edu/course/2/lesson/7/1/practice/contest/289390/problem/E) | EDU | Reverse activation и время присоединения |
+| 6 | `Extra` | [CF 1706E - Qpwoeirut And Vertices](https://codeforces.com/problemset/problem/1706/E) | CF 2100 | Kruskal reconstruction tree после монотонных union |
 
 <a id="practice-advanced-dp"></a>
 
@@ -1623,7 +1635,7 @@
 
 <a id="practice-treap"></a>
 
-## Модуль 30. Декартовы деревья и порядковые структуры
+## Модуль 30. Декартовы деревья, treap и bitwise trie
 
 <a id="practice-cartesian-tree"></a>
 
@@ -1850,12 +1862,12 @@
 
 ### 34.2. Minimax
 
-Этап **B**. Core: **1**. Extra: **1**. Теория: [ROADMAP](ROADMAP.md#topic-minimax).
+Этап **B**. Core: **2**. Extra: **0**. Теория: [ROADMAP](ROADMAP.md#topic-minimax).
 
 | N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
 | 1 | `Core` | [LC 486 - Predict the Winner](https://leetcode.com/problems/predict-the-winner/) | LC Medium | Interval minimax по разнице счета |
-| 2 | `Extra` | [LC 464 - Can I Win](https://leetcode.com/problems/can-i-win/) | LC Medium | Minimax + memoization по mask |
+| 2 | `Core` | [LC 464 - Can I Win](https://leetcode.com/problems/can-i-win/) | LC Medium | Minimax + memoization по mask |
 
 <a id="practice-nim-sg"></a>
 
@@ -1884,7 +1896,7 @@
 
 <a id="practice-meet-in-the-middle"></a>
 
-## 35. Meet-in-the-middle
+## Модуль 35. Meet-in-the-middle
 
 Этап **B**. Core: **4**. Extra: **2**. Теория: [ROADMAP](ROADMAP.md#topic-meet-in-the-middle).
 
@@ -1899,7 +1911,7 @@
 
 <a id="practice-sqrt-mo"></a>
 
-## Модуль 36. Корневая декомпозиция запросов
+## Модуль 36. Sqrt-декомпозиция и корневые эвристики
 
 <a id="practice-sqrt-blocks"></a>
 
@@ -2179,7 +2191,7 @@
 
 <a id="practice-open-test-batch"></a>
 
-### 40.7. Open-test Batch
+### 40.6. Open-test Batch
 
 Этап **C**. Core: **1**. Теория: [ROADMAP](ROADMAP.md#topic-open-test-batch).
 

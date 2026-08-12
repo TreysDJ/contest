@@ -94,6 +94,7 @@
 | 18.4 | [Двудольность и раскраска в два цвета](ROADMAP.md#topic-bipartite) | A1 | 0 |
 | 18.5 | [DSU: объединение компонент и метаданные корня](ROADMAP.md#topic-dsu) | A1 | 0 |
 | 18.6 | [Successor DSU и пропуск обработанных позиций](ROADMAP.md#topic-dsu-next) | A1 | 0 |
+| 18.7 | [DSU с потенциалами: смещения и parity](ROADMAP.md#topic-dsu-potentials) | B | 0 |
 | 19.1 | [BFS shortest path и multi-source BFS](ROADMAP.md#topic-bfs-shortest) | A1 | 0 |
 | 19.2 | [0-1 BFS](ROADMAP.md#topic-zero-one-bfs) | A1 | 0 |
 | 19.3 | [Dijkstra для неотрицательных весов](ROADMAP.md#topic-dijkstra) | A1 | 0 |
@@ -180,11 +181,7 @@
 | 40.3 | [Интерактивные задачи и query complexity](ROADMAP.md#topic-interactive) | C | 0 |
 | 40.4 | [Communication, double-run и two-step задачи](ROADMAP.md#topic-communication) | C | 0 |
 | 40.5 | [Batch constructive со scoring/checker](ROADMAP.md#topic-scored-constructive) | C | 0 |
-| 40.7 | [Open-test Batch](ROADMAP.md#topic-open-test-batch) | C | 0 |
-
-Тема [40.6 OutputOnly](ROADMAP.md#topic-output-only) не включена в карту: в репозитории пока нет подтвержденного
-официального набора открытых input-файлов и правил отправки output-файлов. Она станет отслеживаемой только вместе с
-реальным checkpoint, а не по одной прочитанной теории.
+| 40.6 | [Open-test Batch](ROADMAP.md#topic-open-test-batch) | C | 0 |
 
 ## Целевые уровни
 
