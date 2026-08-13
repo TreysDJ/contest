@@ -28,6 +28,9 @@ FENCE_PATTERN = re.compile(r"^\s*(`{3,}|~{3,})")
 EXTERNAL_TIMEOUT_SECONDS = 10
 EXTERNAL_WORKERS = 12
 URL_SAFE_CHARACTERS = ":/?&=%#@+;,[]!$'()*"
+CODEFORCES_EDU_LESSON_PATTERN = re.compile(
+    r"^https://codeforces\.com/edu/course/(\d+)/lesson/(\d+)(?:/|\?|$)"
+)
 
 
 def require(condition: bool, message: str) -> None:
@@ -195,6 +198,27 @@ def check_external_links(links: dict[str, tuple[Path, int]]) -> None:
     )
 
 
+def check_codeforces_edu_paths(links: dict[str, tuple[Path, int]]) -> None:
+    """Reject known-invalid EDU course/lesson combinations without requiring login.
+
+    Unauthenticated HTTP requests to Codeforces EDU are redirected to /edu/courses
+    even for valid lessons, so this check deliberately validates only stable path
+    invariants. Redirect-sensitive semantic verification remains a manual
+    authenticated Playwright procedure.
+    """
+    for url, (markdown, line_number) in links.items():
+        match = CODEFORCES_EDU_LESSON_PATTERN.match(url)
+        if match is None:
+            continue
+        course, lesson = match.groups()
+        location = f"{markdown.relative_to(ROOT)}:{line_number}"
+        require(
+            not (course == "2" and lesson == "10"),
+            "invalid Codeforces EDU path in "
+            f"{location}: lesson 10 belongs to course 3, not course 2 ({url})",
+        )
+
+
 def check_contests() -> None:
     directories = sorted(path for path in (ROOT / "contests").iterdir() if path.is_dir())
     require(len(directories) == 18, f"expected 18 contest directories, found {len(directories)}")
@@ -309,6 +333,7 @@ def main() -> int:
     ]:
         require((ROOT / filename).is_file(), f"missing deliverable: {filename}")
     external_links = check_links()
+    check_codeforces_edu_paths(external_links)
     check_contests()
     check_template_cross_references()
     if args.external_links:

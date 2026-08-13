@@ -5,14 +5,14 @@
 
 ## Объём и маршрут
 
-- этап A0: **42 Core** и **27 Extra** - инженерная и алгоритмическая база;
-- этап A1: **149 Core** и **151 Extra** - основные переносимые олимпиадные паттерны;
+- этап A0: **43 Core** и **27 Extra** - инженерная и алгоритмическая база;
+- этап A1: **155 Core** и **148 Extra** - основные переносимые олимпиадные паттерны;
 - этап B: **117 Core** и **49 Extra** - регулярный финальный слой;
 - этап C: **60 Core** и **18 Extra** - выборочная продвинутая практика;
-- сквозные темы A1/B: **21 Core** и **22 Extra**;
-- полный каталог: **389 Core** и **267 Extra**, всего **656** строк;
-- задачи внешних онлайн-судей: **584**, включая **62** задачи LeetCode;
-- локальные checkpoints: **67**; еще **5** строк используют официальные архивы олимпиад из `contests/`.
+- сквозные темы A1/B: **22 Core** и **22 Extra**;
+- полный каталог: **397 Core** и **264 Extra**, всего **661** строк;
+- задачи внешних онлайн-судей: **580**, включая **63** задачи LeetCode;
+- локальные checkpoints: **69**; еще **12** строк используют официальные архивы олимпиад из `contests/`.
 
 `Core` - основной маршрут: эти задачи нужно решить все и по порядку. Если задача уже знакома, ее все равно полезно
 быстро перерешать и восстановить реализацию без старого кода. `Extra` - расширение темы после Core: его брать по
@@ -121,12 +121,13 @@
 
 ### 3.3. Сжатие координат
 
-Этап **A0**. Core: **2**. Extra: **0**. Теория и признаки распознавания: [ROADMAP: сжатие координат](ROADMAP.md#topic-coordinate-compression).
+Этап **A0**. Core: **3**. Extra: **0**. Теория и признаки распознавания: [ROADMAP: сжатие координат](ROADMAP.md#topic-coordinate-compression).
 
 | N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
-| 1 | `Core` | [LC 1331 - Rank Transform of an Array](https://leetcode.com/problems/rank-transform-of-an-array/) | LC Easy | `sorted unique` и одинаковый ранг для дубликатов |
-| 2 | `Core` | [CF 978F - Mentors](https://codeforces.com/problemset/problem/978/F) | CF 1500 | Ранги с дублями и возврат ответа к исходным индексам |
+| 1 | `Core` | Локальный checkpoint: `lowerBound` для сжатия | Checkpoint | Вернуть первый индекс `i` с `a[i] >= x`, включая sentinel `n`; проверить дубликаты и значения вне диапазона |
+| 2 | `Core` | [LC 1331 - Rank Transform of an Array](https://leetcode.com/problems/rank-transform-of-an-array/) | LC Easy | `sorted unique` и одинаковый ранг для дубликатов |
+| 3 | `Core` | [CF 978F - Mentors](https://codeforces.com/problemset/problem/978/F) | CF 1500 | Ранги с дублями и возврат ответа к исходным индексам |
 
 <a id="practice-hash-containers"></a>
 
@@ -357,12 +358,12 @@
 
 ### 9.1. Окно фиксированной длины
 
-Этап **A1**. Core: **1**. Extra: **1**. Теория и признаки распознавания: [ROADMAP: фиксированное окно](ROADMAP.md#topic-fixed-window).
+Этап **A1**. Core: **2**. Extra: **0**. Теория и признаки распознавания: [ROADMAP: фиксированное окно](ROADMAP.md#topic-fixed-window).
 
 | N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
 | 1 | `Core` | [CF 1690D - Black and White Stripe](https://codeforces.com/problemset/problem/1690/D) | CF 1000 | Добавить справа, удалить вышедший слева и сравнить все окна длины `k` |
-| 2 | `Extra` | [CF EDU 10.4J - Designer Solution](https://codeforces.com/edu/course/3/lesson/10/4/practice/contest/324369/problem/J) | EDU | Окно длины `k` по шкале значений и число недостающих элементов |
+| 2 | `Core` | [CF EDU 10.4J - Designer Solution](https://codeforces.com/edu/course/3/lesson/10/4/practice/contest/324369/problem/J) | EDU | Окно длины `k` по шкале значений и число недостающих элементов |
 
 <a id="practice-sliding-window"></a>
 
@@ -597,11 +598,12 @@
 
 ### 13.1. Interval scheduling
 
-Этап **A1**. Core: **1**. Extra: **0**. Теория и признаки распознавания: [ROADMAP: interval scheduling](ROADMAP.md#topic-greedy-intervals).
+Этап **A1**. Core: **2**. Extra: **0**. Теория и признаки распознавания: [ROADMAP: interval scheduling](ROADMAP.md#topic-greedy-intervals).
 
 | N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
 | 1 | `Core` | [LC 435 - Non-overlapping Intervals](https://leetcode.com/problems/non-overlapping-intervals/) | LC Medium | Выбирать следующий интервал с минимальным правым концом |
+| 2 | `Core` | [CSES - Movie Festival](https://cses.fi/problemset/task/1629) | - | Самостоятельно вывести сортировку по концу и exchange proof |
 
 <a id="practice-greedy-local"></a>
 
@@ -748,13 +750,14 @@
 
 ### 15.4. Сравнения и китайская теорема об остатках
 
-Этап **A1/B**. Core: **2**. Extra: **1**. Теория и признаки распознавания: [ROADMAP: сравнения и CRT](ROADMAP.md#topic-congruences-crt).
+Этап **A1/B**. Core: **3**. Extra: **1**. Теория и признаки распознавания: [ROADMAP: сравнения и CRT](ROADMAP.md#topic-congruences-crt).
 
 | N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
 | 1 | `Core` | Локальный checkpoint: congruence и generalized CRT | Checkpoint | Решить `a*x=b (mod m)`, проверить совместимость и объединить два сравнения |
-| 2 | `Core` | [CF 1500B - Two Chandeliers](https://codeforces.com/problemset/problem/1500/B) | CF 2200 | Generalized CRT и gcd-совместимость |
-| 3 | `Extra` | [CF 710D - Two Arithmetic Progressions](https://codeforces.com/problemset/problem/710/D) | CF 2500 | Пересечение арифметических прогрессий через сравнения |
+| 2 | `Core` | [CF 2034A - King Keykhosrow's Mystery](https://codeforces.com/problemset/problem/2034/A) | CF 800 | Наименьшее общее кратное как первое совместное сравнение `x=0 (mod a)` и `x=0 (mod b)` |
+| 3 | `Core` | [CF 1500B - Two Chandeliers](https://codeforces.com/problemset/problem/1500/B) | CF 2200 | Generalized CRT и gcd-совместимость в интегрированной задаче |
+| 4 | `Extra` | [CF 710D - Two Arithmetic Progressions](https://codeforces.com/problemset/problem/710/D) | CF 2500 | Пересечение арифметических прогрессий через сравнения |
 
 <a id="practice-modular-arithmetic"></a>
 
@@ -804,11 +807,12 @@
 
 ### 16.4. Принцип Дирихле
 
-Этап **A1**. Core: **1**. Extra: **0**. Теория и признаки распознавания: [ROADMAP: принцип Дирихле](ROADMAP.md#topic-pigeonhole-counting).
+Этап **A1**. Core: **2**. Extra: **0**. Теория и признаки распознавания: [ROADMAP: принцип Дирихле](ROADMAP.md#topic-pigeonhole-counting).
 
 | N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
-| 1 | `Core` | [CF 1305C - Kuroni and Impossible Calculation](https://codeforces.com/problemset/problem/1305/C) | CF 1600 | Повтор остатка гарантирует нулевую разность по модулю |
+| 1 | `Core` | Локальный checkpoint: принцип Дирихле | Checkpoint | Назвать ящики, составить явную границу числа объектов и вывести вынужденное совпадение |
+| 2 | `Core` | [CF 1305C - Kuroni and Impossible Calculation](https://codeforces.com/problemset/problem/1305/C) | CF 1600 | Повтор остатка гарантирует нулевую разность по модулю |
 
 <a id="practice-basic-strings"></a>
 
@@ -920,12 +924,12 @@
 
 ### 18.2. DFS/BFS: достижимость, компоненты и flood fill
 
-Этап **A1**. Core: **1**. Extra: **5**. Теория и признаки распознавания: [ROADMAP: обходы графа](ROADMAP.md#topic-graph-traversals).
+Этап **A1**. Core: **2**. Extra: **4**. Теория и признаки распознавания: [ROADMAP: обходы графа](ROADMAP.md#topic-graph-traversals).
 
 | N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
 | 1 | `Core` | [LC 200 - Number of Islands](https://leetcode.com/problems/number-of-islands/) | LC Medium | Flood fill и число компонент |
-| 2 | `Extra` | [CF 1829E - The Lakes](https://codeforces.com/problemset/problem/1829/E) | CF 1100 | Компонента с агрегированием веса |
+| 2 | `Core` | [CF 1829E - The Lakes](https://codeforces.com/problemset/problem/1829/E) | CF 1100 | Компонента с агрегированием веса |
 | 3 | `Extra` | [CF 217A - Ice Skating](https://codeforces.com/problemset/problem/217/A) | CF 1200 | Компоненты неявно заданного графа |
 | 4 | `Extra` | [CF 500A - New Year Transportation](https://codeforces.com/problemset/problem/500/A) | CF 1000 | Достижимость в функциональном графе |
 | 5 | `Extra` | [CF 377A - Maze](https://codeforces.com/problemset/problem/377/A) | CF 1600 | Сохранение связного подмножества клеток |
@@ -1016,11 +1020,12 @@
 
 ### 19.2. 0-1 BFS
 
-Этап **A1**. Core: **1**. Extra: **0**. Теория и признаки распознавания: [ROADMAP: 0-1 BFS](ROADMAP.md#topic-zero-one-bfs).
+Этап **A1**. Core: **2**. Extra: **0**. Теория и признаки распознавания: [ROADMAP: 0-1 BFS](ROADMAP.md#topic-zero-one-bfs).
 
 | N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
-| 1 | `Core` | [CF 1063B - Labyrinth](https://codeforces.com/problemset/problem/1063/B) | CF 1800 | Ребра веса 0/1 и deque вместо heap |
+| 1 | `Core` | [LC 1368 - Minimum Cost to Make at Least One Valid Path in a Grid](https://leetcode.com/problems/minimum-cost-to-make-at-least-one-valid-path-in-a-grid/) | LC Hard | Движение по стрелке веса 0, смена стрелки веса 1 и оба конца deque |
+| 2 | `Core` | [CF 1063B - Labyrinth](https://codeforces.com/problemset/problem/1063/B) | CF 1800 | Ребра веса 0/1 и deque вместо heap |
 
 <a id="practice-dijkstra"></a>
 
@@ -1052,12 +1057,12 @@
 
 ### 19.5. Floyd-Warshall и все пары кратчайших путей
 
-Этап **A1**. Core: **1**. Extra: **1**. Теория и признаки распознавания: [ROADMAP: Floyd-Warshall](ROADMAP.md#topic-floyd-warshall).
+Этап **A1**. Core: **2**. Extra: **0**. Теория и признаки распознавания: [ROADMAP: Floyd-Warshall](ROADMAP.md#topic-floyd-warshall).
 
 | N | Приоритет | Задача | Сложность | Паттерн |
 | --: | :---: | --- | --- | --- |
 | 1 | `Core` | [ACMP 135 - Алгоритм Флойда](https://acmp.ru/index.asp?main=task&id_task=135) | - | Разрешать промежуточные вершины по одной |
-| 2 | `Extra` | [CF 295B - Greg and Graph](https://codeforces.com/problemset/problem/295/B) | CF 1700 | Обратное добавление вершин во Floyd |
+| 2 | `Core` | [CF 295B - Greg and Graph](https://codeforces.com/problemset/problem/295/B) | CF 1700 | Обратное добавление вершин во Floyd |
 
 <a id="practice-trees-lca"></a>
 
